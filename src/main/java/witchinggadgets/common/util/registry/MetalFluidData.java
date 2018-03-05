@@ -44,6 +44,8 @@ public class MetalFluidData
 
 		addOreFluid("Eximite", "eximite.molten", 600);
 		addOreFluid("Meutoite", "meutoite.molten", 600);
+		addOreFluid("Syrmorite", "syrmorite.molten", 600);
+		addOreFluid("Octine", "octine.molten", 600);
 	}
 
 	public static int getOreFluidTemp(String ore)

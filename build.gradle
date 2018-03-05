@@ -22,9 +22,9 @@ group= "blusunrize"
 archivesBaseName = "WitchingGadgets-1.7.10"
 
 minecraft {
-    version = "1.7.10-10.13.4.1448-1.7.10"
+    version = "1.7.10-10.13.4.1614-1.7.10"
 	replace '${version}', project.version
-    assetDir = "eclipse/assets"
+    runDir = "eclipse"
 }
 jar {
         manifest {
@@ -46,7 +46,6 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
 }
 
 processResources

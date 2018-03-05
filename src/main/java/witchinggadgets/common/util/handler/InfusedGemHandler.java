@@ -20,21 +20,34 @@ public class InfusedGemHandler
 		registerAffinities("crystalCertusQuartz", Aspect.ORDER,Aspect.AIR);
 		registerAversions("crystalCertusQuartz", Aspect.ENTROPY,Aspect.FIRE);
 
-		registerAffinities("gemTopaz", Aspect.AIR,Aspect.FIRE);
-		registerAversions("gemTopaz", Aspect.ENTROPY,Aspect.WATER);
-		registerAffinities("gemAmber", Aspect.AIR,Aspect.EARTH);
-		registerAversions("gemAmber", Aspect.ENTROPY);
-		registerAffinities("gemPeridot", Aspect.EARTH);
-		registerAversions("gemPeridot", Aspect.ENTROPY,Aspect.FIRE);
-		registerAffinities("gemMalachite", Aspect.EARTH,Aspect.WATER);
-		registerAversions("gemMalachite", Aspect.ENTROPY,Aspect.FIRE);
+		// BOP
 		registerAffinities("gemRuby", Aspect.FIRE);
 		registerAversions("gemRuby", Aspect.ENTROPY,Aspect.WATER);
-		registerAffinities("gemSapphire", Aspect.WATER);
-		registerAversions("gemSapphire", Aspect.ENTROPY,Aspect.FIRE);
+		registerAffinities("gemPeridot", Aspect.EARTH);
+		registerAversions("gemPeridot", Aspect.ENTROPY,Aspect.FIRE);
+		registerAffinities("gemTopaz", Aspect.AIR,Aspect.FIRE);
+		registerAversions("gemTopaz", Aspect.ENTROPY,Aspect.WATER);
 		registerAffinities("gemTanzanite", Aspect.WATER);
 		registerAversions("gemTanzanite", Aspect.ENTROPY,Aspect.FIRE);
-		
+		registerAffinities("gemMalachite", Aspect.EARTH,Aspect.WATER);
+		registerAversions("gemMalachite", Aspect.ENTROPY,Aspect.FIRE);
+		registerAffinities("gemSapphire", Aspect.WATER);
+		registerAversions("gemSapphire", Aspect.ENTROPY,Aspect.FIRE);
+		registerAffinities("gemAmber", Aspect.AIR,Aspect.EARTH);
+		registerAversions("gemAmber", Aspect.ENTROPY);
+
+		// AM2
+		registerAffinities("gemBlueTopaz", Aspect.AIR,Aspect.WATER);
+		registerAversions("gemBlueTopaz", Aspect.FIRE,Aspect.ORDER,Aspect.ENTROPY);
+		registerAffinities("gemMoonstone", Aspect.AIR,Aspect.WATER,Aspect.ENTROPY);
+		registerAversions("gemMoonstone", Aspect.FIRE,Aspect.ORDER);
+		registerAffinities("gemChimerite", Aspect.WATER,Aspect.ENTROPY,Aspect.ORDER);
+		registerAversions("gemChimerite", Aspect.FIRE,Aspect.AIR);
+
+		// FORESTRY
+		registerAffinities("gemApatite", Aspect.WATER);
+		registerAversions("gemApatite", Aspect.AIR,Aspect.FIRE,Aspect.WATER,Aspect.ORDER,Aspect.ENTROPY);
+
 		registerAffinities("gemPrimordial", Aspect.AIR,Aspect.EARTH,Aspect.FIRE,Aspect.WATER,Aspect.ORDER,Aspect.ENTROPY);
 	}
 

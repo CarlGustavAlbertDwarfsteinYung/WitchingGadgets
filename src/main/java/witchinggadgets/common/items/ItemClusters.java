@@ -22,6 +22,8 @@ public class ItemClusters extends Item
 	public static String[] subNames = {
 		//TCon
 		"Aluminum", "Cobalt", "Ardite",
+		// Betweenlands
+		"Octine","Syrmorite",
 		//ThermalFoundation
 		"Nickel",
 		//Factorization
@@ -31,7 +33,9 @@ public class ItemClusters extends Item
 		"Zinc","Platinum",
 		"Ignatius","ShadowIron","Lemurite","Midasium","Vyroxeres","Ceruclase","Alduorite","Kalendrite","Vulcanite","Sanguinite",
 		"Prometheum","DeepIron","Infuscolium","Oureclase","AstralSilver","Carmot","Mithril","Rubracium","Orichalcum","Adamantine","Atlarus",
-		"Eximite","Meutoite"
+		"Eximite","Meutoite",
+		// Other
+		"HeeEndium"
 
 
 	};
