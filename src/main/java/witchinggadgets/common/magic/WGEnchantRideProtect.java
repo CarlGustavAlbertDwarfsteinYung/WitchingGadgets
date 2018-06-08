@@ -4,7 +4,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import travellersgear.api.TravellersGearAPI;
 import baubles.api.IBauble;
 
 public class WGEnchantRideProtect extends Enchantment
@@ -36,7 +35,7 @@ public class WGEnchantRideProtect extends Enchantment
 	@Override
 	public boolean canApply(ItemStack stack)
 	{
-		return stack!=null && (stack.getItem() instanceof ItemArmor || stack.getItem() instanceof IBauble || TravellersGearAPI.isTravellersGear(stack));
+		return stack!=null && (stack.getItem() instanceof ItemArmor || stack.getItem() instanceof IBauble);
 	}
 
 	@Override

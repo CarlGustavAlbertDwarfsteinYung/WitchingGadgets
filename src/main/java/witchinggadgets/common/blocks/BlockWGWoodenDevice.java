@@ -28,12 +28,12 @@ import thaumcraft.api.wands.IWandable;
 import thaumcraft.common.Thaumcraft;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.client.render.BlockRenderWoodenDevice;
+import witchinggadgets.common.WGContent;
 import witchinggadgets.common.blocks.tiles.TileEntityCobbleGen;
 import witchinggadgets.common.blocks.tiles.TileEntityCuttingTable;
 import witchinggadgets.common.blocks.tiles.TileEntityLabelLibrary;
 import witchinggadgets.common.blocks.tiles.TileEntitySaunaStove;
 import witchinggadgets.common.blocks.tiles.TileEntitySnowGen;
-import witchinggadgets.common.blocks.tiles.TileEntitySpinningWheel;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -119,14 +119,14 @@ public class BlockWGWoodenDevice extends BlockContainer implements IWandable
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are)
 	{
 		int meta = world.getBlockMetadata(x, y, z);
-		if(meta==0)
+		/* if(meta==0)
 		{
 			TileEntitySpinningWheel tile = (TileEntitySpinningWheel)world.getTileEntity(x,y,z);
 			if (tile == null || player.isSneaking())
 				return false;
 			player.openGui(WitchingGadgets.instance, 0, world, x, y, z);
 			return true;
-		}
+		} */
 		if(meta==3)
 		{
 			if(!player.isSneaking())
@@ -177,7 +177,7 @@ public class BlockWGWoodenDevice extends BlockContainer implements IWandable
 	public void setBlockBoundsBasedOnState(IBlockAccess iBlockAccess, int x, int y, int z)
 	{
 		int meta = iBlockAccess.getBlockMetadata(x, y, z);
-		if(meta==0 && iBlockAccess.getTileEntity(x, y, z) instanceof TileEntitySpinningWheel)
+		/* if(meta==0 && iBlockAccess.getTileEntity(x, y, z) instanceof TileEntitySpinningWheel)
 		{
 			switch (((TileEntitySpinningWheel)iBlockAccess.getTileEntity(x, y, z)).facing)
 			{ 
@@ -195,8 +195,8 @@ public class BlockWGWoodenDevice extends BlockContainer implements IWandable
 				this.setBlockBounds(0.3125F, 0F, 0F, 0.6875F, 1.25F, 1F);
 				break;
 			}
-		}
-		else if(meta==3)
+		} */
+		if(meta==3)
 			this.setBlockBounds(0,0,0,1,.875f,1);
 		else
 			this.setBlockBounds(0,0,0,1,1,1);
@@ -223,9 +223,9 @@ public class BlockWGWoodenDevice extends BlockContainer implements IWandable
 		int meta = world.getBlockMetadata(x, y, z);
 		int f = playerViewQuarter==0 ? 2:playerViewQuarter==1 ? 5:playerViewQuarter==2 ? 3: 4;
 
-		if(meta == 0)
-			((TileEntitySpinningWheel)world.getTileEntity(x,y,z)).facing = f;
-		else if(meta == 1)
+		//if(meta == 0)
+		//	((TileEntitySpinningWheel)world.getTileEntity(x,y,z)).facing = f;
+		if(meta == 1)
 			((TileEntitySnowGen)world.getTileEntity(x,y,z)).facing = ForgeDirection.getOrientation(f);
 		else if(meta == 2)
 			((TileEntityCobbleGen)world.getTileEntity(x,y,z)).facing = ForgeDirection.getOrientation(f);
@@ -262,8 +262,8 @@ public class BlockWGWoodenDevice extends BlockContainer implements IWandable
 	{
 		switch(metadata)
 		{
-		case 0:
-			return new TileEntitySpinningWheel();
+		//case 0:
+		//	return new TileEntitySpinningWheel();
 		case 1:
 			return new TileEntitySnowGen();
 		case 2:
@@ -295,7 +295,7 @@ public class BlockWGWoodenDevice extends BlockContainer implements IWandable
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block par5, int par6)
 	{
-		if(world.getTileEntity(x,y,z) instanceof TileEntitySpinningWheel)
+		/* if(world.getTileEntity(x,y,z) instanceof TileEntitySpinningWheel)
 		{
 			TileEntitySpinningWheel tile = (TileEntitySpinningWheel)world.getTileEntity(x,y,z);
 
@@ -326,10 +326,11 @@ public class BlockWGWoodenDevice extends BlockContainer implements IWandable
 					}
 				}
 			}
-		}
+		} */
 		if(world.getTileEntity(x,y,z) instanceof TileEntityCuttingTable)
 		{
 			TileEntityCuttingTable tile = (TileEntityCuttingTable)world.getTileEntity(x,y,z);
+			//world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(WGContent.ItemMaterial, 1,8)));
 
 			for(int i=0;i<tile.getSizeInventory();i++)
 			{

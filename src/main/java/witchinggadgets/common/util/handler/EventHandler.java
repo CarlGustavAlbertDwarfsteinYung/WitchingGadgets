@@ -3,23 +3,15 @@ package witchinggadgets.common.util.handler;
 import java.util.Iterator;
 import java.util.List;
 
+import baubles.api.BaublesApi;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.*;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -30,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -41,8 +34,10 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.IGoggles;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.nodes.IRevealer;
 import thaumcraft.common.entities.EntitySpecialItem;
 import thaumcraft.common.entities.monster.EntityCultistCleric;
 import thaumcraft.common.entities.monster.EntityCultistKnight;
@@ -52,11 +47,12 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.tiles.TileInfusionMatrix;
-import travellersgear.api.TravellersGearAPI;
+// import travellersgear.api.TravellersGearAPI;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.api.IPrimordialCrafting;
 import witchinggadgets.common.WGContent;
 import witchinggadgets.common.items.ItemMaterials;
+import witchinggadgets.common.items.baubles.ItemCloak;
 import witchinggadgets.common.items.baubles.ItemMagicalBaubles;
 import witchinggadgets.common.items.tools.IPrimordialGear;
 import witchinggadgets.common.items.tools.ItemBag;
@@ -76,6 +72,36 @@ public class EventHandler
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void entityHurt(LivingHurtEvent event)
 	{
+		if (event.entityLiving instanceof EntityPlayer) {
+			EntityPlayer ep = (EntityPlayer) event.entityLiving;
+			IInventory ii = BaublesApi.getBaubles(ep);
+
+			if (ii.getStackInSlot(0) != null) {
+				ItemStack stack = ii.getStackInSlot(0);
+
+					if (stack.getItem() instanceof ItemCloak)
+					{
+						if (stack.getItemDamage()==3) //wolf cloak
+						{
+							int amp = 1;
+							if (event.ammount >= 8)
+								amp++;
+							if (event.ammount >= 12)
+								amp++;
+							if (!stack.hasTagCompound())
+								stack.setTagCompound(new NBTTagCompound());
+							stack.getTagCompound().setInteger("wolfPotion", amp);
+						}
+						/* else if(stack.getItemDamage()==1)  //spectral cloak - negate all damage while phased
+						{
+							if (event.source != DamageSource.starve || event.source != DamageSource.fall)
+							if (event.isCancelable())
+								event.setCanceled(true);
+						} */
+					}
+			}
+		}
+
 		if(event.source.isFireDamage() && event.entityLiving.getActivePotionEffect(WGContent.pot_cinderCoat)!=null)
 			event.ammount *= 2+ event.entityLiving.getActivePotionEffect(WGContent.pot_cinderCoat).getAmplifier();
 
@@ -109,12 +135,27 @@ public class EventHandler
 	}
 
 	@SubscribeEvent
-	public void onLivingSetTarget(LivingSetAttackTargetEvent event)
-	{
+	public void onLivingSetTarget(LivingSetAttackTargetEvent event) {
+		if(event.target instanceof EntityPlayer && event.entityLiving instanceof EntityCreature) {
+			EntityPlayer ep = (EntityPlayer) event.target;
+			IInventory ii = BaublesApi.getBaubles(ep);
+
+			if (ii.getStackInSlot(0) != null) {
+				ItemStack stack = ii.getStackInSlot(0);
+				if (stack.getItem() instanceof ItemCloak && stack.getItemDamage()==1) {
+					boolean goggles = event.entityLiving.getEquipmentInSlot(4)!=null && (event.entityLiving.getEquipmentInSlot(4).getItem() instanceof IRevealer || event.entityLiving.getEquipmentInSlot(4).getItem() instanceof IGoggles);
+					//boolean special = event.entityLiving instanceof IEldritchMob || event.entityLiving instanceof IBossDisplayData;
+					//if(!goggles)
+					Utilities.setAttackTarget((EntityCreature)event.entityLiving, null);
+				}
+			}
+		}
+
+
 		if (!(event.target instanceof EntityPlayer))
 			return;
-		if(event.entityLiving instanceof EntityCreature)
-		{
+
+		if(event.entityLiving instanceof EntityCreature) {
 			EntityPlayer player = (EntityPlayer) event.target;
 			if(player.isSneaking())
 				if(EnchantmentHelper.getEnchantmentLevel(WGContent.enc_stealth.effectId,player.getCurrentArmor(0))>0 || EnchantmentHelper.getEnchantmentLevel(WGContent.enc_stealth.effectId,player.getCurrentArmor(1))>0)
@@ -126,8 +167,7 @@ public class EventHandler
 						chance-=.1f;
 					if(player.getRNG().nextFloat()<chance)
 						Utilities.setAttackTarget((EntityCreature)event.entityLiving, null);
-					else
-					{
+					else {
 						for(EntityCreature e : (List<EntityCreature>)player.worldObj.getEntitiesWithinAABB(EntityCreature.class, AxisAlignedBB.getBoundingBox(player.posX-5,player.posY-5,player.posZ-5, player.posX+5,player.posY+5,player.posZ+5)))
 							if(e!=null && !(e instanceof IBossDisplayData) && player.equals(e.getAttackTarget()))
 								Utilities.setAttackTarget((EntityCreature)event.entityLiving, null);
@@ -137,50 +177,53 @@ public class EventHandler
 	}
 	
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent event)
-	{
+	public void onPlayerInteract(PlayerInteractEvent event) {
 		for(ItemStack cloak : Utilities.getActiveMagicalCloak(event.entityPlayer))
-			if(cloak!=null && cloak.hasTagCompound() && cloak.getTagCompound().getBoolean("isSpectral"))
+			if(cloak!=null && cloak.getItemDamage() == 1)
 				event.setCanceled(true);
 		if(Loader.isModLoaded("ForgeMultipart"))
 			WGMultiPartHandler.handleWorldInteraction(event);
 	}
 	@SubscribeEvent
-	public void onPlayerInteractWithEntity(EntityInteractEvent event)
-	{
+	public void onPlayerInteractWithEntity(EntityInteractEvent event) {
 		for(ItemStack cloak : Utilities.getActiveMagicalCloak(event.entityPlayer))
-			if(cloak!=null && cloak.hasTagCompound() && cloak.getTagCompound().getBoolean("isSpectral"))
-				event.setCanceled(true);
-	}
-	@SubscribeEvent
-	public void onPlayerAttackEntity(AttackEntityEvent event)
-	{
-		for(ItemStack cloak : Utilities.getActiveMagicalCloak(event.entityPlayer))
-			if(cloak!=null && cloak.hasTagCompound() && cloak.getTagCompound().getBoolean("isSpectral"))
+			if(cloak!=null && cloak.getItemDamage() == 1)
 				event.setCanceled(true);
 	}
 
 	@SubscribeEvent
-	public void onPlayerBreaking(PlayerEvent.BreakSpeed event)
-	{
-		if(TravellersGearAPI.getExtendedInventory(event.entityPlayer)[2]!=null && TravellersGearAPI.getExtendedInventory(event.entityPlayer)[2].getItem() instanceof ItemMagicalBaubles && TravellersGearAPI.getExtendedInventory(event.entityPlayer)[2].getItemDamage()==3)
+	public void onPlayerAttackEntity(AttackEntityEvent event) {
+		for(ItemStack cloak : Utilities.getActiveMagicalCloak(event.entityPlayer))
+			if(cloak!=null && cloak.getItemDamage() == 1)
+				event.setCanceled(true);
+	}
+
+	@SubscribeEvent
+	public void onPlayerBreaking(PlayerEvent.BreakSpeed event) {
+		IInventory baubles = BaublesApi.getBaubles(event.entityPlayer);
+
+		if((baubles.getStackInSlot(1) != null && baubles.getStackInSlot(1).getItem() instanceof ItemMagicalBaubles &&  baubles.getStackInSlot(1).getItemDamage()==3) || ( baubles.getStackInSlot(2) != null && baubles.getStackInSlot(2).getItem() instanceof ItemMagicalBaubles &&  baubles.getStackInSlot(2).getItemDamage()==3))
 		{
 			Block block = event.entityPlayer.worldObj.getBlock(event.x,event.y,event.z);
-			if(!event.entityPlayer.onGround)
+			float hardness = block.getBlockHardness(event.entityPlayer.worldObj, event.x,event.y,event.z);
+
+			if (hardness > 0)
+				event.newSpeed = event.originalSpeed * (1.05f + hardness / 25.0f);
+
+			/* if(!event.entityPlayer.onGround)
 				event.newSpeed *= 5.0F;
 			if(event.entityPlayer.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(event.entityPlayer))
 				event.newSpeed *= 5.0F;
 
 			float hardness = block.getBlockHardness(event.entityPlayer.worldObj, event.x,event.y,event.z);
-			if(hardness>20)
-				event.newSpeed = 5+hardness;
+			if(hardness> 20)
+				event.newSpeed = 5+hardness; */
 		}
 
 	}
 
 	@SubscribeEvent(priority=EventPriority.LOWEST)
-	public void onLivingDrop(LivingDropsEvent event)
-	{
+	public void onLivingDrop(LivingDropsEvent event) {
 		if(event.entityLiving instanceof EntityWolf)
 		{
 			EntityWolf enemy = (EntityWolf) event.entityLiving;

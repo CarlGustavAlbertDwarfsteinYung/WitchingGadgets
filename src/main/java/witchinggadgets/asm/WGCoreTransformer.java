@@ -48,11 +48,11 @@ public class WGCoreTransformer implements IClassTransformer
 		isDeobfEnvironment = (Boolean)Launch.blackboard.get("fml.deobfuscatedEnvironment");
 		if (className.equals("thaumcraft.common.items.armor.ItemBootsTraveller"))
 			return patchBoots(className, origCode, isDeobfEnvironment);
-		if (className.equals("thaumcraft.common.items.wands.ItemFocusPouchBauble"))
+		/* if (className.equals("thaumcraft.common.items.wands.ItemFocusPouchBauble"))
 		{
 			byte[] newCode = patchFocusPouch_Interface(className, origCode);
 			return patchFocusPouch_Methods(className, newCode,isDeobfEnvironment);
-		}
+		} */
 		if (className.equals("thaumcraft.common.lib.world.WorldGenEldritchRing"))
 			return patchThaumcraftWorldgen(origCode, isDeobfEnvironment, "EldritchRing");
 		if (className.equals("thaumcraft.common.lib.world.WorldGenHilltopStones"))
@@ -104,7 +104,7 @@ public class WGCoreTransformer implements IClassTransformer
 
 
 
-	private byte[] patchFocusPouch_Interface(String className, byte[] origCode)
+	/* private byte[] patchFocusPouch_Interface(String className, byte[] origCode)
 	{
 		WitchingGadgets.logger.log(Level.INFO, "[CORE] Patching Pouch - Interfaces");
 		ClassReader cr = new ClassReader(origCode);
@@ -116,14 +116,15 @@ public class WGCoreTransformer implements IClassTransformer
 			{
 				Set<String> intf = new HashSet();
 				intf.addAll(Arrays.asList(interfaces));
-				intf.add("travellersgear/api/IActiveAbility");
+				//intf.add("travellersgear/api/IActiveAbility");
 				super.visit(version, access, name, signature, superName, intf.toArray(new String[0]));
 			}
 		};
 		cr.accept(cv, 0);
 
 		return cw.toByteArray();
-	}
+	} */
+
 	private byte[] patchFocusPouch_Methods(String className, byte[] origCode, boolean deobf)
 	{
 		WitchingGadgets.logger.log(Level.INFO, "[CORE] Patching Pouch - Methods");

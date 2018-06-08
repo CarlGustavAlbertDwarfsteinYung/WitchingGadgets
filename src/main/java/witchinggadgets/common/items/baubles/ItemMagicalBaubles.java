@@ -17,7 +17,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import travellersgear.api.ITravellersGear;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.client.render.ModelMagicalBaubles;
 import witchinggadgets.common.items.ItemInfusedGem;
@@ -31,9 +30,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.Interface(iface = "vazkii.botania.api.item.ICosmeticAttachable", modid = "Botania")
-public class ItemMagicalBaubles extends Item implements IBauble, ITravellersGear, vazkii.botania.api.item.ICosmeticAttachable
+public class ItemMagicalBaubles extends Item implements IBauble, vazkii.botania.api.item.ICosmeticAttachable
 {
-	//String[] subNames = {"ringSocketed_gold","ringSocketed_thaumium","ringSocketed_silver"};
 	public static String[] subNames = {"shouldersDoublejump","shouldersKnockback","vambraceStrength","vambraceHaste","titleCrimsonCult","ringLuck","ringSniper"};
 	IIcon[] icons = new IIcon[subNames.length];
 	public static HashSet<String> bowSpeedPlayers = new HashSet<String>();
@@ -67,10 +65,8 @@ public class ItemMagicalBaubles extends Item implements IBauble, ITravellersGear
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
 	{
-		String type = getSlot(stack)>0?("tg."+getSlot(stack)):"bauble."+getBaubleType(stack);
+		String type = "bauble."+getBaubleType(stack);
 		list.add(StatCollector.translateToLocalFormatted(Lib.DESCRIPTION+"gearSlot."+type));
-		if(stack.hasTagCompound() && stack.getTagCompound().hasKey("title"))
-			list.add(StatCollector.translateToLocalFormatted(stack.getTagCompound().getString("title")));
 
 		if(Loader.isModLoaded("Botania"))
 		{
@@ -92,6 +88,8 @@ public class ItemMagicalBaubles extends Item implements IBauble, ITravellersGear
 	{
 		return "witchinggadgets:textures/models/magicalBaubles.png";
 	}
+
+	@SideOnly(Side.CLIENT)
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entity, ItemStack stack, int slot)
 	{
@@ -99,15 +97,18 @@ public class ItemMagicalBaubles extends Item implements IBauble, ITravellersGear
 	}
 
 	@SideOnly(Side.CLIENT)
+	@Override
 	public IIcon getIconFromDamage(int metadata)
 	{
 		return icons[metadata];
 	}
+
 	@Override
 	public IIcon getIconFromDamageForRenderPass(int meta, int pass)
 	{
 		return getIconFromDamage(meta);
 	}
+
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass)
 	{
@@ -151,6 +152,7 @@ public class ItemMagicalBaubles extends Item implements IBauble, ITravellersGear
 	{
 		return true;
 	}
+
 	@Override
 	public boolean canUnequip(ItemStack stack, EntityLivingBase living)
 	{
@@ -160,46 +162,27 @@ public class ItemMagicalBaubles extends Item implements IBauble, ITravellersGear
 	@Override
 	public BaubleType getBaubleType(ItemStack stack)
 	{
-		return subNames[stack.getItemDamage()].startsWith("ring")?BaubleType.RING : subNames[stack.getItemDamage()].startsWith("belt")?BaubleType.BELT : ItemMagicalBaubles.subNames[stack.getItemDamage()].startsWith("necklace")?BaubleType.AMULET : null;
+		return subNames[stack.getItemDamage()].startsWith("amulet") ? BaubleType.AMULET : subNames[stack.getItemDamage()].startsWith("belt") || subNames[stack.getItemDamage()].startsWith("cloak") ? BaubleType.BELT : BaubleType.RING ;
 	}
-	@Override
-	public int getSlot(ItemStack stack)
-	{
-		return subNames[stack.getItemDamage()].startsWith("cloak")?0: subNames[stack.getItemDamage()].startsWith("shoulders")?1: ItemMagicalBaubles.subNames[stack.getItemDamage()].startsWith("vambrace")?2: ItemMagicalBaubles.subNames[stack.getItemDamage()].startsWith("title")?3: -1;
-	}
-
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase living)
 	{
 		onItemTicked(living,stack);
 	}
-	@Override
-	public void onTravelGearTick(EntityPlayer player, ItemStack stack)
-	{
-		onItemTicked(player,stack);
-	}
 
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase living)
 	{
-		onItemEquipped(living,stack);	
+		onItemEquipped(living,stack);
 	}
-	@Override
-	public void onTravelGearEquip(EntityPlayer player, ItemStack stack)
-	{
-		onItemEquipped(player,stack);
-	}
+
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase living)
 	{
 		onItemUnequipped(living,stack);
 	}
-	@Override
-	public void onTravelGearUnequip(EntityPlayer player, ItemStack stack)
-	{
-		onItemUnequipped(player,stack);
-	}
+
 
 	public void onItemTicked(EntityLivingBase living, ItemStack stack)
 	{

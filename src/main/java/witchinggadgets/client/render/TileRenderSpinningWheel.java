@@ -1,4 +1,4 @@
-package witchinggadgets.client.render;
+/* package witchinggadgets.client.render;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,4 +176,4 @@ public class TileRenderSpinningWheel extends TileEntitySpecialRenderer
 				mr.render(par7);
 		}
 	}
-}
+} */

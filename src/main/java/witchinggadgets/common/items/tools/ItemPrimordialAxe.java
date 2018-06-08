@@ -29,22 +29,15 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.aspects.Aspect;
-import travellersgear.api.IActiveAbility;
-import travellersgear.api.IEventGear;
 import witchinggadgets.api.IPrimordialCrafting;
 import witchinggadgets.common.WGContent;
 import witchinggadgets.common.util.Utilities;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemPrimordialAxe extends ItemAxe implements IPrimordialCrafting, IActiveAbility, IRepairable, IEventGear, IPrimordialGear
+public class ItemPrimordialAxe extends ItemAxe implements IPrimordialCrafting, IRepairable, IPrimordialGear
 {
 	IIcon overlay;
 	public static Material[] validMats = {Material.cactus,Material.gourd,Material.leaves,Material.plants,Material.vine,Material.wood};
@@ -151,7 +144,7 @@ public class ItemPrimordialAxe extends ItemAxe implements IPrimordialCrafting, I
 		}
 		return false;
 	}
-	@Override
+	/* @Override
 	public void onUserDamaged(LivingHurtEvent event, ItemStack stack)
 	{
 		if(getAbility(stack)==1 && ((EntityPlayer)event.entityLiving).isBlocking())
@@ -163,11 +156,11 @@ public class ItemPrimordialAxe extends ItemAxe implements IPrimordialCrafting, I
 			event.entityLiving.addPotionEffect(new PotionEffect(Potion.resistance.id,time,amp));
 		}
 
-	}
+	} */
 
 
 
-	@Override
+	/* @Override
 	public boolean canActivate(EntityPlayer player, ItemStack stack, boolean isInHand)
 	{
 		return true;
@@ -177,7 +170,7 @@ public class ItemPrimordialAxe extends ItemAxe implements IPrimordialCrafting, I
 	{
 		if(!player.worldObj.isRemote)
 			cycleAbilities(stack);
-	}
+	} */
 
 	@Override
 	public int getReturnedPearls(ItemStack stack)
@@ -322,7 +315,7 @@ public class ItemPrimordialAxe extends ItemAxe implements IPrimordialCrafting, I
 		return Utilities.compareToOreName(stack2, "ingotVoid");
 	}
 
-	@Override
+	/* @Override
 	public void onUserAttacking(AttackEntityEvent event, ItemStack stack)
 	{
 	}
@@ -337,5 +330,5 @@ public class ItemPrimordialAxe extends ItemAxe implements IPrimordialCrafting, I
 	@Override
 	public void onUserTargeted(LivingSetAttackTargetEvent event, ItemStack stack)
 	{
-	}
+	} */
 }

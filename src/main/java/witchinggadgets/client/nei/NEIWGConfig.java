@@ -14,8 +14,8 @@ public class NEIWGConfig implements IConfigureNEI
 	@Override
 	public void loadConfig()
 	{
-		API.registerRecipeHandler(new NEISpinningWheelHandler());
-		API.registerUsageHandler(new NEISpinningWheelHandler());
+		//API.registerRecipeHandler(new NEISpinningWheelHandler());
+		//API.registerUsageHandler(new NEISpinningWheelHandler());
 
 		API.registerRecipeHandler(new NEIInfernalBlastfurnaceHandler());
 		API.registerUsageHandler(new NEIInfernalBlastfurnaceHandler());

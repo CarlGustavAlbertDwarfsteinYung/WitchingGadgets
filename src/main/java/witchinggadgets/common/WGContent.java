@@ -49,7 +49,6 @@ import witchinggadgets.common.blocks.tiles.TileEntityMagicalTileLock;
 import witchinggadgets.common.blocks.tiles.TileEntitySarcophagus;
 import witchinggadgets.common.blocks.tiles.TileEntitySaunaStove;
 import witchinggadgets.common.blocks.tiles.TileEntitySnowGen;
-import witchinggadgets.common.blocks.tiles.TileEntitySpinningWheel;
 import witchinggadgets.common.blocks.tiles.TileEntityTempLight;
 import witchinggadgets.common.blocks.tiles.TileEntityTerraformFocus;
 import witchinggadgets.common.blocks.tiles.TileEntityTerraformer;
@@ -113,7 +112,7 @@ public class WGContent
 	public static Item ItemAdvancedRobeChest;
 	public static Item ItemAdvancedRobeLegs;
 	public static Item ItemMagicFoodstuffs;
-	public static Item ItemMagicBed;
+	//public static Item ItemMagicBed;
 
 	//  public static Item ItemAdvancedScribingTools;
 	//	public static Item ItemEliteArmorHelm;
@@ -133,7 +132,7 @@ public class WGContent
 	public static Item ItemInfusedGem;
 	public static Item ItemMagicalBaubles;
 	public static Item ItemScanCamera;
-	public static Item ItemRelic;
+	//public static Item ItemRelic;
 
 	public static Potion pot_knockbackRes;
 	public static Potion pot_dissolve;
@@ -147,8 +146,8 @@ public class WGContent
 	public static Enchantment enc_rideProtect;
 
 	public static ArmorMaterial armorMatSpecialRobe = EnumHelper.addArmorMaterial("WG:ADVANCEDCLOTH", 25, new int[] { 2, 4, 3, 2 }, 25);
-	public static ToolMaterial primordialTool = EnumHelper.addToolMaterial("WG:PRIMORDIALTOOL",4, 1500, 8, 6, 25);
-	public static ArmorMaterial primordialArmor = EnumHelper.addArmorMaterial("WG:PRIMORDIALARMOR", 40, new int[] {3,7,6,3}, 30);
+	//public static ToolMaterial primordialTool = EnumHelper.addToolMaterial("WG:PRIMORDIALTOOL",4, 1500, 8, 6, 25);
+	//public static ArmorMaterial primordialArmor = EnumHelper.addArmorMaterial("WG:PRIMORDIALARMOR", 40, new int[] {3,7,6,3}, 30);
 	//	public static HashMap<String,Cloak> cloakRegistry = new HashMap<String, Cloak>();
 
 	public static void preInit()
@@ -248,7 +247,7 @@ public class WGContent
 		registerTile(TileEntityAgeingStone.class);
 		registerTile(TileEntityBlastfurnace.class);
 		//WOODEN
-		registerTile(TileEntitySpinningWheel.class);
+		//registerTile(TileEntitySpinningWheel.class);
 		registerTile(TileEntitySnowGen.class);
 		registerTile(TileEntityCobbleGen.class);
 		registerTile(TileEntityCuttingTable.class);
@@ -266,6 +265,7 @@ public class WGContent
 	{
 		GameRegistry.registerTileEntity(c, "WitchingGadgets_"+c.getCanonicalName().substring(c.getCanonicalName().lastIndexOf(".")));
 	}
+
 	private static void postInitBlocks()
 	{
 		boolean rc = WGModCompat.railcraftAllowBlastFurnace();
@@ -304,9 +304,9 @@ public class WGContent
 
 		ItemCloak = (ItemCloak) new ItemCloak().setUnlocalizedName("WG_Cloak");
 		GameRegistry.registerItem(ItemCloak, ItemCloak.getUnlocalizedName());
-		ItemKama = (ItemKama) new ItemKama().setUnlocalizedName("WG_Kama");
+		/* ItemKama = (ItemKama) new ItemKama().setUnlocalizedName("WG_Kama");
 		GameRegistry.registerItem(ItemKama, ItemKama.getUnlocalizedName());
-
+*/
 		ItemInfusedGem = new ItemInfusedGem().setUnlocalizedName("WG_InfusedGem");
 		GameRegistry.registerItem(ItemInfusedGem, ItemInfusedGem.getUnlocalizedName());
 
@@ -318,7 +318,8 @@ public class WGContent
 
 		ItemPrimordialGlove = new ItemPrimordialGlove().setUnlocalizedName("WG_PrimordialGlove");
 		GameRegistry.registerItem(ItemPrimordialGlove, ItemPrimordialGlove.getUnlocalizedName());
-		ItemPrimordialHammer = new ItemPrimordialHammer(primordialTool).setUnlocalizedName("WG_PrimordialHammer");
+
+		/* ItemPrimordialHammer = new ItemPrimordialHammer(primordialTool).setUnlocalizedName("WG_PrimordialHammer");
 		GameRegistry.registerItem(ItemPrimordialHammer, ItemPrimordialHammer.getUnlocalizedName());
 		ItemPrimordialAxe = new ItemPrimordialAxe(primordialTool).setUnlocalizedName("WG_PrimordialAxe");
 		GameRegistry.registerItem(ItemPrimordialAxe, ItemPrimordialAxe.getUnlocalizedName());
@@ -333,7 +334,7 @@ public class WGContent
 		GameRegistry.registerItem(ItemPrimordialLegs, ItemPrimordialLegs.getUnlocalizedName());
 		ItemPrimordialBoots = new ItemPrimordialArmor(primordialArmor, 4, 3).setUnlocalizedName("WG_PrimordialBoots");
 		GameRegistry.registerItem(ItemPrimordialBoots, ItemPrimordialBoots.getUnlocalizedName());
-
+*/
 		ItemCapsule = new ItemCrystalCapsule().setUnlocalizedName("WG_CrystalFlask");
 		GameRegistry.registerItem(ItemCapsule, ItemCapsule.getUnlocalizedName());
 		if(WGConfig.allowClusters)
@@ -343,9 +344,9 @@ public class WGContent
 		}
 		//ItemMagicBed = new ItemMagicBed(WGConfig.ItemMagicBedID).setUnlocalizedName("WG_MagicBed");
 		//GameRegistry.registerItem(ItemMagicBed, ItemMagicBed.getUnlocalizedName());
-		OreDictionary.registerOre("blockVoid", new ItemStack(BlockMetalDevice,1,7));
-		OreDictionary.registerOre("crystalNetherQuartz", new ItemStack(Items.quartz));
-		OreDictionary.registerOre("scribingTools", new ItemStack(ConfigItems.itemInkwell,1,OreDictionary.WILDCARD_VALUE));
+		//OreDictionary.registerOre("blockVoid", new ItemStack(BlockMetalDevice,1,7));
+		//OreDictionary.registerOre("crystalNetherQuartz", new ItemStack(Items.quartz));
+		//OreDictionary.registerOre("scribingTools", new ItemStack(ConfigItems.itemInkwell,1,OreDictionary.WILDCARD_VALUE));
 	}
 	private static void initializeItems()
 	{

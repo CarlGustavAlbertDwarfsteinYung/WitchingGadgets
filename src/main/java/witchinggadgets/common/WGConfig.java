@@ -18,7 +18,7 @@ public class WGConfig
 	public static String[] tripplingClusterList;
 
 	public static boolean coremod_allowBootsRepair;
-	public static boolean coremod_allowFocusPouchActive;
+	//public static boolean coremod_allowFocusPouchActive;
 	public static boolean coremod_allowEnchantModifications;
 	public static boolean coremod_allowPotionApplicationMod;
 	public static Block[] coremod_worldgenValidBase_HilltopStones;
@@ -36,11 +36,11 @@ public class WGConfig
 		// Random Config Options
 		cloakAnimationMode = config.get("Other Options", "Cloak Animation Mod", 2, "0 = no animation, 1 = rotate cloak when legs move, 2 = stretch cloak when legs move").getInt();
 		smelteryResultForClusters = config.get("Other Options", "Smeltery Result for Clusters", 144*3, "How many milliBuckets of molten Metal a cluster should give. 144mB equal 1 ingot. Set to 0 to disable smeltery recipes.").getInt();
-		allowClusters = config.get("Other Options", "Enable clusters", true, "Set this to false to disable clusters, useful when you are usign AOBD.").getBoolean(true);
+		allowClusters = config.get("Other Options", "Enable clusters", false, "Set this to false to disable clusters, useful when you are usign AOBD.").getBoolean(true);
 		allowTransmutations = config.get("Other Options", "Enable transmutations", true, "Set this to false to disable nugget transmutations, this should fix the infinite loop glitch").getBoolean(true);
 		String[] clusters = {
 		//Tinkers
-		"Aluminum","Cobalt","Ardite",
+		"Aluminum","Cobalt","Ardite","Octine","Syrmorite",
 		//ThermalFoundation
 		"Nickel","Platinum",
 		//Factorization
@@ -56,11 +56,11 @@ public class WGConfig
 		radialSpeed = config.getFloat("Other Options", "Selection Radial Speed", .15f, .15f, 1, "The speed at which the gem-selection for the primordial glove opens. 15% is the minimum.");
 
 		coremod_allowBootsRepair = config.get("Other Options", "Allow Boot repair", true, "Dis-/enable repairing the Boots of the Traveller with leather").getBoolean(true);
-		coremod_allowFocusPouchActive = config.get("Other Options", "Allow FocusPouch active ability", true, "Dis-/enable the IActiveAbiltiy on the FocusPouch. With this enabled, TGs active ability menu will allow you to open the pouch.").getBoolean(true);
+		//coremod_allowFocusPouchActive = config.get("Other Options", "Allow FocusPouch active ability", true, "Dis-/enable the IActiveAbiltiy on the FocusPouch. With this enabled, TGs active ability menu will allow you to open the pouch.").getBoolean(true);
 		coremod_allowEnchantModifications = config.get("Other Options", "Allow Enchantment modifications", true, "Dis-/enable the modification of looting and fortune modifications with the Ring of the Covetous Coin").getBoolean(true);
 		coremod_allowPotionApplicationMod = config.get("Other Options", "Allow modifications to newly applied PotionEffects", true, "Dis-/enable the modification of newly applied PotionEffects. (Primordial Armor affects newly applied Warp Effects)").getBoolean(true);
 
-		String[] cm_allowedSpawnblocks_HilltopStones = config.getStringList("Valid generation bases: HilltopStones", "Other", new String[]{"minecraft:stone","minecraft:sand","minecraft:packed_ice","minecraft:grass","minecraft:gravel","minecraft:dirt"}, "A list of valid blocks that Thaumcraft's hilltop stones can spawn upon");
+		String[] cm_allowedSpawnblocks_HilltopStones = config.getStringList("Valid generation bases: HilltopStones", "Other", new String[]{"minecraft:stone","minecraft:sand","minecraft:packed_ice","minecraft:grass","minecraft:gravel","minecraft:dirt"}, "A list of vablid blocks that Thaumcraft's hilltop stones can spawn upon");
 		Set<Block> validBlocks = new HashSet();
 		for(int ss=0; ss<cm_allowedSpawnblocks_HilltopStones.length; ss++)
 		{
@@ -83,6 +83,7 @@ public class WGConfig
 			{
 				Block b = GameRegistry.findBlock(ssA[0], ssA[1]);
 				if(b!=null)
+					validBlocks.add(b);
 					validBlocks.add(b);
 			}
 		}

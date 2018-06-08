@@ -178,15 +178,15 @@ public class TileEntitySaunaStove extends TileEntityWGBase implements IFluidHand
 				int maxX = (int)start.xCoord;
 				int maxY = (int)start.yCoord;
 				int maxZ = (int)start.zCoord;
-				for(;maxY<minY+32;maxY++)
+				for(;maxY<minY+16;maxY++)
 					//					if(pixels[maxY][minZ][minX]<0 || usedBlocks.contains(new PixelCoords(minX,maxY,minZ)))
 					if(!closedList.contains(new ChunkCoordinates(minX,maxY,minZ)) || aabbUsedBlocks.contains(new ChunkCoordinates(minX,maxY,minZ)))
 						break;
-				for(;maxZ<minZ+32;maxZ++)
+				for(;maxZ<minZ+16;maxZ++)
 					if(/*pixels[minY][maxZ][minX]<0*/!closedList.contains(new ChunkCoordinates(minX,maxY,minZ)) || aabbUsedBlocks.contains(new ChunkCoordinates(minX,minY,maxZ)))
 						if(!closedList.contains(new ChunkCoordinates(minX,minY,maxZ)) || aabbUsedBlocks.contains(new ChunkCoordinates(minX,minY,maxZ)))
 							break;
-				for(;maxX<minX+32;maxX++)
+				for(;maxX<minX+16;maxX++)
 					//					if(pixels[minY][minZ][maxX]<0 || usedBlocks.contains(new PixelCoords(maxX,minY,minZ)))
 					if(!closedList.contains(new ChunkCoordinates(maxX,minY,minZ)) || aabbUsedBlocks.contains(new ChunkCoordinates(maxX,minY,minZ)))
 						break;

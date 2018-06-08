@@ -1,4 +1,4 @@
-package witchinggadgets.common.util.recipe;
+/* package witchinggadgets.common.util.recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -166,4 +166,4 @@ public class SpinningRecipe
 		}	
 		return list;
 	}
-}
+} */

@@ -1,4 +1,4 @@
-package witchinggadgets.common.minetweaker;
+/* package witchinggadgets.common.minetweaker;
 
 import java.util.List;
 
@@ -110,4 +110,4 @@ public class SpinningWheel
 			return true;
 		}
 	}
-}
+} */

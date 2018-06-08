@@ -339,14 +339,15 @@ public class ItemMaterials extends Item
 					int dz = targetZ - cc.posZ;
 
 					TileEntity te = world.getTileEntity(cc.posX, cc.posY, cc.posZ);
+
 					if(te!=null && te instanceof TilePedestal)
 					{
 						symmetry += 2;
-						if( ((TilePedestal)te).getStackInSlot(0) != null)
+						if( ((TilePedestal)te).func_70301_a(0) != null)
 						{
 							symmetry += 1;
 							items = true;
-							components.add(((TilePedestal)te).getStackInSlot(0));
+							components.add( ((TilePedestal)te).func_70301_a(0));
 						}
 					}
 					int xx = targetX + dx;
@@ -355,7 +356,7 @@ public class ItemMaterials extends Item
 					if(te!=null && te instanceof TilePedestal)
 					{
 						symmetry -= 2;
-						if( ((TilePedestal)te).getStackInSlot(0)!=null)
+						if( ((TilePedestal)te).func_70301_a(0)!=null)
 						{
 							if(items)
 								symmetry -= 1;
@@ -388,8 +389,8 @@ public class ItemMaterials extends Item
 				ItemStack central = null;
 				TileEntity te = world.getTileEntity(targetX,targetY-2,targetZ);
 				if(te instanceof TilePedestal)
-					if(((TilePedestal)te).getStackInSlot(0) != null)
-						central = ((TilePedestal)te).getStackInSlot(0).copy();
+					if(((TilePedestal)te).func_70301_a(0) != null)
+						central = ((TilePedestal)te).func_70301_a(0).copy();
 				if(central!=null)
 				{
 					InfusionRecipe infRecipe = ThaumcraftCraftingManager.findMatchingInfusionRecipe(components, central, player);
@@ -436,6 +437,7 @@ public class ItemMaterials extends Item
 		}
 		return false;
 	}
+
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
@@ -447,11 +449,13 @@ public class ItemMaterials extends Item
 				int playerViewQuarter = MathHelper.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 				int f = playerViewQuarter==0 ? 2:playerViewQuarter==1 ? 5:playerViewQuarter==2 ? 3: 4;
 				((TileEntityCuttingTable)world.getTileEntity(x, y, z)).facing = f;
+				stack.stackSize--;
 			}
 			return true;
 		}
 		return false;
 	}
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{

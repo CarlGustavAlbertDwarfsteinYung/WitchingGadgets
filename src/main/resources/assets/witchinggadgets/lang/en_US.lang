@@ -197,11 +197,11 @@ wg.potionCinderCoat=Cinder Coat
 
 # -- Research --
 # Formatting:
-# §l 	Bold
-# §m 	Strikethrough
-# §n 	Underline
-# §o 	Italic
-# §r 	Reset
+# ï¿½l 	Bold
+# ï¿½m 	Strikethrough
+# ï¿½n 	Underline
+# ï¿½o 	Italic
+# ï¿½r 	Reset
 # <BR>  LineBreak
 # <LINE>Fancy LineBreak
 #
@@ -305,8 +305,8 @@ witchinggadgets_research_page.CLOAK_RAVEN.1=On your travels throughout the Twili
 #
 witchinggadgets_research_name.CLOAK_SPECTRAL=Spectral Mantle
 witchinggadgets_research_text.CLOAK_SPECTRAL=[WG] Now you see me...
-witchinggadgets_research_page.CLOAK_SPECTRAL.1=The plane of the spectral beings is a mystery to most common men. Fortunately, you are not most men. After infusing a cloak with eldritch and spectral energies it will grant you the ability to 'shift' yourself to that plane. While walking among it, you are invisble to those that walk along the normal plane. Enemies will not see or target you unless they are creatures of eldritch, posses exemptual powers or are wearing Goggles of Revealing.<BR>This ability comes at the cost of being unable to interact with the physical world. You cannot attack, use items, break or activate blocks. Furthermore it will drain 1 aer vis from you inventory every 5 seconds.
-witchinggadgets_research_page.CLOAK_SPECTRAL.2=Â§oDisclaimer: Creatures that can still see you include: Eldritch Guardians, Eldritch Wardens, Eldritch Golems, Cultist Praetors, as well as boss mobs like the Wither or the Enderdragon. For reasons unknown to even the most cunning Thaumaturges, Spiders and Slimes seem to be able to detect you by different means. Any other user of this cloak will also be able to see you.Â§r
+witchinggadgets_research_page.CLOAK_SPECTRAL.1=The means by which spectral beings exist is a mystery to most men. Fortunately, you are not most men. After infusing a cloak with eldritch and spectral energies, you will gain the ability to 'shift' yourself into another form of matter. While wearing this cloak you are invisble to most creatures. Enemies will not see or target you unless they have the ability to sense you or are wearing Goggles of Revealing.<BR>This ability comes at the cost of being unable to interact with the physical world. You cannot attack, use items, break or activate blocks. You still exist in the world just in another form of matter and therefore you will still take damage normally.
+witchinggadgets_research_page.CLOAK_SPECTRAL.2=Â§oDisclaimer: Cultist Praetors can still see you as well Spiders and Slimes seem to be able to detect you by different means although even the most cunning Thaumaturges cannot say why. Any other user of this cloak will also be able to see you.Â§r
 #Creating a cloak that is invisible is an easy task for a thaumaturge, but applying the effect to it's wearer was the hard task. After tedious research however, you have created the Â§lCloak of InvisibilityÂ§r, a garment that renders you invisible to the naked eye. The cloak itself lost a bit of his magic in the process, now only turning mostly transparent, leaving a slight shimmer. Other armor pieces or items that you are holding in your hand are not affected.
 #
 witchinggadgets_research_name.CLOAK_WOLF=Cloak of the Wolf
@@ -319,7 +319,7 @@ witchinggadgets_research_page.ENDERBAG.1=By attuning your Bag of Tricks to the e
 #
 witchinggadgets_research_name.HUNGERBAG=Hungry Bag
 witchinggadgets_research_text.HUNGERBAG=[WG] Om nom nom nom
-witchinggadgets_research_page.HUNGERBAG.1=Combining the portability of the Bag of Tricks with the inquenchable appetite of the Hungry Chest makes for a bag which will automatically store items in it as you pick them up.
+witchinggadgets_research_page.HUNGERBAG.1=Combining the portability of the Bag of Tricks with the unquenchable appetite of the Hungry Chest makes for a bag which will automatically store items in it as you pick them up.
 #
 witchinggadgets_research_name.WGBAUBLES=Witching Wearables
 witchinggadgets_research_text.WGBAUBLES=[WG] It's like a magic boutique

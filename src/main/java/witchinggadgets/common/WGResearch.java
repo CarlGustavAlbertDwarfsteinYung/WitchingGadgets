@@ -43,7 +43,6 @@ import witchinggadgets.common.items.baubles.ItemCloak;
 import witchinggadgets.common.util.Utilities;
 import witchinggadgets.common.util.recipe.InfernalBlastfurnaceRecipe;
 import witchinggadgets.common.util.recipe.PhotoDevelopingRecipe;
-import witchinggadgets.common.util.recipe.SpinningRecipe;
 import witchinggadgets.common.util.registry.MetalFluidData;
 import witchinggadgets.common.util.research.WGFakeResearchItem;
 import witchinggadgets.common.util.research.WGResearchItem;
@@ -91,16 +90,16 @@ public class WGResearch
 		registerArcaneRecipe("CALCULATOR", "", new ItemStack(WGContent.ItemMaterial,1,7), craftingAspects, "srs","sbs","sgs", 's',"stickWood", 'r',"dyeRed", 'b',"dyeBlue", 'g',"dyeGreen");
 
 		//CLOAKS
-		craftingAspects = new AspectList().add(Aspect.AIR,20).add(Aspect.ENTROPY,15).add(Aspect.ORDER, 10);
-		registerArcaneRecipe("CLOAK_STORAGE","", new ItemStack(WGContent.ItemCloak,1,2)/*ItemCloak.getCloakWithTag("STORAGE")*/, craftingAspects, "SCS"," B ", 'C',"travelgearCloakBase", 'S',new ItemStack(WGContent.ItemMaterial,1,3), 'B',new ItemStack(WGContent.ItemBag));
+		//craftingAspects = new AspectList().add(Aspect.AIR,20).add(Aspect.ENTROPY,15).add(Aspect.ORDER, 10);
+		//registerArcaneRecipe("CLOAK_STORAGE","", new ItemStack(WGContent.ItemCloak,1,2)/*ItemCloak.getCloakWithTag("STORAGE")*/, craftingAspects, "SCS"," B ", 'C', new ItemStack(WGContent.ItemCloak), 'S',new ItemStack(WGContent.ItemMaterial,1,3), 'B',new ItemStack(WGContent.ItemBag));
 
 		craftingAspects = new AspectList().add(Aspect.FIRE,10).add(Aspect.ENTROPY,20).add(Aspect.EARTH, 15);
-		registerArcaneRecipe("CLOAK_WOLF","", new ItemStack(WGContent.ItemCloak,1,3)/*ItemCloak.getCloakWithTag("WOLF")*/, craftingAspects, " W ","WCW", 'C',"travelgearCloakBase", 'W',new ItemStack(WGContent.ItemMaterial,1,6));
+		registerArcaneRecipe("CLOAK_WOLF","", new ItemStack(WGContent.ItemCloak,1,3)/*ItemCloak.getCloakWithTag("WOLF")*/, craftingAspects, " W ","WCW", 'C', new ItemStack(WGContent.ItemCloak), 'W',new ItemStack(WGContent.ItemMaterial,1,6));
 
 		if(WGModCompat.tfRavensFeather!=null)
 		{
 			craftingAspects = new AspectList().add(Aspect.AIR,15).add(Aspect.ORDER, 15);
-			registerArcaneRecipe("CLOAK_RAVEN","", new ItemStack(WGContent.ItemCloak,1,4)/*ItemCloak.getCloakWithTag("RAVEN")*/, craftingAspects, " F ","FCF","FSF", 'C',"travelgearCloakBase", 'S',new ItemStack(ConfigItems.itemShard,1,0), 'F',new ItemStack(WGModCompat.tfRavensFeather));
+			registerArcaneRecipe("CLOAK_RAVEN","", new ItemStack(WGContent.ItemCloak,1,4)/*ItemCloak.getCloakWithTag("RAVEN")*/, craftingAspects, " F ","FCF","FSF", 'C', new ItemStack(WGContent.ItemCloak), 'S',new ItemStack(ConfigItems.itemShard,1,0), 'F',new ItemStack(WGModCompat.tfRavensFeather));
 		}
 
 		craftingAspects = new AspectList().add(Aspect.ORDER,5).add(Aspect.EARTH,3);
@@ -112,8 +111,8 @@ public class WGResearch
 		craftingAspects = new AspectList().add(Aspect.ENTROPY,4).add(Aspect.EARTH,8);
 		registerArcaneRecipe("STONEEXTRUDER","",new ItemStack(WGContent.BlockWoodenDevice,1,2), craftingAspects, " P ", "WSL", "wSw", 'S',new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'w', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), 'W', new ItemStack(Items.water_bucket), 'L', new ItemStack(Items.lava_bucket), 'P', new ItemStack(ConfigItems.itemPickThaumium));
 
-		craftingAspects = new AspectList().add(Aspect.ORDER,5).add(Aspect.AIR,5);
-		registerArcaneRecipe("SPINNINGWHEEL","",new ItemStack(WGContent.BlockWoodenDevice), craftingAspects, "I W", " T ", 'T',new ItemStack(ConfigBlocks.blockTable), 'I', new ItemStack(Items.iron_ingot), 'W', "plankWood");
+		//craftingAspects = new AspectList().add(Aspect.ORDER,5).add(Aspect.AIR,5);
+		//registerArcaneRecipe("SPINNINGWHEEL","",new ItemStack(WGContent.BlockWoodenDevice), craftingAspects, "I W", " T ", 'T',new ItemStack(ConfigBlocks.blockTable), 'I', new ItemStack(Items.iron_ingot), 'W', "plankWood");
 
 		craftingAspects = new AspectList().add(Aspect.FIRE,20).add(Aspect.WATER,10).add(Aspect.ORDER, 10);
 		registerArcaneRecipe("SAUNASTOVE","",new ItemStack(WGContent.BlockWoodenDevice,1,4), craftingAspects, "SCS", "WBW", "WWW", 'S',new ItemStack(Blocks.stone_slab), 'C', "blockCoal", 'W', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), 'B',new ItemStack(Items.bucket));
@@ -128,7 +127,7 @@ public class WGResearch
 		}
 
 		craftingAspects = new AspectList().add(Aspect.ENTROPY,5).add(Aspect.AIR,5);
-		registerShapelessArcaneRecipe("BAGOFTRICKS","_CLOTH",new ItemStack(WGContent.ItemMaterial,2,3), craftingAspects, new ItemStack(WGContent.ItemMaterial,1,0), new ItemStack(WGContent.ItemMaterial,1,0), new ItemStack(WGContent.ItemMaterial,1,0), new ItemStack(WGContent.ItemMaterial,1,2));
+		registerArcaneRecipe("BAGOFTRICKS","_CLOTH",new ItemStack(WGContent.ItemMaterial,2,3), craftingAspects, "BCB", "C C", "BCB", 'C', new ItemStack(ConfigItems.itemNugget, 1, 6), 'B', Blocks.wool);
 		craftingAspects = new AspectList().add(Aspect.ORDER,20).add(Aspect.AIR,20);
 		registerArcaneRecipe("BAGOFTRICKS","_BAG",new ItemStack(WGContent.ItemBag), craftingAspects, "C C", "C C", "CCC", 'C', new ItemStack(WGContent.ItemMaterial,1,3));
 
@@ -137,6 +136,7 @@ public class WGResearch
 
 		craftingAspects = new AspectList().add(Aspect.ENTROPY,5).add(Aspect.ORDER,5);
 		registerShapelessArcaneRecipe("ADVANCEDROBES","_CLOTH",new ItemStack(WGContent.ItemMaterial,1,5), craftingAspects, new ItemStack(WGContent.ItemMaterial,1,0), new ItemStack(WGContent.ItemMaterial,1,2),new ItemStack(WGContent.ItemMaterial,1,2), new ItemStack(WGContent.ItemMaterial,1,1));
+		registerArcaneRecipe("ADVANCEDROBES","_CLOTH",new ItemStack(WGContent.ItemMaterial,1,5), craftingAspects, " C ", "CBC", " C ", 'C', new ItemStack(ConfigItems.itemNugget, 1, 6)  ,'B', Blocks.wool);
 		craftingAspects = new AspectList().add(Aspect.ORDER,10).add(Aspect.ENTROPY,10);
 		registerArcaneRecipe("ADVANCEDROBES","_CHEST",new ItemStack(WGContent.ItemAdvancedRobeChest), craftingAspects, " C ", "CRC", 'C', new ItemStack(WGContent.ItemMaterial,1,5), 'R', new ItemStack(ConfigItems.itemChestRobe));
 		craftingAspects = new AspectList().add(Aspect.ORDER,10).add(Aspect.ENTROPY,10);
@@ -146,20 +146,37 @@ public class WGResearch
 		registerArcaneRecipe("CLOAK","",standardCloak, craftingAspects, " F ","FFF","FFF", 'F', new ItemStack(ConfigItems.itemResource, 1, 7));
 
 		craftingAspects = new AspectList().add(Aspect.ENTROPY,10).add(Aspect.FIRE, 10);
-		registerArcaneRecipe("WGBAUBLES","_WOLFVAMBRACES",new ItemStack(WGContent.ItemMagicalBaubles,1,2), craftingAspects, " P ","PVP", 'P', new ItemStack(WGContent.ItemMaterial,1,6), 'V', "travelgearVambraceBase");
-
+		registerArcaneRecipe("WGBAUBLES","_WOLFVAMBRACES",new ItemStack(WGContent.ItemMagicalBaubles,1,2), craftingAspects, " P ","PVP", 'P', new ItemStack(WGContent.ItemMaterial,1,6), 'V', Items.leather);
 		craftingAspects = new AspectList().add(Aspect.ORDER,10).add(Aspect.EARTH, 10);
-		registerArcaneRecipe("WGBAUBLES","_KNOCKBACKSHOULDERS",new ItemStack(WGContent.ItemMagicalBaubles,1,1), craftingAspects, " S ","ETE", 'E', new ItemStack(ConfigItems.itemShard,1,3), 'S', "travelgearShoulderBase", 'T',"ingotThaumium");
-		
+		registerArcaneRecipe("WGBAUBLES","_KNOCKBACKSHOULDERS",new ItemStack(WGContent.ItemMagicalBaubles,1,1), craftingAspects, " S ","ETE", 'E', new ItemStack(ConfigItems.itemShard,1,3), 'S', Items.leather, 'T',"ingotThaumium");
+
+		craftingAspects = new AspectList().add(Aspect.FIRE,10).add(Aspect.AIR, 10);
+		//infusionAspects = new AspectList().add(Aspect.MINE, 8).add(Aspect.TOOL, 4).add(Aspect.MOTION, 4).add(Aspect.AIR,8);
+		//registerInfusionRecipe("WGBAUBLES","_HASTEVAMBRACES",new ItemStack(WGContent.ItemMagicalBaubles,1,3),2,infusionAspects, new ItemStack(Items.leather),new ItemStack[] {new ItemStack(Items.gold_ingot),new ItemStack(Items.sugar), new ItemStack(Items.potionitem,1,8194),new ItemStack(Items.sugar)});
+		registerArcaneRecipe("WGBAUBLES","_HASTEVAMBRACES", new ItemStack(WGContent.ItemMagicalBaubles,1,3), craftingAspects, " G ", "SLS", " P ", 'L', new ItemStack(Items.leather), 'G', new ItemStack(Items.gold_ingot), 'S', new ItemStack(Items.sugar), 'P', new ItemStack(Items.potionitem,1,8194));
+
+		ItemStack stack_ingot = !OreDictionary.getOres("ingotSilver").isEmpty()?OreDictionary.getOres("ingotSilver").get(0): new ItemStack(Items.iron_ingot);
+		craftingAspects = new AspectList().add(Aspect.EARTH,10).add(Aspect.AIR, 10);
+		// infusionAspects = new AspectList().add(Aspect.FLIGHT,16).add(Aspect.MOTION, 8).add(Aspect.AIR,16);
+		// registerInfusionRecipe("WGBAUBLES","_DOUBLEJUMPSHOULDERS", new ItemStack(WGContent.ItemMagicalBaubles,1,0),2,infusionAspects, new ItemStack(Items.leather),new ItemStack[] {new ItemStack(Items.feather),stack_ingot,new ItemStack(Items.feather),new ItemStack(ConfigItems.itemShard,1,0),new ItemStack(Items.feather),stack_ingot});
+		registerArcaneRecipe("WGBAUBLES","_DOUBLEJUMPSHOULDERS", new ItemStack(WGContent.ItemMagicalBaubles,1,0), craftingAspects, " S ", "FLF", " S ", 'L', new ItemStack(Items.leather), 'F', new ItemStack(Items.feather), 'S', new ItemStack(ConfigItems.itemShard,1,0), 'S', stack_ingot);
+
+
+		infusionAspects = new AspectList().add(Aspect.AIR,16).add(Aspect.WEAPON, 8).add(Aspect.ORDER,8);
+		//registerInfusionRecipe("WGBAUBLES","_SNIPERRING",new ItemStack(WGContent.ItemMagicalBaubles,1,6),2,infusionAspects,new ItemStack(ConfigItems.itemBaubleBlanks,1,1),new ItemStack[] {new ItemStack(ConfigItems.itemPrimalArrow,1,0),new ItemStack(ConfigItems.itemPrimalArrow,1,1),new ItemStack(ConfigItems.itemPrimalArrow,1,2),new ItemStack(ConfigItems.itemPrimalArrow,1,3),new ItemStack(ConfigItems.itemPrimalArrow,1,4),new ItemStack(ConfigItems.itemPrimalArrow,1,5)});
+		registerArcaneRecipe("WGBAUBLES","_SNIPERRING", new ItemStack(WGContent.ItemMagicalBaubles,1,6), craftingAspects, "A D", "BRE", "C F", 'R', new ItemStack(ConfigItems.itemBaubleBlanks,1,1), 'A', new ItemStack(ConfigItems.itemPrimalArrow,1,0), 'B', new ItemStack(ConfigItems.itemPrimalArrow,1,1), 'C', new ItemStack(ConfigItems.itemPrimalArrow,1,2), 'D', new ItemStack(ConfigItems.itemPrimalArrow,1,3), 'E', new ItemStack(ConfigItems.itemPrimalArrow,1,4), 'F', new ItemStack(ConfigItems.itemPrimalArrow,1,5));
+
+
 		ItemStack luckyCoin = new ItemStack(ConfigItems.itemResource,1,18);
 		luckyCoin.addEnchantment(Enchantment.fortune, 1);
 		luckyCoin.addEnchantment(Enchantment.looting, 1);
 		craftingAspects = new AspectList().add(Aspect.ORDER,30);
 		registerArcaneRecipe("WGBAUBLES","_COIN",luckyCoin, craftingAspects, "BCB","CCC","BCB", 'C',  new ItemStack(ConfigItems.itemResource,1,18), 'B', Items.enchanted_book);
 
-		craftingAspects = new AspectList().add(Aspect.AIR,5).add(Aspect.ORDER,5);
-		for(int cm=0; cm<ItemCloak.subNames.length; cm++)
-			registerArcaneRecipe("CLOAKKAMA",("_"+cm),new ItemStack(WGContent.ItemKama,1,cm), craftingAspects, "B","C", 'B',"baubleBeltBase", 'C',new ItemStack(WGContent.ItemCloak,1,cm));
+
+		//craftingAspects = new AspectList().add(Aspect.AIR,5).add(Aspect.ORDER,5);
+		//for(int cm=0; cm<ItemCloak.subNames.length; cm++)
+		//	registerArcaneRecipe("CLOAKKAMA",("_"+cm),new ItemStack(WGContent.ItemKama,1,cm), craftingAspects, "B","C", 'B', "baubleBeltBase", 'C',new ItemStack(WGContent.ItemCloak,1,cm));
 		//super("CLOAKKAMA", new ItemStack(), new AspectList().add().add(), new Object[]{"B","C", 'B', "baubleBeltBase", 'C', });
 
 		//			recipeList.put("CLOAKKAMA_"+cm, new KamaRecipe(cm));
@@ -186,22 +203,11 @@ public class WGResearch
 		/**
 		 * INFUSION
 		 */
-		infusionAspects = new AspectList().add(Aspect.SOUL, 8).add(Aspect.TRAVEL, 8).add(Aspect.ELDRITCH, 4).add(Aspect.SENSES,4);
-		registerInfusionRecipe("CLOAK_SPECTRAL","",new ItemStack(WGContent.ItemCloak,1,1),3,infusionAspects,new ItemStack(WGContent.ItemCloak),new ItemStack[] {new ItemStack(Items.potionitem,1,8270),new ItemStack(WGContent.ItemMaterial,1,5),new ItemStack(Items.ender_pearl),new ItemStack(WGContent.ItemMaterial,1,5)});
-
-		infusionAspects = new AspectList().add(Aspect.MINE, 8).add(Aspect.TOOL, 4).add(Aspect.MOTION, 4).add(Aspect.AIR,8);
-		registerInfusionRecipe("WGBAUBLES","_HASTEVAMBRACES",new ItemStack(WGContent.ItemMagicalBaubles,1,3),2,infusionAspects,OreDictionary.getOres("travelgearVambraceBase").get(0),new ItemStack[] {new ItemStack(Items.gold_ingot),new ItemStack(Items.sugar),new ItemStack(Items.potionitem,1,8194),new ItemStack(Items.sugar)});
-
-		ItemStack stack_ingot = !OreDictionary.getOres("ingotSilver").isEmpty()?OreDictionary.getOres("ingotSilver").get(0): new ItemStack(Items.iron_ingot);
-		infusionAspects = new AspectList().add(Aspect.FLIGHT,16).add(Aspect.MOTION, 8).add(Aspect.AIR,16);
-		registerInfusionRecipe("WGBAUBLES","_DOUBLEJUMPSHOULDERS",new ItemStack(WGContent.ItemMagicalBaubles,1,0),2,infusionAspects,OreDictionary.getOres("travelgearShoulderBase").get(0),new ItemStack[] {new ItemStack(Items.feather),stack_ingot,new ItemStack(Items.feather),new ItemStack(ConfigItems.itemShard,1,0),new ItemStack(Items.feather),stack_ingot});
-
-		infusionAspects = new AspectList().add(Aspect.AIR,16).add(Aspect.WEAPON, 8).add(Aspect.ORDER,8);
-		registerInfusionRecipe("WGBAUBLES","_SNIPERRING",new ItemStack(WGContent.ItemMagicalBaubles,1,6),2,infusionAspects,new ItemStack(ConfigItems.itemBaubleBlanks,1,1),new ItemStack[] {new ItemStack(ConfigItems.itemPrimalArrow,1,0),new ItemStack(ConfigItems.itemPrimalArrow,1,1),new ItemStack(ConfigItems.itemPrimalArrow,1,2),new ItemStack(ConfigItems.itemPrimalArrow,1,3),new ItemStack(ConfigItems.itemPrimalArrow,1,4),new ItemStack(ConfigItems.itemPrimalArrow,1,5)});
-
 		infusionAspects = new AspectList().add(Aspect.GREED,32).add(Aspect.TOOL,16);
 		registerInfusionRecipe("WGBAUBLES","_LUCKRING",new ItemStack(WGContent.ItemMagicalBaubles,1,5),3,infusionAspects,luckyCoin,new ItemStack[] {new ItemStack(Items.gold_ingot),new ItemStack(Items.dye,1,4),stack_ingot,new ItemStack(Items.dye,1,4),stack_ingot,new ItemStack(Items.dye,1,4),stack_ingot,new ItemStack(Items.dye,1,4)});
 
+		infusionAspects = new AspectList().add(Aspect.SOUL, 8).add(Aspect.TRAVEL, 8).add(Aspect.ELDRITCH, 4).add(Aspect.SENSES,4);
+		registerInfusionRecipe("CLOAK_SPECTRAL","",new ItemStack(WGContent.ItemCloak,1,1),3,infusionAspects,new ItemStack(WGContent.ItemCloak),new ItemStack[] {new ItemStack(Items.potionitem,1,8270),new ItemStack(WGContent.ItemMaterial,1,5),new ItemStack(Items.ender_pearl),new ItemStack(WGContent.ItemMaterial,1,5)});
 
 		infusionAspects = new AspectList().add(Aspect.TRAVEL,4).add(Aspect.MIND, 6).add(Aspect.TOOL,2);
 		registerInfusionRecipe("LABYRINTHSTRING","",new ItemStack(WGContent.ItemMaterial,1,11),2,infusionAspects,new ItemStack(ConfigBlocks.blockMagicalLog,1,0),new ItemStack[] {new ItemStack(Items.ender_pearl),new ItemStack(WGContent.ItemMaterial,1,0),new ItemStack(WGContent.ItemMaterial,1,0),new ItemStack(WGContent.ItemMaterial,1,0)});
@@ -265,8 +271,6 @@ public class WGResearch
 		registerInfusionRecipe("MASKANGRYGHOST","_PRIMORDIAL",new Object[]{"mask",new NBTTagByte((byte)1)},8,infusionAspects,new ItemStack(WGContent.ItemPrimordialHelm,1,32767),new ItemStack[] { new ItemStack(Items.dye, 1, 15), new ItemStack(Items.iron_ingot), new ItemStack(Items.leather), new ItemStack(Items.poisonous_potato), new ItemStack(Items.skull, 1, 1), new ItemStack(Items.iron_ingot) });
 		infusionAspects = new AspectList().add(Aspect.UNDEAD,64).add(Aspect.LIFE,64).add(Aspect.ARMOR, 16);
 		registerInfusionRecipe("MASKSIPPINGFIEND","_PRIMORDIAL",new Object[]{"mask",new NBTTagByte((byte)2)},8,infusionAspects,new ItemStack(WGContent.ItemPrimordialHelm,1,32767),new ItemStack[] { new ItemStack(Items.dye, 1, 1), new ItemStack(Items.iron_ingot), new ItemStack(Items.leather), new ItemStack(Items.ghast_tear), new ItemStack(Items.milk_bucket), new ItemStack(Items.iron_ingot) });
-
-
 
 		/**
 		 * ENCHANTMENT
@@ -350,14 +354,14 @@ public class WGResearch
 		/**
 		 * SPINNING
 		 */
-		SpinningRecipe spin_Thread = new SpinningRecipe(new ItemStack(WGContent.ItemMaterial,2,0), new Object[] {Items.string, Items.string, Items.string, Items.string});
+		/* SpinningRecipe spin_Thread = new SpinningRecipe(new ItemStack(WGContent.ItemMaterial,2,0), new Object[] {Items.string, Items.string, Items.string, Items.string});
 		SpinningRecipe.addRecipe(spin_Thread);
 
 		SpinningRecipe spin_goldThread = new SpinningRecipe(new ItemStack(WGContent.ItemMaterial,2,1), new Object[] {Items.string, Items.string, Items.gold_nugget, Items.gold_nugget});
 		SpinningRecipe.addRecipe(spin_goldThread);
 
 		SpinningRecipe spin_thaumiumThread = new SpinningRecipe(new ItemStack(WGContent.ItemMaterial,2,2), new Object[] {Items.string, Items.string, "nuggetThaumium", "nuggetThaumium"});
-		SpinningRecipe.addRecipe(spin_thaumiumThread);
+		SpinningRecipe.addRecipe(spin_thaumiumThread); */
 		/**
 		WeavingRecipe weave_void = new WeavingRecipe("BAGOFTRICKS", new ItemStack(WGContent.ItemMaterial,2,3),new AspectList().add(Aspect.VOID, 8), new Object[] {new ItemStack(WGContent.ItemMaterial,1,0), new ItemStack(WGContent.ItemMaterial,1,0), new ItemStack(WGContent.ItemMaterial,1,0), new ItemStack(WGContent.ItemMaterial,1,0), new ItemStack(WGContent.ItemMaterial,1,2), new ItemStack(WGContent.ItemMaterial,1,2)});
 		WitchingGadgets.instance.customRecipeHandler.addRecipe(weave_void);
@@ -446,20 +450,19 @@ public class WGResearch
 		getResearchItem("WGPOTIONS", "WITCHGADG", researchAspects, 8, 0, 0, new ResourceLocation("witchinggadgets:textures/gui/research/icon_potioneffects.png")).setRound().setAutoUnlock().setPages(pages).registerResearchItem();
 
 		//SPINNINGWHEEL
-		researchAspects = new AspectList();
-		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.1"), new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.2"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("SPINNINGWHEEL")), new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.r1"), new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.r2"), new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.r3")};
-		getResearchItem("SPINNINGWHEEL", "WITCHGADG", researchAspects, 8, 4, 0, new ItemStack(WGContent.BlockWoodenDevice,1,0)).setRound().setAutoUnlock().setPages(pages).registerResearchItem();
-		//BAG CLOTH
-		researchAspects = new AspectList().add(Aspect.CLOTH, 2).add(Aspect.VOID, 2).add(Aspect.HUNGER, 2);
-		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.BAGOFTRICKS.1"), new ResearchPage((ShapelessArcaneRecipe) recipeList.get("BAGOFTRICKS_CLOTH")), new ResearchPage((ShapedArcaneRecipe) recipeList.get("BAGOFTRICKS_BAG"))};
-		getResearchItem("BAGOFTRICKS", "WITCHGADG", researchAspects, 7, 2, 1, new ItemStack(WGContent.ItemBag,1,0)).setParents(new String[] { "SPINNINGWHEEL" }).setConcealed().setPages(pages).registerResearchItem();
+		//researchAspects = new AspectList();
+		//pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.1"), new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.2"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("SPINNINGWHEEL")), new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.r1"), new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.r2"), new ResearchPage("witchinggadgets_research_page.SPINNINGWHEEL.r3")};
+		//getResearchItem("SPINNINGWHEEL", "WITCHGADG", researchAspects, 8, 4, 0, new ItemStack(WGContent.BlockWoodenDevice,1,0)).setRound().setAutoUnlock().setPages(pages).registerResearchItem();
 		//ORIGINAL ENCHFABRIC
 		getFakeResearchItem("ENCHFABRIC", "ARTIFICE", 10,1, new ItemStack(ConfigItems.itemResource, 1, 7)).registerResearchItem();
 		//ADVANCED ROBES
 		researchAspects = new AspectList().add(Aspect.CLOTH, 3).add(Aspect.MAGIC, 4).add(Aspect.TAINT, 1);
-		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.ADVANCEDROBES.1"), new ResearchPage((ShapelessArcaneRecipe) recipeList.get("ADVANCEDROBES_CLOTH")), new ResearchPage((ShapedArcaneRecipe) recipeList.get("ADVANCEDROBES_CHEST")), new ResearchPage((ShapedArcaneRecipe) recipeList.get("ADVANCEDROBES_LEGS"))};
-		getResearchItem("ADVANCEDROBES", "WITCHGADG", researchAspects, 9, 2, 3, new ItemStack(WGContent.ItemMaterial,1,5)).setParents(new String[] { "WGFAKEENCHFABRIC", "SPINNINGWHEEL" }).setPages(pages).setConcealed().setSecondary().registerResearchItem();
-
+		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.ADVANCEDROBES.1"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("ADVANCEDROBES_CLOTH")), new ResearchPage((ShapedArcaneRecipe) recipeList.get("ADVANCEDROBES_CHEST")), new ResearchPage((ShapedArcaneRecipe) recipeList.get("ADVANCEDROBES_LEGS"))};
+		getResearchItem("ADVANCEDROBES", "WITCHGADG", researchAspects, 9, 2, 3, new ItemStack(WGContent.ItemMaterial,1,5)).setParents(new String[] { "WGFAKEENCHFABRIC" }).setPages(pages).setConcealed().setSecondary().registerResearchItem();
+		// /BAG CLOTH
+		researchAspects = new AspectList().add(Aspect.CLOTH, 2).add(Aspect.VOID, 2).add(Aspect.HUNGER, 2);
+		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.BAGOFTRICKS.1"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("BAGOFTRICKS_CLOTH")), new ResearchPage((ShapedArcaneRecipe) recipeList.get("BAGOFTRICKS_BAG"))};
+		getResearchItem("BAGOFTRICKS", "WITCHGADG", researchAspects, 7, 2, 1, new ItemStack(WGContent.ItemBag,1,0)).setParents(new String[] { "ADVANCEDROBES" }).setConcealed().setPages(pages).registerResearchItem();
 		//HUNGERBAG
 		researchAspects = new AspectList().add(Aspect.CLOTH, 2).add(Aspect.HUNGER, 3).add(Aspect.VOID, 3);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.HUNGERBAG.1"), new ResearchPage((IArcaneRecipe) recipeList.get("HUNGERBAG"))};
@@ -479,9 +482,9 @@ public class WGResearch
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.CLOAK_SPECTRAL.1"), new ResearchPage((InfusionRecipe)recipeList.get("CLOAK_SPECTRAL")), new ResearchPage("witchinggadgets_research_page.CLOAK_SPECTRAL.2")};
 		getResearchItem("CLOAK_SPECTRAL", "WITCHGADG", researchAspects, 10, -1, 3, new ItemStack(WGContent.ItemCloak,1,1)).setParents("CLOAK").setParentsHidden("INFUSION").setPages(pages).setConcealed().setSecondary().registerResearchItem();
 
-		researchAspects = new AspectList().add(Aspect.CLOTH, 4).add(Aspect.VOID, 6).add(Aspect.HUNGER, 4);
-		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.CLOAK_STORAGE.1"), new ResearchPage((IArcaneRecipe)recipeList.get("CLOAK_STORAGE"))};
-		getResearchItem("CLOAK_STORAGE", "WITCHGADG", researchAspects, 10, -3, 3, new ItemStack(WGContent.ItemCloak,1,2)).setParents("CLOAK").setParentsHidden("BAGOFTRICKS" ).setPages(pages).setConcealed().setSecondary().registerResearchItem();
+		//researchAspects = new AspectList().add(Aspect.CLOTH, 4).add(Aspect.VOID, 6).add(Aspect.HUNGER, 4);
+		//pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.CLOAK_STORAGE.1"), new ResearchPage((IArcaneRecipe)recipeList.get("CLOAK_STORAGE"))};
+		//getResearchItem("CLOAK_STORAGE", "WITCHGADG", researchAspects, 10, -3, 3, new ItemStack(WGContent.ItemCloak,1,2)).setParents("CLOAK").setParentsHidden("BAGOFTRICKS" ).setPages(pages).setConcealed().setSecondary().registerResearchItem();
 
 		researchAspects = new AspectList().add(Aspect.CLOTH, 4).add(Aspect.BEAST, 4).add(Aspect.HUNGER, 4);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.CLOAK_WOLF.1"), new ResearchPage((IArcaneRecipe)recipeList.get("CLOAK_WOLF"))};
@@ -499,19 +502,19 @@ public class WGResearch
 		pages = new ResearchPage[]{
 				new ResearchPage("witchinggadgets_research_page.WGBAUBLES.1"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("WGBAUBLES_KNOCKBACKSHOULDERS")), 
 				new ResearchPage("witchinggadgets_research_page.WGBAUBLES.2"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("WGBAUBLES_WOLFVAMBRACES")),
-				new ResearchPage("witchinggadgets_research_page.WGBAUBLES.3"), new ResearchPage((InfusionRecipe) recipeList.get("WGBAUBLES_HASTEVAMBRACES")),
-				new ResearchPage("witchinggadgets_research_page.WGBAUBLES.4"), new ResearchPage((InfusionRecipe) recipeList.get("WGBAUBLES_DOUBLEJUMPSHOULDERS")),
-				new ResearchPage("witchinggadgets_research_page.WGBAUBLES.5"), new ResearchPage((InfusionRecipe) recipeList.get("WGBAUBLES_SNIPERRING")),
+				new ResearchPage("witchinggadgets_research_page.WGBAUBLES.3"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("WGBAUBLES_HASTEVAMBRACES")),
+				new ResearchPage("witchinggadgets_research_page.WGBAUBLES.4"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("WGBAUBLES_DOUBLEJUMPSHOULDERS")),
+				new ResearchPage("witchinggadgets_research_page.WGBAUBLES.5"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("WGBAUBLES_SNIPERRING")),
 				new ResearchPage("witchinggadgets_research_page.WGBAUBLES.6"), new ResearchPage((InfusionRecipe) recipeList.get("WGBAUBLES_LUCKRING")), new ResearchPage((ShapedArcaneRecipe) recipeList.get("WGBAUBLES_COIN"))
 		};
 		getResearchItem("WGBAUBLES", "WITCHGADG", researchAspects, 7, -5, 1, new ItemStack(WGContent.ItemMagicalBaubles,1,2)).setParents("THAUMIUM").setPages(pages).registerResearchItem();
 
-		researchAspects = new AspectList().add(Aspect.CLOTH, 2).add(Aspect.ARMOR, 2);
-		ArrayList<ShapedArcaneRecipe> recList = new ArrayList();
-		for(int cm=0; cm<ItemCloak.subNames.length; cm++)
-			recList.add((ShapedArcaneRecipe)recipeList.get("CLOAKKAMA_"+cm));
-		pages = new ResearchPage[]{new ResearchPage("witchinggadgets_research_page.CLOAKKAMA.1"), new ResearchPage((ShapedArcaneRecipe[]) recList.toArray(new ShapedArcaneRecipe[0]))};
-		getResearchItem("CLOAKKAMA", "WITCHGADG", researchAspects, 9, -5, 1, new ItemStack(WGContent.ItemKama,1,0)).setParents("WGBAUBLES","CLOAK").setConcealed().setSecondary().setPages(pages).registerResearchItem();
+		//researchAspects = new AspectList().add(Aspect.CLOTH, 2).add(Aspect.ARMOR, 2);
+		//ArrayList<ShapedArcaneRecipe> recList = new ArrayList();
+		//for(int cm=0; cm<ItemCloak.subNames.length; cm++)
+		//	recList.add((ShapedArcaneRecipe)recipeList.get("CLOAKKAMA_"+cm));
+	//	pages = new ResearchPage[]{new ResearchPage("witchinggadgets_research_page.CLOAKKAMA.1"), new ResearchPage((ShapedArcaneRecipe[]) recList.toArray(new ShapedArcaneRecipe[0]))};
+		//getResearchItem("CLOAKKAMA", "WITCHGADG", researchAspects, 9, -5, 1, new ItemStack(WGContent.ItemKama,1,0)).setParents("WGBAUBLES","CLOAK").setConcealed().setSecondary().setPages(pages).registerResearchItem();
 
 		//ORIGINAL ARCANESTONE
 		getFakeResearchItem("ARCANESTONE", "ARTIFICE", -3,-5,  new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6)).registerResearchItem();
@@ -719,7 +722,7 @@ public class WGResearch
 		//ORIGINAL PRIMPEARL
 		getFakeResearchItem("PRIMPEARL", "ELDRITCH", 0,1, new ItemStack(ConfigItems.itemEldritchObject, 1, 3)).setSpecial().registerResearchItem();
 
-		//PRIMORDIALGEARSET
+		/* //PRIMORDIALGEARSET
 		researchAspects = new AspectList().add(Aspect.MAGIC,1).add(Aspect.ENERGY,1).add(Aspect.AIR,1).add(Aspect.FIRE,1).add(Aspect.WATER,1).add(Aspect.EARTH,1).add(Aspect.ORDER,1).add(Aspect.ENTROPY,1);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.PRIMORDIALGEARSET.1"),new ResearchPage("witchinggadgets_research_page.PRIMORDIALGEARSET.2")};
 		getResearchItem("PRIMORDIALGEARSET", "WITCHGADG", researchAspects, -2,3,3, new ResourceLocation("witchinggadgets:textures/gui/research/icon_primordialGear.png")).setParents("VOIDMETAL","WGFAKEPRIMPEARL").setPages(pages).registerResearchItem();
@@ -727,13 +730,13 @@ public class WGResearch
 		researchAspects = new AspectList().add(Aspect.MAGIC,8).add(Aspect.CRYSTAL,4).add(Aspect.VOID,4).add(Aspect.ENERGY,4);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.EMPOWERPEARL.1"), new ResearchPage((InfusionRecipe) recipeList.get("EMPOWERPEARL"))};
 		getResearchItem("EMPOWERPEARL", "WITCHGADG", researchAspects, -3,5,1, new ItemStack(WGContent.ItemMaterial,1,12)).setSecondary().setParents("WGFAKEPRIMPEARL").setItemTriggers(new ItemStack(WGContent.ItemMaterial,1,12)).setHidden().setPages(pages).registerResearchItem();
-
+*/
 		//PRIMORDIALGLOVE
 		researchAspects = new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.MAGIC, 1).add(Aspect.TOOL, 1).add(Aspect.AIR,1).add(Aspect.FIRE,1).add(Aspect.WATER,1).add(Aspect.EARTH,1).add(Aspect.ORDER,1).add(Aspect.ENTROPY,1);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.PRIMORDIALGLOVE.1"), new ResearchPage((InfusionRecipe) recipeList.get("PRIMORDIALGLOVE")), new ResearchPage("witchinggadgets_research_page.PRIMORDIALGLOVE.2")};
-		getResearchItem("PRIMORDIALGLOVE", "WITCHGADG", researchAspects, 2, 0, 2, new ItemStack(WGContent.ItemPrimordialGlove)).setParents("VOIDMETAL","PRIMORDIALGEARSET","WGFAKEPRIMPEARL").setConcealed().setPages(pages).registerResearchItem();
+		getResearchItem("PRIMORDIALGLOVE", "WITCHGADG", researchAspects, 2, 0, 2, new ItemStack(WGContent.ItemPrimordialGlove)).setParents("VOIDMETAL","WGFAKEPRIMPEARL").setConcealed().setPages(pages).registerResearchItem();
 
-		//PRIMORDIALWEAPONRY
+/*		//PRIMORDIALWEAPONRY
 		researchAspects = new AspectList().add(Aspect.ENTROPY, 1).add(Aspect.WEAPON, 1).add(Aspect.TOOL, 1).add(Aspect.AIR,1).add(Aspect.FIRE,1).add(Aspect.WATER,1).add(Aspect.MAGIC, 2).add(Aspect.EARTH,1).add(Aspect.ORDER,1);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.PRIMORDIALWEAPONRY.1"), new ResearchPage("witchinggadgets_research_page.PRIMORDIALWEAPONRY.2"), new ResearchPage("witchinggadgets_research_page.PRIMORDIALWEAPONRY.3"), new ResearchPage((InfusionRecipe) recipeList.get("PRIMORDIALWEAPONRY_CLAYMORE")), new ResearchPage((InfusionRecipe) recipeList.get("PRIMORDIALWEAPONRY_HAMMER")), new ResearchPage((InfusionRecipe) recipeList.get("PRIMORDIALWEAPONRY_GREATAXE"))};
 		getResearchItem("PRIMORDIALWEAPONRY", "WITCHGADG", researchAspects, -4, 2, 3, new ResourceLocation("witchinggadgets:textures/gui/research/icon_primordialWeaponry.png")).setParents("PRIMORDIALGEARSET").setConcealed().setPages(pages).registerResearchItem();
@@ -769,7 +772,7 @@ public class WGResearch
 		//		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.PRIMORDIALBOOTS.1"), new ResearchPage((InfusionRecipe) recipeList.get("PRIMORDIALBOOTS"))};
 		//		getResearchItem("PRIMORDIALBOOTS", "WITCHGADG", researchAspects, 1, 5, 3, new ItemStack(WGContent.ItemPrimordialBoots)).setParents("PRIMORDIALGEARSET").setConcealed().setPages(pages).registerResearchItem();
 
-
+*/
 
 		//VOIDBAG
 		researchAspects = new AspectList().add(Aspect.CLOTH, 2).add(Aspect.VOID, 3).add(Aspect.ENTROPY, 5).add(Aspect.ELDRITCH, 3);

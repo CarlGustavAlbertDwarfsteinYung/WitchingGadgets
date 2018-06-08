@@ -1,4 +1,4 @@
-package witchinggadgets.common.gui;
+/* package witchinggadgets.common.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -83,4 +83,4 @@ public class ContainerSpinningWheel extends Container
 		}
 		return stack;
 	}
-}
+} */

@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.fx.particles.FXEssentiaTrail;
 import thaumcraft.client.fx.particles.FXWisp;
-import travellersgear.api.TravellersGearAPI;
+// import travellersgear.api.TravellersGearAPI;
 import witchinggadgets.asm.pouch.GuiPatchedFocusPouch;
 import witchinggadgets.client.fx.EntityFXSweat;
 import witchinggadgets.client.gui.GuiBag;
@@ -21,7 +21,6 @@ import witchinggadgets.client.gui.GuiCuttingTable;
 import witchinggadgets.client.gui.GuiLabelLibrary;
 import witchinggadgets.client.gui.GuiMagicalTileLock;
 import witchinggadgets.client.gui.GuiPrimordialGlove;
-import witchinggadgets.client.gui.GuiSpinningWheel;
 import witchinggadgets.client.gui.GuiVoidBag;
 import witchinggadgets.client.render.BlockRenderMetalDevice;
 import witchinggadgets.client.render.BlockRenderRoseVine;
@@ -42,7 +41,6 @@ import witchinggadgets.client.render.TileRenderMagicalTileLock;
 import witchinggadgets.client.render.TileRenderSarcophagus;
 import witchinggadgets.client.render.TileRenderSaunaStove;
 import witchinggadgets.client.render.TileRenderSnowGen;
-import witchinggadgets.client.render.TileRenderSpinningWheel;
 import witchinggadgets.client.render.TileRenderTerraformFocus;
 import witchinggadgets.client.render.TileRenderTerraformer;
 import witchinggadgets.client.render.TileRenderWallMirror;
@@ -56,7 +54,6 @@ import witchinggadgets.common.blocks.tiles.TileEntityMagicalTileLock;
 import witchinggadgets.common.blocks.tiles.TileEntitySarcophagus;
 import witchinggadgets.common.blocks.tiles.TileEntitySaunaStove;
 import witchinggadgets.common.blocks.tiles.TileEntitySnowGen;
-import witchinggadgets.common.blocks.tiles.TileEntitySpinningWheel;
 import witchinggadgets.common.blocks.tiles.TileEntityTerraformFocus;
 import witchinggadgets.common.blocks.tiles.TileEntityTerraformer;
 import witchinggadgets.common.blocks.tiles.TileEntityWallMirror;
@@ -84,7 +81,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(new BlockRenderStoneDevice());
 		RenderingRegistry.registerBlockHandler(new BlockRenderMetalDevice());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWallMirror.class, new TileRenderWallMirror());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpinningWheel.class, new TileRenderSpinningWheel());
+		//ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpinningWheel.class, new TileRenderSpinningWheel());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySnowGen.class, new TileRenderSnowGen());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCobbleGen.class, new TileRenderCobbleGen());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMagicalTileLock.class, new TileRenderMagicalTileLock());
@@ -128,11 +125,13 @@ public class ClientProxy extends CommonProxy
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tile = world.getTileEntity(x, y, z);
-		if(ID == 0)return new GuiSpinningWheel(player.inventory, (TileEntitySpinningWheel)tile);
+		//if(ID == 0)return new GuiSpinningWheel(player.inventory, (TileEntitySpinningWheel)tile);
 
 		if(ID == 3)return new GuiBag(player.inventory, world);
-		if(ID==4||ID==5)return new GuiCloakBag(player.inventory, world, ID==4?TravellersGearAPI.getExtendedInventory(player)[0]:BaublesApi.getBaubles(player).getStackInSlot(3) );
-		
+		//if(ID==4||ID==5)return new GuiCloakBag(player.inventory, world, ID==4?TravellersGearAPI.getExtendedInventory(player)[0]:BaublesApi.getBaubles(player).getStackInSlot(3) );
+
+		if(ID==4||ID==5)return new GuiCloakBag(player.inventory, world, BaublesApi.getBaubles(player).getStackInSlot(3) );
+
 		if(ID == 6)return new GuiPatchedFocusPouch(player.inventory, world, x, y, z);
 
 		if(ID == 7)return new GuiPrimordialGlove(player.inventory, world, x, y, z);

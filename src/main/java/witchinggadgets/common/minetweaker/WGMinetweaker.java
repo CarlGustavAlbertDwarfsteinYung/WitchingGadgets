@@ -13,7 +13,7 @@ public class WGMinetweaker
 {
 	public static void init()
 	{
-		MineTweakerAPI.registerClass(SpinningWheel.class);
+		//MineTweakerAPI.registerClass(SpinningWheel.class);
 		MineTweakerAPI.registerClass(InfernalBlastfurnace.class);
 		MineTweakerAPI.registerClass(GemCutting.class);
 	}

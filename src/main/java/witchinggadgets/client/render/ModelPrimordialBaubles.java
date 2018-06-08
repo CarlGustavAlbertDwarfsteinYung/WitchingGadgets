@@ -8,7 +8,6 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import travellersgear.api.ITravellersGear;
 
 public class ModelPrimordialBaubles extends ModelBiped
 {
@@ -23,13 +22,12 @@ public class ModelPrimordialBaubles extends ModelBiped
 		this.bipedLeftLeg.isHidden=true;
 		this.bipedRightLeg.isHidden=true;
 
-		int slot = ((ITravellersGear)stack.getItem()).getSlot(stack);
 		int meta = stack.getItemDamage();
-		float sizeMod = slot==1?1.125f:.125f;
+		float sizeMod = (stack.getItemDamage()==0 || stack.getItemDamage()==1)?1.125f:.125f;
 		
 		int u = meta==1||meta==2?40: 24;
 		int v = meta==2||meta==3?24: 16;
-		int yOff = slot==2?7:0;
+		int yOff = (stack.getItemDamage()==2 || stack.getItemDamage()==3)?7:0;
 		
 		this.boxList.clear();
 		this.bipedRightArm = new ModelRenderer(this, u, v);

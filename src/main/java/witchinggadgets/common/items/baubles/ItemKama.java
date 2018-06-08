@@ -31,7 +31,6 @@ public class ItemKama extends ItemCloak implements IBauble
 		this.itemIcon = iconRegister.registerIcon("witchinggadgets:kama");
 		this.iconRaven = iconRegister.registerIcon("witchinggadgets:kama_raven");
 		this.iconWolf = iconRegister.registerIcon("witchinggadgets:kama_wolf");
-
 		this.overlay = iconRegister.registerIcon("witchinggadgets:kama_overlay");
 	}
 	@Override
@@ -65,11 +64,7 @@ public class ItemKama extends ItemCloak implements IBauble
 		return new ModelKama(getColor(itemStack));
 	}
 
-	@Override
-	public int getSlot(ItemStack stack)
-	{
-		return -1;
-	}
+
 	@Override
 	public BaubleType getBaubleType(ItemStack stack)
 	{
@@ -79,9 +74,11 @@ public class ItemKama extends ItemCloak implements IBauble
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List list, boolean par4)
 	{
+		String type = "bauble."+getBaubleType(stack);
+		list.add(StatCollector.translateToLocalFormatted(Lib.DESCRIPTION+"gearSlot."+type));
+
 		if(stack.hasTagCompound() && stack.getTagCompound().getBoolean("noGlide"))
 			list.add(StatCollector.translateToLocal(Lib.DESCRIPTION+"noGlide"));
-		list.add(StatCollector.translateToLocalFormatted(Lib.DESCRIPTION+"gearSlot.bauble."+getBaubleType(stack)));
 
 		if(Loader.isModLoaded("Botania"))
 		{
@@ -110,19 +107,6 @@ public class ItemKama extends ItemCloak implements IBauble
 	{
 		if(living instanceof EntityPlayer)
 			this.onItemTicked((EntityPlayer) living, stack);
-	}
-	
-	@Override
-	public void onTravelGearTick(EntityPlayer player, ItemStack stack)
-	{
-	}
-	@Override
-	public void onTravelGearEquip(EntityPlayer player, ItemStack stack)
-	{
-	}
-	@Override
-	public void onTravelGearUnequip(EntityPlayer player, ItemStack stack)
-	{
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package witchinggadgets.client.nei;
+/* package witchinggadgets.client.nei;
 
 import static codechicken.lib.gui.GuiDraw.changeTexture;
 import static codechicken.lib.gui.GuiDraw.drawTexturedModalRect;
@@ -115,4 +115,4 @@ public class NEISpinningWheelHandler extends TemplateRecipeHandler
 		drawTexturedModalRect(0, 0, 5, 11, 166, 106);
 	}
 
-}
+} */

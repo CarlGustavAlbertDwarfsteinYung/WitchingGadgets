@@ -53,7 +53,7 @@ public class ItemScanCamera extends Item {
 			for(int slot = 0;slot<player.inventory.mainInventory.length;slot++)
 			{
 				ItemStack item = player.inventory.mainInventory[slot];
-				if(item != null && item.getItem() == ConfigItems.itemResource	&& item.getItemDamage() == 10)
+				if(item != null && item.getItem() == ConfigItems.itemResource && item.getItemDamage() == 10)
 				{
 					player.inventory.decrStackSize(slot, 1);
 					takePhoto = true;

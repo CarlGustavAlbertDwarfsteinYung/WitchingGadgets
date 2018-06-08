@@ -26,22 +26,15 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.aspects.Aspect;
-import travellersgear.api.IActiveAbility;
-import travellersgear.api.IEventGear;
 import witchinggadgets.api.IPrimordialCrafting;
 import witchinggadgets.common.WGContent;
 import witchinggadgets.common.util.Utilities;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemPrimordialHammer extends ItemPickaxe implements IPrimordialCrafting, IActiveAbility, IRepairable, IEventGear, IPrimordialGear
+public class ItemPrimordialHammer extends ItemPickaxe implements IPrimordialCrafting, IRepairable, IPrimordialGear
 {
 	IIcon overlay;
 	public static Material[] validMats = {Material.anvil,Material.clay,Material.craftedSnow,Material.glass,Material.grass,Material.ground,Material.ice,Material.iron,Material.packedIce,Material.piston,Material.rock,Material.sand,Material.snow};
@@ -139,7 +132,7 @@ public class ItemPrimordialHammer extends ItemPickaxe implements IPrimordialCraf
 		}
 		return false;
 	}
-	@Override
+	/* @Override
 	public void onUserDamaged(LivingHurtEvent event, ItemStack stack)
 	{
 		if(getAbility(stack)==1 && ((EntityPlayer)event.entityLiving).isBlocking())
@@ -164,7 +157,7 @@ public class ItemPrimordialHammer extends ItemPickaxe implements IPrimordialCraf
 	{
 		if(!player.worldObj.isRemote)
 			cycleAbilities(stack);
-	}
+	} */
 
 	@Override
 	public int getReturnedPearls(ItemStack stack)
@@ -303,7 +296,7 @@ public class ItemPrimordialHammer extends ItemPickaxe implements IPrimordialCraf
 		return Utilities.compareToOreName(stack2, "ingotVoid");
 	}
 
-	@Override
+	/* @Override
 	public void onUserAttacking(AttackEntityEvent event, ItemStack stack)
 	{
 	}
@@ -318,5 +311,5 @@ public class ItemPrimordialHammer extends ItemPickaxe implements IPrimordialCraf
 	@Override
 	public void onUserTargeted(LivingSetAttackTargetEvent event, ItemStack stack)
 	{
-	}
+	} */
 }

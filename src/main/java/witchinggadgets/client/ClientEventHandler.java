@@ -36,7 +36,7 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.ConfigItems;
-import travellersgear.api.RenderTravellersGearEvent;
+// import travellersgear.api.RenderTravellersGearEvent;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.common.WGContent;
 import witchinggadgets.common.WGResearch;
@@ -291,7 +291,7 @@ public class ClientEventHandler
 				event.result=-2;
 		}
 	}
-	@SideOnly(Side.CLIENT)
+	/* @SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void renderTravellersGear(RenderTravellersGearEvent event)
 	{
@@ -305,7 +305,7 @@ public class ClientEventHandler
 		for(ItemStack cloak : Utilities.getActiveMagicalCloak(event.entityPlayer))
 			if(cloak!=null && cloak.hasTagCompound() && cloak.getTagCompound().getBoolean("isSpectral"))
 				event.shouldRender=false;
-	}
+	} */
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -344,7 +344,7 @@ public class ClientEventHandler
 			EntityPlayer pl = Minecraft.getMinecraft().thePlayer.worldObj.getPlayerEntityByName(event.entity.getCommandSenderName());
 			if(pl!=null)
 				for(ItemStack cloak : Utilities.getActiveMagicalCloak(pl))
-					if(cloak!=null && cloak.hasTagCompound() && cloak.getTagCompound().getBoolean("isSpectral"))
+					if(cloak!=null && cloak.getItemDamage()==1)
 					{
 						GL11.glEnable(3042);
 						boolean goggles = Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(4)!=null && (Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(4).getItem() instanceof IRevealer || Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(4).getItem() instanceof IGoggles);
@@ -370,7 +370,7 @@ public class ClientEventHandler
 			EntityPlayer pl = Minecraft.getMinecraft().thePlayer.worldObj.getPlayerEntityByName(event.entity.getCommandSenderName());
 			if(pl!=null)
 				for(ItemStack cloak : Utilities.getActiveMagicalCloak(pl))
-					if(cloak!=null && cloak.hasTagCompound() && cloak.getTagCompound().getBoolean("isSpectral"))
+					if(cloak!=null && cloak.getItemDamage()==1)
 					{
 						GL11.glDisable(3042);
 						GL11.glColor4f(1,1,1,1);
@@ -386,7 +386,7 @@ public class ClientEventHandler
 			EntityPlayer pl = Minecraft.getMinecraft().thePlayer.worldObj.getPlayerEntityByName(event.entity.getCommandSenderName());
 			if(pl!=null)
 				for(ItemStack cloak : Utilities.getActiveMagicalCloak(pl))
-					if(cloak!=null && cloak.hasTagCompound() && cloak.getTagCompound().getBoolean("isSpectral"))
+					if(cloak!=null && cloak.getItemDamage()==1)
 					{
 						boolean unveiling = EnchantmentHelper.getEnchantmentLevel(WGContent.enc_unveiling.effectId, Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(4))>0;
 						if(!unveiling)

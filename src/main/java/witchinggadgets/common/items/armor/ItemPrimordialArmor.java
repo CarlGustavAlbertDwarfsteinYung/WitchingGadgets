@@ -13,25 +13,17 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.Config;
 import thaumcraft.common.items.armor.Hover;
 import thaumcraft.common.items.armor.ItemFortressArmor;
-import travellersgear.api.IActiveAbility;
-import travellersgear.api.IEventGear;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.api.IPrimordialCrafting;
 import witchinggadgets.client.render.ModelPrimordialArmor;
@@ -40,7 +32,7 @@ import witchinggadgets.common.util.Utilities;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemPrimordialArmor extends ItemFortressArmor implements IActiveAbility, IPrimordialCrafting, IEventGear, IPrimordialGear
+public class ItemPrimordialArmor extends ItemFortressArmor implements IPrimordialCrafting, IPrimordialGear
 {
 	IIcon rune;
 
@@ -204,7 +196,7 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IActiveAbi
 		return new ISpecialArmor.ArmorProperties(priority, ratio, armor.getMaxDamage() + 1 - armor.getItemDamage());
 	}
 
-	@Override
+	/* @Override
 	public boolean canActivate(EntityPlayer player, ItemStack stack, boolean isInHand)
 	{
 		return true;
@@ -217,7 +209,7 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IActiveAbi
 		if(!player.worldObj.isRemote)
 			cycleAbilities(stack);
 		//		toggleActive(stack);
-	}
+	} */
 
 	//	public PrimordialArmorUpgrade getUpgrade(ItemStack stack)
 	//	{
@@ -313,7 +305,7 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IActiveAbi
 		return stack.getTagCompound().getInteger("currentMode");
 	}
 
-	@Override
+	/* @Override
 	public void onUserDamaged(LivingHurtEvent event, ItemStack stack)
 	{
 		if(event.entityLiving instanceof EntityPlayer)
@@ -342,7 +334,7 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IActiveAbi
 				break;
 			}
 		}
-	}
+	} */
 
 	@Override
 	public boolean getIsRepairable(ItemStack stack1, ItemStack stack2)
@@ -350,7 +342,7 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IActiveAbi
 		return Utilities.compareToOreName(stack2, "ingotVoid");
 	}
 
-	@Override
+	/* @Override
 	public void onUserAttacking(AttackEntityEvent event, ItemStack stack)
 	{
 	}
@@ -391,5 +383,5 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IActiveAbi
 	//		{
 	//			return aspects;
 	//		}
-	//	}
+	//	} */
 }
