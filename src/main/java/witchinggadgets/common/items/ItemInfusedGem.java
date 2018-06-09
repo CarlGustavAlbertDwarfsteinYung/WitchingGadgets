@@ -38,6 +38,7 @@ import thaumcraft.common.tiles.TileMirror;
 import thaumcraft.common.tiles.TileMirrorEssentia;
 import thaumcraft.common.tiles.TileNode;
 import thaumcraft.common.tiles.TileVisRelay;
+import vazkii.botania.common.brew.potion.PotionSoulCross;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.api.IInfusedGem;
 import witchinggadgets.client.ClientTickHandler;
@@ -101,79 +102,90 @@ public class ItemInfusedGem extends Item implements IInfusedGem
 			return false;
 
 		World world = player.worldObj;
-		if(cut==GemCut.POINT.toString())
-		{
-			int x = (int) Math.floor(player.posX);
-			int y = (int) player.posY + 1;
-			int z = (int) Math.floor(player.posZ);
-			if(aspect.equals(Aspect.AIR))
-				player.addPotionEffect(new PotionEffect(Potion.jump.id,300+20*potency,4+(potency>1?1:0)));
-			if(aspect.equals(Aspect.FIRE))
-			{
-				TileEntity te;
-				int[] dist = potency>2?new int[]{-8,-6,-4,4,6,8}: potency>1?new int[]{-6,-4,4,6,}: potency>0?new int[]{-4,4}: new int[]{-2,2};
-				for(int xoff:dist)
-					for(int zoff:dist)
-						if(world.isAirBlock(x+xoff, y, z+zoff) && world.getBlockLightValue(x+xoff, y, z+zoff)<10)
-						{
-							if(!world.isRemote)
-								world.setBlock(x+xoff, y, z+zoff, WGContent.BlockCustomAiry);
-							world.scheduleBlockUpdate(x+xoff, y, z+zoff, WGContent.BlockCustomAiry, 10);
-							te = world.getTileEntity(x+xoff, y, z+zoff);
-							if(te!=null && te instanceof TileEntityTempLight)
-								((TileEntityTempLight)te).tickMax=3600 + potency*800;//3m + Potency*40s
+		int x = (int) Math.floor(player.posX);
+		int y = (int) player.posY + 1;
+		int z = (int) Math.floor(player.posZ);
+
+		MovingObjectPosition mop = EntityUtils.getMovingObjectPositionFromPlayer(world, player, false);
+		int targetX = mop==null?0: mop.blockX+(mop.sideHit==4?-1:mop.sideHit==5?1:0);
+		int targetY = mop==null?0: mop.blockY+(mop.sideHit==0?-1:mop.sideHit==1?1:0);
+		int targetZ = mop==null?0: mop.blockZ+(mop.sideHit==2?-1:mop.sideHit==3?1:0);
+		boolean dmg = false;
+
+		if(cut==GemCut.POINT.toString()) {
+			if (aspect.equals(Aspect.AIR))
+				player.addPotionEffect(new PotionEffect(Potion.jump.id, 300 + potency * 20, 4 + (potency > 1 ? 1 : 0)));
+			if (aspect.equals(Aspect.FIRE)) {
+				if ( player.isSneaking()) {
+					if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+						if (world.isAirBlock(targetX, targetY, targetZ)) {
+							world.playSoundEffect(targetX + 5f, targetY + 5f, targetZ + .5f, "mob.ghast.fireball", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
+							world.setBlock(targetX, targetY, targetZ, Blocks.fire, 0, 3);
+							dmg = true;
 						}
-				if(world.isAirBlock(x, y+2, z) && world.getBlockLightValue(x, y+2, z)<10)
-				{
-					if(!world.isRemote)
-						world.setBlock(x, y+2, z, WGContent.BlockCustomAiry);
-					world.scheduleBlockUpdate(x, y+2, z, WGContent.BlockCustomAiry, 10);
-					te = world.getTileEntity(x, y+2, z);
-					if(te!=null && te instanceof TileEntityTempLight)
-						((TileEntityTempLight)te).tickMax=3600 + potency*800;//3m + Potency*40s
+					}
 				}
+				else {
+					player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 100 + potency * 100, 1 + (potency > 0 ? 1 : 0)));
+				}
+
 			}
-			if(aspect.equals(Aspect.WATER))
-			{
-				int dist = 2+potency;
-				for(int yOff=-3;yOff<=0;yOff++)
-					for(int xOff=-dist;xOff<=dist;xOff++)
-						for(int zOff=-dist;zOff<=dist;zOff++)
-							if(world.getBlock(x+xOff, y+yOff, z+zOff)!=null)
-							{
-								if(world.getBlock(x+xOff, y+yOff, z+zOff).equals(Blocks.water))
-									world.setBlock(x+xOff, y+yOff, z+zOff, Blocks.ice);
-								if(world.getBlock(x+xOff, y+yOff, z+zOff).equals(Blocks.lava))
-									world.setBlock(x+xOff, y+yOff, z+zOff, Blocks.obsidian);
-								if(world.getBlock(x+xOff, y+yOff, z+zOff).equals(Blocks.flowing_lava))
-									world.setBlock(x+xOff, y+yOff, z+zOff, Blocks.cobblestone);
+			if (aspect.equals(Aspect.WATER)) {
+				int dist = 2 + potency;
+				for (int yOff = -3; yOff <= 0; yOff++)
+					for (int xOff = -dist; xOff <= dist; xOff++)
+						for (int zOff = -dist; zOff <= dist; zOff++)
+							if (world.getBlock(x + xOff, y + yOff, z + zOff) != null) {
+								if (world.getBlock(x + xOff, y + yOff, z + zOff).equals(Blocks.lava))
+									world.setBlock(x + xOff, y + yOff, z + zOff, Blocks.obsidian);
+								//if (world.getBlock(x + xOff, y + yOff, z + zOff).equals(Blocks.flowing_lava))
+								//	world.setBlock(x + xOff, y + yOff, z + zOff, Blocks.cobblestone);
+								else if (world.getBlock(x + xOff, y + yOff, z + zOff).equals(Blocks.water))
+									world.setBlock(x + xOff, y + yOff, z + zOff, Blocks.ice);
 							}
 			}
-			if(aspect.equals(Aspect.EARTH) && !world.isRemote)
-				player.addPotionEffect(new PotionEffect(WGContent.pot_knockbackRes.id,100+potency*100,1+(potency>0?1:0)));
-			if(aspect.equals(Aspect.ORDER))
-				player.heal(6+potency*6);
-			if(aspect.equals(Aspect.ENTROPY))
-				Thaumcraft.addWarpToPlayer(player, 3+(potency*3), true);
+			if (aspect.equals(Aspect.EARTH) && !world.isRemote) {
+				player.addPotionEffect(new PotionEffect(WGContent.pot_knockbackRes.id, 300 + potency * 100, 1 + (potency > 0 ? 1 : 0)));
+				player.addPotionEffect(new PotionEffect(PotionSoulCross.resistance.id, 300 + potency * 100, 4 + (potency > 0 ? 1 : 0)));
+				//player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 100 + potency * 100, 2 + (potency > 0 ? 2 : 0)));
+			}
+			if (aspect.equals(Aspect.ORDER))
+				player.heal(6 + potency * 6);
+			if (aspect.equals(Aspect.ENTROPY)) {
+				Thaumcraft.addWarpToPlayer(player, 3 + (potency * 3), true);
+				player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 300 + potency * 100, 1));
+			}
 
 			return true;
 		}
+
 		if(cut==GemCut.OVAL.toString())
 		{
-			MovingObjectPosition mop = EntityUtils.getMovingObjectPositionFromPlayer(world, player, false);
-			int targetX = mop==null?0: mop.blockX+(mop.sideHit==4?-1:mop.sideHit==5?1:0);
-			int targetY = mop==null?0: mop.blockY+(mop.sideHit==0?-1:mop.sideHit==1?1:0);
-			int targetZ = mop==null?0: mop.blockZ+(mop.sideHit==2?-1:mop.sideHit==3?1:0);
-			boolean dmg = false;
 			if(aspect.equals(Aspect.FIRE))
 			{
-				if(mop!=null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
-					if(world.isAirBlock(targetX,targetY,targetZ))
-					{
-						world.playSoundEffect(targetX+5f, targetY+5f, targetZ+.5f, "mob.ghast.fireball", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-						world.setBlock(targetX, targetY, targetZ, Blocks.fire,0,3);
-						dmg = true;
-					}
+				TileEntity te;
+				int[] dist = potency > 2 ? new int[]{-8, -6, -4, 4, 6, 8} : potency > 1 ? new int[]{-6, -4, 4, 6,} : potency > 0 ? new int[]{-4, 4} : new int[]{-2, 2};
+				for (int xoff : dist)
+					for (int zoff : dist)
+						if (world.isAirBlock(x + xoff, y, z + zoff) && world.getBlockLightValue(x + xoff, y, z + zoff) < 10) {
+							if (!world.isRemote)
+								world.setBlock(x + xoff, y, z + zoff, WGContent.BlockCustomAiry);
+							world.scheduleBlockUpdate(x + xoff, y, z + zoff, WGContent.BlockCustomAiry, 10);
+							te = world.getTileEntity(x + xoff, y, z + zoff);
+							if (te != null && te instanceof TileEntityTempLight)
+								((TileEntityTempLight) te).tickMax = 3600 + potency * 800;//3m + Potency*40s
+						}
+				if (world.isAirBlock(x, y + 2, z) && world.getBlockLightValue(x, y + 2, z) < 10) {
+					if (!world.isRemote)
+						world.setBlock(x, y + 2, z, WGContent.BlockCustomAiry);
+					world.scheduleBlockUpdate(x, y + 2, z, WGContent.BlockCustomAiry, 10);
+					te = world.getTileEntity(x, y + 2, z);
+					if (te != null && te instanceof TileEntityTempLight)
+						((TileEntityTempLight) te).tickMax = 3600 + potency * 800;//3m + Potency*40s
+				}
+
+
+
 			}
 			if(aspect.equals(Aspect.WATER))
 			{
@@ -213,10 +225,6 @@ public class ItemInfusedGem extends Item implements IInfusedGem
 			}
 			if(aspect.equals(Aspect.ORDER))
 			{
-				int x = (int) Math.floor(player.posX);
-				int y = (int) player.posY + 1;
-				int z = (int) Math.floor(player.posZ);
-
 				String node = Utilities.findCloseNode(world, new ChunkCoordinates(x,y,z));
 				if(TileNode.locations.get(node)!=null)
 				{
@@ -290,9 +298,9 @@ public class ItemInfusedGem extends Item implements IInfusedGem
 					dmg = true;
 				}
 			}
-			return dmg;
 		}
-		return false;
+
+		return dmg;
 	}
 
 	@Override

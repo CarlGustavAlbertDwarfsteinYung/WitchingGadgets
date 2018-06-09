@@ -174,7 +174,7 @@ public class ClientEventHandler
 			RenderItem ri = RenderItem.getInstance();
 
 			if(WGKeyHandler.gemLock && (mc.thePlayer.getCurrentEquippedItem()==null || !(mc.thePlayer.getCurrentEquippedItem().getItem() instanceof ItemPrimordialGlove)))
-				WGKeyHandler.gemLock=false;	
+				WGKeyHandler.gemLock=false;
 
 			GL11.glEnable(3042);
 			double rad = 50*WGKeyHandler.gemRadial;
@@ -216,7 +216,7 @@ public class ClientEventHandler
 				double reverseRadius = Math.sqrt(mx*mx + my*my);
 				double reverseAngle = (mx<0?180:0)+Math.abs((mx<0?-180:0)+ (my<0?90:0)+Math.abs((my<0?-90:0)+Math.abs(Math.toDegrees(Math.acos(mx/reverseRadius))-90)));
 				int sel = reverseAngle>288?0: reverseAngle<72?1: 2+(int)((288-reverseAngle)/72);
-				//				
+				//
 				//				mc.fontRenderer.drawString("mPos: "+mx+", "+my+", sel: "+sel, x, y, 0xffffff);
 				GL11.glPushMatrix();
 				for(int g=0;g<gems.length;g++)
@@ -285,7 +285,7 @@ public class ClientEventHandler
 	{
 		int translucency = EnchantmentHelper.getEnchantmentLevel(WGContent.enc_invisibleGear.effectId, event.stack);
 		if(event.stack!=null && (translucency>1 || (translucency>0 && event.entityPlayer.isInvisible())))
-		{	
+		{
 			boolean unveiling = EnchantmentHelper.getEnchantmentLevel(WGContent.enc_unveiling.effectId, Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(4))>0;
 			if(event.entityPlayer.equals(Minecraft.getMinecraft().thePlayer) || !unveiling )
 				event.result=-2;

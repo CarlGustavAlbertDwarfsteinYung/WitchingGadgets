@@ -53,7 +53,7 @@ public class WGConfig
 		tripplingClusterList = config.get("Other Options", "Trippling Cluster List", clusters, "A list of ore names for which the clsuters should smelt into three ingots. This is so that custom AOBD clsuters can be thrown into the Blast Furnace").getStringList();
 		
 		limitBookSearchToCategory = config.get("Other Options", "Limit Book Search", false, "Thaumonomicon Search to currently active category").getBoolean(false);
-		radialSpeed = config.getFloat("Other Options", "Selection Radial Speed", .15f, .15f, 1, "The speed at which the gem-selection for the primordial glove opens. 15% is the minimum.");
+		radialSpeed = config.getFloat("Other Options", "Selection Radial Speed", .4f, .4f, 1, "The speed at which the gem-selection for the primordial glove opens. 15% is the minimum.");
 
 		coremod_allowBootsRepair = config.get("Other Options", "Allow Boot repair", true, "Dis-/enable repairing the Boots of the Traveller with leather").getBoolean(true);
 		//coremod_allowFocusPouchActive = config.get("Other Options", "Allow FocusPouch active ability", true, "Dis-/enable the IActiveAbiltiy on the FocusPouch. With this enabled, TGs active ability menu will allow you to open the pouch.").getBoolean(true);

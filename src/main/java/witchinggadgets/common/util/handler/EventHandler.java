@@ -6,6 +6,7 @@ import java.util.List;
 import baubles.api.BaublesApi;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -21,6 +22,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
@@ -51,6 +54,7 @@ import thaumcraft.common.tiles.TileInfusionMatrix;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.api.IPrimordialCrafting;
 import witchinggadgets.common.WGContent;
+import witchinggadgets.common.items.ItemInfusedGem;
 import witchinggadgets.common.items.ItemMaterials;
 import witchinggadgets.common.items.baubles.ItemCloak;
 import witchinggadgets.common.items.baubles.ItemMagicalBaubles;
@@ -110,13 +114,42 @@ public class EventHandler
 			EntityPlayer player = (EntityPlayer)event.source.getSourceOfDamage();
 			if(player.getCurrentEquippedItem().getItem().equals(WGContent.ItemPrimordialHammer) && (event.entityLiving instanceof EntitySlime || event.entityLiving.getClass().getName().endsWith("BlueSlime") || event.entityLiving.getCreatureAttribute()==EnumCreatureAttribute.ARTHROPOD) )
 				event.ammount *= 2;
-			if(player.getCurrentEquippedItem().getItem().equals(WGContent.ItemPrimordialAxe) && !event.source.isUnblockable())
+			else if(player.getCurrentEquippedItem().getItem().equals(WGContent.ItemPrimordialAxe) && !event.source.isUnblockable())
 			{
 				float mod = 1;
 				for(int i=1; i<=4; i++)
 					if(event.entityLiving.getEquipmentInSlot(i)!=null)
 						mod +=.5f;
 				event.ammount*=mod;
+			}
+			else if (player.getCurrentEquippedItem().getItem().equals(WGContent.ItemPrimordialGlove) && !event.entityLiving.isImmuneToFire())
+			{
+				ItemStack stack = player.getCurrentEquippedItem();
+
+				if(stack != null && stack.hasTagCompound() && stack.getTagCompound().hasKey("selected")){
+					int sel = stack.getTagCompound().getInteger("selected");
+					NBTTagList list = stack.getTagCompound().getTagList("gems", 10);
+					NBTTagCompound tag = list.getCompoundTagAt(sel);
+					int slot = tag.getByte("Slot") & 0xFF;
+					ItemStack gem = ItemStack.loadItemStackFromNBT(tag);
+
+					if (gem != null && gem.hasTagCompound() && gem.getTagCompound().hasKey("Aspect") && gem.getTagCompound().hasKey("GemCut")) {
+						Aspect gemasp = Aspect.getAspect(gem.getTagCompound().getString("Aspect"));
+						ItemInfusedGem.GemCut gemcut = ItemInfusedGem.GemCut.getValue(gem.getTagCompound().getByte("GemCut"));
+
+						if (gemasp != null) {
+							if (gemcut == ItemInfusedGem.GemCut.POINT) {
+								if (gemasp.equals(Aspect.FIRE)) {
+									event.entityLiving.setFire(1);
+								} else if (gemasp.equals(Aspect.EARTH)) {
+									//player.knockBack(event.entityLiving, 4.0F,  4D, 0D);
+								}
+							}
+						}
+					}
+
+					//System.out.println("sel=" + sel + " gem=" + gem + " gemasp=" + Aspect.getAspect(gem.getTagCompound().getString("Aspect")) + " gemcut=" + ItemInfusedGem.GemCut.getValue(gem.getTagCompound().getByte("GemCut")));
+				}
 			}
 
 			if(EnchantmentHelper.getEnchantmentLevel(WGContent.enc_backstab.effectId,player.getCurrentEquippedItem())>0 )
