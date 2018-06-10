@@ -151,10 +151,6 @@ public class ItemPrimordialGlove extends Item implements IPrimordialCrafting
 				}
 			}
 		}
-		if(player.isSneaking() && !b)
-		{
-			player.openGui(WitchingGadgets.instance, 7, world, (int)player.posX,(int)player.posY,(int)player.posZ);
-		}
 		return super.onItemRightClick(stack, world, player);
 	}
 

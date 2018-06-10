@@ -24,6 +24,7 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
@@ -76,9 +77,9 @@ public class EventHandler
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void entityHurt(LivingHurtEvent event)
 	{
-		if (event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer ep = (EntityPlayer) event.entityLiving;
-			IInventory ii = BaublesApi.getBaubles(ep);
+		if (event.entityLiving instanceof EntityPlayer) { // PLAYER HURT
+			EntityPlayer player = (EntityPlayer) event.entityLiving;
+			IInventory ii = BaublesApi.getBaubles(player);
 
 			if (ii.getStackInSlot(0) != null) {
 				ItemStack stack = ii.getStackInSlot(0);
@@ -103,13 +104,27 @@ public class EventHandler
 								event.setCanceled(true);
 						} */
 					}
+			} else if (player.getCurrentEquippedItem() != null) {
+				ItemStack stack = player.getCurrentEquippedItem();
+				if (stack.getItem().equals(WGContent.ItemPrimordialAxe) || stack.getItem().equals(WGContent.ItemPrimordialHammer) || stack.getItem().equals(WGContent.ItemPrimordialSword )) {
+					if (player.isBlocking()) {
+						if (stack.hasTagCompound() && stack.getTagCompound().getInteger("currentMode") == 1) {
+							int time = event.entityLiving.getActivePotionEffect(Potion.resistance) != null ? event.entityLiving.getActivePotionEffect(Potion.resistance).getDuration() : 0;
+							time = Math.min(time + 30, 80);
+							int amp = event.entityLiving.getActivePotionEffect(Potion.resistance) != null ? event.entityLiving.getActivePotionEffect(Potion.resistance).getAmplifier() : -1;
+							amp = Math.min(amp + 1, 2);
+							event.entityLiving.addPotionEffect(new PotionEffect(Potion.resistance.id, time, amp));
+							event.entityLiving.addPotionEffect(new PotionEffect(WGContent.pot_knockbackRes.id, time, amp));
+						}
+					}
+				}
 			}
 		}
 
-		if(event.source.isFireDamage() && event.entityLiving.getActivePotionEffect(WGContent.pot_cinderCoat)!=null)
+		if(event.source.isFireDamage() && event.entityLiving.getActivePotionEffect(WGContent.pot_cinderCoat)!=null) // ENTITY ON FIRE
 			event.ammount *= 2+ event.entityLiving.getActivePotionEffect(WGContent.pot_cinderCoat).getAmplifier();
 
-		if(event.source.getSourceOfDamage() instanceof EntityPlayer && ((EntityPlayer)event.source.getSourceOfDamage()).getCurrentEquippedItem()!=null)
+		if(event.source.getSourceOfDamage() instanceof EntityPlayer && ((EntityPlayer)event.source.getSourceOfDamage()).getCurrentEquippedItem()!=null) // PLAYER IS DOING THE DAMAGING
 		{
 			EntityPlayer player = (EntityPlayer)event.source.getSourceOfDamage();
 			if(player.getCurrentEquippedItem().getItem().equals(WGContent.ItemPrimordialHammer) && (event.entityLiving instanceof EntitySlime || event.entityLiving.getClass().getName().endsWith("BlueSlime") || event.entityLiving.getCreatureAttribute()==EnumCreatureAttribute.ARTHROPOD) )
@@ -122,7 +137,7 @@ public class EventHandler
 						mod +=.5f;
 				event.ammount*=mod;
 			}
-			else if (player.getCurrentEquippedItem().getItem().equals(WGContent.ItemPrimordialGlove) && !event.entityLiving.isImmuneToFire())
+			else if (player.getCurrentEquippedItem().getItem().equals(WGContent.ItemPrimordialGlove))
 			{
 				ItemStack stack = player.getCurrentEquippedItem();
 
@@ -139,16 +154,13 @@ public class EventHandler
 
 						if (gemasp != null) {
 							if (gemcut == ItemInfusedGem.GemCut.POINT) {
-								if (gemasp.equals(Aspect.FIRE)) {
+								if (gemasp.equals(Aspect.FIRE) && !event.entityLiving.isImmuneToFire()) {
 									event.entityLiving.setFire(1);
-								} else if (gemasp.equals(Aspect.EARTH)) {
-									//player.knockBack(event.entityLiving, 4.0F,  4D, 0D);
 								}
 							}
 						}
 					}
 
-					//System.out.println("sel=" + sel + " gem=" + gem + " gemasp=" + Aspect.getAspect(gem.getTagCompound().getString("Aspect")) + " gemcut=" + ItemInfusedGem.GemCut.getValue(gem.getTagCompound().getByte("GemCut")));
 				}
 			}
 
