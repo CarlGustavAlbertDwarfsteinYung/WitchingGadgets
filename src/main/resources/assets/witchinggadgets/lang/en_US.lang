@@ -112,9 +112,9 @@ item.WG_Baubles.shouldersKnockback.name=Steadfast Spaulders
 item.WG_Baubles.vambraceStrength.name=Berserker's Bracers
 item.WG_Baubles.vambraceHaste.name=Vambraces of Steady Progression
 item.WG_Baubles.titleCrimsonCult.name=Title: Crimson Cult
-wg.title.crimsonCultist=Crimson Cultist
-wg.title.crimsonKnight=Crimson Knight
-wg.title.crimsonPraetor=Crimson Praetor
+wg.title.crimsonCultist=§4Crimson Cultist
+wg.title.crimsonKnight=§4Crimson Knight
+wg.title.crimsonPraetor=§6Crimson Praetor
 item.WG_Baubles.ringLuck.name=Ring of the Covetous Coin
 item.WG_Baubles.ringSniper.name=Band of the Sniper
 
@@ -197,11 +197,11 @@ wg.potionCinderCoat=Cinder Coat
 
 # -- Research --
 # Formatting:
-# �l 	Bold
-# �m 	Strikethrough
-# �n 	Underline
-# �o 	Italic
-# �r 	Reset
+# §l 	Bold
+# §m 	Strikethrough
+# §n 	Underline
+# §o 	Italic
+# §r 	Reset
 # <BR>  LineBreak
 # <LINE>Fancy LineBreak
 #

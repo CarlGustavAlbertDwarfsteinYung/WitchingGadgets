@@ -291,21 +291,6 @@ public class ClientEventHandler
 				event.result=-2;
 		}
 	}
-	/* @SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void renderTravellersGear(RenderTravellersGearEvent event)
-	{
-		int translucency = EnchantmentHelper.getEnchantmentLevel(WGContent.enc_invisibleGear.effectId, event.stack);
-		if(event.stack!=null && (translucency>1 || (translucency>0 && event.entityPlayer.isInvisible())))
-		{	
-			boolean unveiling = EnchantmentHelper.getEnchantmentLevel(WGContent.enc_unveiling.effectId, Minecraft.getMinecraft().thePlayer.getEquipmentInSlot(4))>0;
-			if(event.entityPlayer.equals(Minecraft.getMinecraft().thePlayer) || !unveiling )
-				event.shouldRender=false;
-		}
-		for(ItemStack cloak : Utilities.getActiveMagicalCloak(event.entityPlayer))
-			if(cloak!=null && cloak.hasTagCompound() && cloak.getTagCompound().getBoolean("isSpectral"))
-				event.shouldRender=false;
-	} */
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent

@@ -37,8 +37,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.Interface(iface = "vazkii.botania.api.item.ICosmeticAttachable", modid = "Botania")
 public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.ICosmeticAttachable {
-	public static String[] subNames = {"standard", "spectral", "storage", "wolf", "raven"};
-	int[] defaultColours = {};
+	public static String[] subNames = {"standard", "spectral", "wolf", "raven"};
 	IIcon iconRaven;
 	IIcon iconWolf;
 
@@ -61,9 +60,9 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 
 	@Override
 	public IIcon getIconFromDamage(int meta) {
-		if (meta == 3)
+		if (meta == 2)
 			return this.iconWolf;
-		if (meta == 4)
+		if (meta == 3)
 			return this.iconRaven;
 		return this.itemIcon;
 	}
@@ -88,7 +87,7 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 			NBTTagCompound tagDisplay = tag.getCompoundTag("display");
 			return tagDisplay == null ? ClientUtilities.colour_CloakBlue : (tagDisplay.hasKey("color") ? tagDisplay.getInteger("color") : ClientUtilities.colour_CloakBlue);
 		}
-		return meta == 1 ? Aspect.DARKNESS.getColor() : meta == 2 ? Aspect.VOID.getColor() : 0xffffff;
+		return meta == 1 ? Aspect.DARKNESS.getColor() :  0xffffff;
 	}
 
 	public void removeColor(ItemStack stack) {
@@ -150,7 +149,7 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List itemList) {
 		for (int i = 0; i < subNames.length; i++)
-			if (i != 4 || WGModCompat.loaded_Twilight)
+			if (i != 3 || WGModCompat.loaded_Twilight)
 				itemList.add(new ItemStack(item, 1, i));
 	}
 
@@ -242,10 +241,6 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 		}
 
 		if (stack.getItemDamage() < subNames.length) {
-		/*	if (subNames[stack.getItemDamage()].equals("spectral") && !player.worldObj.isRemote && stack.hasTagCompound() && stack.getTagCompound().getBoolean("isSpectral"))
-				if (player.ticksExisted % 100 == 0)
-					if (!Utilities.consumeVisFromInventoryWithoutDiscount(player, new AspectList().add(Aspect.AIR, 1)))
-						stack.getTagCompound().setBoolean("isSpectral", false); */
 			if (subNames[stack.getItemDamage()].equals("raven")) {
 				if (!player.onGround) {
 					if (player.capabilities.isFlying || Hover.getHover(player.getEntityId())) {
@@ -278,126 +273,22 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 	}
 
 	public void onItemEquipped(EntityPlayer player, ItemStack stack) {
-		//if(stack.getItemDamage()==1)
-		//	Utilities.addAttributeModToLiving(player, SharedMonsterAttributes.knockbackResistance, new UUID(Lib.ATTRIBUTE_MOD_UUID, stack.getItemDamage()), "WGKnockbackResistance", 1.0, 0);
 	}
 
 	public void onItemUnequipped(EntityPlayer player, ItemStack stack) {
-		//if(stack.getItemDamage()==1)
-		//	Utilities.removeAttributeModFromLiving(player, SharedMonsterAttributes.knockbackResistance, new UUID(Lib.ATTRIBUTE_MOD_UUID, stack.getItemDamage()), "WGKnockbackResistance", 1.0, 0);
-		//if (stack.hasTagCompound() && stack.getTagCompound().getBoolean("isSpectral"))
-		//	stack.getTagCompound().setBoolean("isSpectral", false);
 	}
-
-	/* @Override
-	public boolean canActivate(EntityPlayer player, ItemStack stack, boolean isInHand)
-	{
-		return !isInHand && stack.getItemDamage()!=0 && stack.getItemDamage()!=3;
-	}
-
-	@Override
-	public void activate(EntityPlayer player, ItemStack stack)
-	{
-		if(stack.getItemDamage()<subNames.length)
-			//if(subNames[stack.getItemDamage()].equals("storage") && !player.worldObj.isRemote)
-		//		player.openGui(WitchingGadgets.instance, this.equals(WGContent.ItemKama)?5:4, player.worldObj, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
-			if(subNames[stack.getItemDamage()].equals("raven") && !player.worldObj.isRemote)
-			{
-				if(!stack.hasTagCompound())
-					stack.setTagCompound(new NBTTagCompound());
-				stack.getTagCompound().setBoolean("noGlide", !stack.getTagCompound().getBoolean("noGlide"));
-			}
-			else if(subNames[stack.getItemDamage()].equals("spectral") && !player.worldObj.isRemote && Utilities.consumeVisFromInventoryWithoutDiscount(player, new AspectList().add(Aspect.AIR,1)))
-			{
-				if(!stack.hasTagCompound())
-					stack.setTagCompound(new NBTTagCompound());
-				stack.getTagCompound().setBoolean("isSpectral", !stack.getTagCompound().getBoolean("isSpectral"));
-				if(stack.getTagCompound().getBoolean("isSpectral"))
-				{
-					for(EntityCreature e : (List<EntityCreature>)player.worldObj.getEntitiesWithinAABB(EntityCreature.class, AxisAlignedBB.getBoundingBox(player.posX-16,player.posY-16,player.posZ-16, player.posX+16,player.posY+16,player.posZ+16)))
-						if(e!=null && !(e instanceof IBossDisplayData) && player.equals(e.getAttackTarget()))
-							Utilities.setAttackTarget(e, null);
-				}
-			}
-	} */
 
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 
-		if (!world.isRemote) {
+		/* if (!world.isRemote) {
 			if(subNames[stack.getItemDamage()].equals("storage") && !player.worldObj.isRemote)
-				player.openGui(WitchingGadgets.instance,4, player.worldObj, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
-			/* if(subNames[stack.getItemDamage()].equals("raven") && !player.worldObj.isRemote)
-			{
-				if(!stack.hasTagCompound())
-					stack.setTagCompound(new NBTTagCompound());
-				stack.getTagCompound().setBoolean("noGlide", !stack.getTagCompound().getBoolean("noGlide"));
-			} */
-			/* else if(subNames[stack.getItemDamage()].equals("spectral") && !player.worldObj.isRemote && Utilities.consumeVisFromInventoryWithoutDiscount(player, new AspectList().add(Aspect.AIR,1)))
-			{
-				if(!stack.hasTagCompound())
-					stack.setTagCompound(new NBTTagCompound());
-				if (stack.hasTagCompound() && stack.getTagCompound().getBoolean("isSpectral"))
-					stack.getTagCompound().setBoolean("isSpectral", false);
-				else
-					stack.getTagCompound().setBoolean("isSpectral", true);
-				//stack.getTagCompound().setBoolean("isSpectral", !stack.getTagCompound().getBoolean("isSpectral")); */
-				/* if(stack.getTagCompound().getBoolean("isSpectral"))
-				{
-					for(EntityCreature e : (List<EntityCreature>)player.worldObj.getEntitiesWithinAABB(EntityCreature.class, AxisAlignedBB.getBoundingBox(player.posX-16,player.posY-16,player.posZ-16, player.posX+16,player.posY+16,player.posZ+16)))
-						if(e!=null && !(e instanceof IBossDisplayData) && player.equals(e.getAttackTarget()))
-							Utilities.setAttackTarget(e, null);
-				}
-			} */
-		}
+					player.openGui(WitchingGadgets.instance, 4, player.worldObj, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
+		} */
 
 		return stack;
 	}
-
-
-	/* @Override
-	public void onUserDamaged(LivingHurtEvent event, ItemStack stack)
-	{
-		if(!stack.equals(event.entityLiving.getEquipmentInSlot(0)) && stack.getItemDamage()==3)
-		{
-			int amp = 1;
-			if(event.ammount>=8)
-				amp++;
-			if(event.ammount>=12)
-				amp++;
-			if(!stack.hasTagCompound())
-				stack.setTagCompound(new NBTTagCompound());
-			stack.getTagCompound().setInteger("wolfPotion", amp);
-		}
-	} */
-
-	/* @Override
-	public void onUserAttacking(AttackEntityEvent event, ItemStack stack)
-	{
-	}
-
-	@Override
-	public void onUserJump(LivingJumpEvent event, ItemStack stack)
-	{
-	}
-
-	@Override
-	public void onUserFall(LivingFallEvent event, ItemStack stack)
-	{
-	} */
-
-	/* @Override
-	public void onUserTargeted(LivingSetAttackTargetEvent event, ItemStack stack)
-	{
-		if(subNames[stack.getItemDamage()].equals("raven") && event.entityLiving instanceof EntityCreature)
-		{
-			boolean goggles = event.entityLiving.getEquipmentInSlot(4)!=null && (event.entityLiving.getEquipmentInSlot(4).getItem() instanceof IRevealer || event.entityLiving.getEquipmentInSlot(4).getItem() instanceof IGoggles);
-			boolean special = event.entityLiving instanceof IEldritchMob || event.entityLiving instanceof IBossDisplayData;
-			if(!goggles)
-				Utilities.setAttackTarget((EntityCreature)event.entityLiving, null);
-		}
-	} */
 
 	@Optional.Method(modid = "Botania")
 	public ItemStack getCosmeticItem(ItemStack stack)

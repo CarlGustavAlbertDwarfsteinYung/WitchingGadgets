@@ -26,7 +26,6 @@ import thaumcraft.api.ItemApi;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.config.ConfigItems;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.common.blocks.BlockModifiedAiry;
 import witchinggadgets.common.blocks.BlockRoseVines;
@@ -229,7 +228,9 @@ public class WGContent
 		BlockCustomAiry = new BlockModifiedAiry().setBlockName("WG_CustomAir");
 		GameRegistry.registerBlock(BlockCustomAiry, BlockCustomAiry.getUnlocalizedName().substring("tile.".length()));
 
-		OreDictionary.registerOre("blockVoid", new ItemStack(BlockMetalDevice,1,7));
+		if (WGModCompat.loaded_TBases) {
+			OreDictionary.registerOre("blockVoid", new ItemStack(BlockMetalDevice, 1, 7));
+		}
 	}
 	private static void initializeBlocks()
 	{
@@ -302,12 +303,12 @@ public class WGContent
 		ItemMagicFoodstuffs = new ItemMagicFood().setUnlocalizedName("WG_MagicFood");
 		GameRegistry.registerItem(ItemMagicFoodstuffs, ItemMagicFoodstuffs.getUnlocalizedName());
 
-		ItemCloak = (ItemCloak) new ItemCloak().setUnlocalizedName("WG_Cloak");
+		ItemCloak = new ItemCloak().setUnlocalizedName("WG_Cloak");
 		GameRegistry.registerItem(ItemCloak, ItemCloak.getUnlocalizedName());
 
-		/* ItemKama = (ItemKama) new ItemKama().setUnlocalizedName("WG_Kama");
+		ItemKama = new ItemKama().setUnlocalizedName("WG_Kama");
 		GameRegistry.registerItem(ItemKama, ItemKama.getUnlocalizedName());
-*/
+
 		ItemInfusedGem = new ItemInfusedGem().setUnlocalizedName("WG_InfusedGem");
 		GameRegistry.registerItem(ItemInfusedGem, ItemInfusedGem.getUnlocalizedName());
 
@@ -344,7 +345,6 @@ public class WGContent
 		}
 		//ItemMagicBed = new ItemMagicBed(WGConfig.ItemMagicBedID).setUnlocalizedName("WG_MagicBed");
 		//GameRegistry.registerItem(ItemMagicBed, ItemMagicBed.getUnlocalizedName());
-		//OreDictionary.registerOre("blockVoid", new ItemStack(BlockMetalDevice,1,7));
 		//OreDictionary.registerOre("crystalNetherQuartz", new ItemStack(Items.quartz));
 		//OreDictionary.registerOre("scribingTools", new ItemStack(ConfigItems.itemInkwell,1,OreDictionary.WILDCARD_VALUE));
 	}
@@ -361,14 +361,16 @@ public class WGContent
 		RecipeSorter.register("WitchingGadgets:cloakdye", CloakColourizationRecipe.class, RecipeSorter.Category.SHAPELESS, "after:forge:shapelessore");
 		RecipeSorter.register("WitchingGadgets:bagdye", BagColourizationRecipe.class, RecipeSorter.Category.SHAPELESS, "after:forge:shapelessore");
 
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BlockMetalDevice,1,7), "vvv","vvv","vvv", 'v',"ingotVoid"));
-		ItemStack voidIngot = OreDictionary.getOres("ingotVoid").get(0);
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(voidIngot.getItem(),9,voidIngot.getItemDamage()), "blockVoid"));
-		
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemMagicFoodstuffs,1,0), Items.nether_wart,Items.sugar);
 		GameRegistry.addShapedRecipe(new ItemStack(ItemMagicFoodstuffs,1,1), "nnn","www", 'n',new ItemStack(ItemMagicFoodstuffs,1,0), 'w', Items.wheat);
 
 		EntityRegistry.registerModEntity(EntityItemReforming.class, "reformingItem", 0, WitchingGadgets.instance, 64, 1, true);
+
+		if (!WGModCompat.loaded_TBases) {
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BlockMetalDevice, 1, 7), "vvv", "vvv", "vvv", 'v', "ingotVoid"));
+			ItemStack voidIngot = OreDictionary.getOres("ingotVoid").get(0);
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(voidIngot.getItem(), 9, voidIngot.getItemDamage()), "blockVoid"));
+		}
 
 		if(WGConfig.allowClusters)
 		{

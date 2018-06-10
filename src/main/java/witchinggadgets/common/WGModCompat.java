@@ -32,6 +32,7 @@ public class WGModCompat
 	public static boolean loaded_Enviromine;
 	public static boolean loaded_Railcraft;
 	public static boolean loaded_TT;
+	public static boolean loaded_TBases;
 
 	public static void init()
 	{
@@ -46,6 +47,7 @@ public class WGModCompat
 		loaded_Enviromine = Loader.isModLoaded("enviromine");
 		loaded_Railcraft = Loader.isModLoaded("Railcraft");
 		loaded_TT = Loader.isModLoaded("ThaumicTinkerer");
+		loaded_TBases = Loader.isModLoaded("thaumicbases");
 
 		if(Loader.isModLoaded("MineTweaker3"))
 			WGMinetweaker.init();	

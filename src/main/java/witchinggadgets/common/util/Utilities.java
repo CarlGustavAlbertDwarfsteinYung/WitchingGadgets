@@ -368,10 +368,16 @@ public class Utilities
 	public static ItemStack[] getActiveMagicalCloak(EntityPlayer player)
 	{
 		ArrayList<ItemStack> list = new ArrayList();
-		/* if(TravellersGearAPI.getExtendedInventory(player)[0]!=null && TravellersGearAPI.getExtendedInventory(player)[0].getItem() instanceof ItemCloak)
-			list.add(TravellersGearAPI.getExtendedInventory(player)[0]);  */
-		if(BaublesApi.getBaubles(player).getStackInSlot(0)!=null && BaublesApi.getBaubles(player).getStackInSlot(0).getItem() instanceof ItemCloak)
-			list.add(BaublesApi.getBaubles(player).getStackInSlot(0));
+
+		ItemStack amulet = BaublesApi.getBaubles(player).getStackInSlot(0);
+		ItemStack belt = BaublesApi.getBaubles(player).getStackInSlot(3);
+
+		if (amulet != null && amulet.getItem() instanceof ItemCloak)
+			list.add(amulet);
+
+		if (belt != null && belt.getItem() instanceof ItemCloak)
+			list.add(belt);
+
 		return list.toArray(new ItemStack[0]);
 	}
 	public static void updateActiveMagicalCloak(EntityPlayer player, ItemStack cloak)

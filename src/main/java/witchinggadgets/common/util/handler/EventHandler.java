@@ -58,6 +58,7 @@ import witchinggadgets.common.WGContent;
 import witchinggadgets.common.items.ItemInfusedGem;
 import witchinggadgets.common.items.ItemMaterials;
 import witchinggadgets.common.items.baubles.ItemCloak;
+import witchinggadgets.common.items.baubles.ItemKama;
 import witchinggadgets.common.items.baubles.ItemMagicalBaubles;
 import witchinggadgets.common.items.tools.IPrimordialGear;
 import witchinggadgets.common.items.tools.ItemBag;
@@ -80,42 +81,28 @@ public class EventHandler
 		if (event.entityLiving instanceof EntityPlayer) { // PLAYER HURT
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			IInventory ii = BaublesApi.getBaubles(player);
+			ItemStack amulet = ii.getStackInSlot(0);
+			ItemStack belt = ii.getStackInSlot(3);
+			ItemStack stack = player.getCurrentEquippedItem();
 
-			if (ii.getStackInSlot(0) != null) {
-				ItemStack stack = ii.getStackInSlot(0);
-
-					if (stack.getItem() instanceof ItemCloak)
-					{
-						if (stack.getItemDamage()==3) //wolf cloak
-						{
-							int amp = 1;
-							if (event.ammount >= 8)
-								amp++;
-							if (event.ammount >= 12)
-								amp++;
-							if (!stack.hasTagCompound())
-								stack.setTagCompound(new NBTTagCompound());
-							stack.getTagCompound().setInteger("wolfPotion", amp);
-						}
-						/* else if(stack.getItemDamage()==1)  //spectral cloak - negate all damage while phased
-						{
-							if (event.source != DamageSource.starve || event.source != DamageSource.fall)
-							if (event.isCancelable())
-								event.setCanceled(true);
-						} */
-					}
-			} else if (player.getCurrentEquippedItem() != null) {
-				ItemStack stack = player.getCurrentEquippedItem();
-				if (stack.getItem().equals(WGContent.ItemPrimordialAxe) || stack.getItem().equals(WGContent.ItemPrimordialHammer) || stack.getItem().equals(WGContent.ItemPrimordialSword )) {
-					if (player.isBlocking()) {
-						if (stack.hasTagCompound() && stack.getTagCompound().getInteger("currentMode") == 1) {
-							int time = event.entityLiving.getActivePotionEffect(Potion.resistance) != null ? event.entityLiving.getActivePotionEffect(Potion.resistance).getDuration() : 0;
-							time = Math.min(time + 30, 80);
-							int amp = event.entityLiving.getActivePotionEffect(Potion.resistance) != null ? event.entityLiving.getActivePotionEffect(Potion.resistance).getAmplifier() : -1;
-							amp = Math.min(amp + 1, 2);
-							event.entityLiving.addPotionEffect(new PotionEffect(Potion.resistance.id, time, amp));
-							event.entityLiving.addPotionEffect(new PotionEffect(WGContent.pot_knockbackRes.id, time, amp));
-						}
+			if ((amulet != null && amulet.getItem() instanceof ItemCloak && amulet.getItemDamage()==2) || (belt != null && belt.getItem() instanceof ItemKama && belt.getItemDamage()==2)) {
+				int amp = 1;
+				if (event.ammount >= 8)
+					amp++;
+				if (event.ammount >= 12)
+					amp++;
+				if (!amulet.hasTagCompound())
+					amulet.setTagCompound(new NBTTagCompound());
+					amulet.getTagCompound().setInteger("wolfPotion", amp);
+			} else if (stack != null && (stack.getItem().equals(WGContent.ItemPrimordialAxe) || stack.getItem().equals(WGContent.ItemPrimordialHammer) || stack.getItem().equals(WGContent.ItemPrimordialSword ))) {
+				if (player.isBlocking()) {
+					if (stack.hasTagCompound() && stack.getTagCompound().getInteger("currentMode") == 1) {
+						int time = event.entityLiving.getActivePotionEffect(Potion.resistance) != null ? event.entityLiving.getActivePotionEffect(Potion.resistance).getDuration() : 0;
+						time = Math.min(time + 30, 80);
+						int amp = event.entityLiving.getActivePotionEffect(Potion.resistance) != null ? event.entityLiving.getActivePotionEffect(Potion.resistance).getAmplifier() : -1;
+						amp = Math.min(amp + 1, 2);
+						event.entityLiving.addPotionEffect(new PotionEffect(Potion.resistance.id, time, amp));
+						event.entityLiving.addPotionEffect(new PotionEffect(WGContent.pot_knockbackRes.id, time, amp));
 					}
 				}
 			}
@@ -184,15 +171,13 @@ public class EventHandler
 		if(event.target instanceof EntityPlayer && event.entityLiving instanceof EntityCreature) {
 			EntityPlayer ep = (EntityPlayer) event.target;
 			IInventory ii = BaublesApi.getBaubles(ep);
+			ItemStack amulet = ii.getStackInSlot(0);
+			ItemStack belt = ii.getStackInSlot(3);
 
-			if (ii.getStackInSlot(0) != null) {
-				ItemStack stack = ii.getStackInSlot(0);
-				if (stack.getItem() instanceof ItemCloak && stack.getItemDamage()==1) {
-					boolean goggles = event.entityLiving.getEquipmentInSlot(4)!=null && (event.entityLiving.getEquipmentInSlot(4).getItem() instanceof IRevealer || event.entityLiving.getEquipmentInSlot(4).getItem() instanceof IGoggles);
-					//boolean special = event.entityLiving instanceof IEldritchMob || event.entityLiving instanceof IBossDisplayData;
-					//if(!goggles)
+			if ((amulet != null && amulet.getItem() instanceof ItemCloak && amulet.getItemDamage()==1) || (belt != null && belt.getItem() instanceof ItemCloak && belt.getItemDamage()==1) ) {
+				boolean goggles = event.entityLiving.getEquipmentInSlot(4)!=null && (event.entityLiving.getEquipmentInSlot(4).getItem() instanceof IRevealer || event.entityLiving.getEquipmentInSlot(4).getItem() instanceof IGoggles);
+				if (!goggles)
 					Utilities.setAttackTarget((EntityCreature)event.entityLiving, null);
-				}
 			}
 		}
 
@@ -280,12 +265,14 @@ public class EventHandler
 					event.drops.add(entityitem);
 				}
 		}
-		if(event.entityLiving instanceof EntityCultistCleric && event.entityLiving.worldObj.rand.nextInt(10)<1+event.lootingLevel)
+
+		/* if(event.entityLiving instanceof EntityCultistCleric && event.entityLiving.worldObj.rand.nextInt(10)<1+event.lootingLevel)
 			event.drops.add(new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, ItemMagicalBaubles.getItemWithTitle(new ItemStack(WGContent.ItemMagicalBaubles,1,4),Lib.TITLE+"crimsonCultist")));
 		if(event.entityLiving instanceof EntityCultistKnight && event.entityLiving.worldObj.rand.nextInt(10)<1+event.lootingLevel)
 			event.drops.add(new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, ItemMagicalBaubles.getItemWithTitle(new ItemStack(WGContent.ItemMagicalBaubles,1,4),Lib.TITLE+"crimsonKnight")));
 		if(event.entityLiving instanceof EntityCultistLeader && event.entityLiving.worldObj.rand.nextInt(2)==0)
 			event.drops.add(new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, ItemMagicalBaubles.getItemWithTitle(new ItemStack(WGContent.ItemMagicalBaubles,1,4),Lib.TITLE+"crimsonPraetor")));
+		*/
 
 		if(event.recentlyHit && event.source!=null && event.source.getSourceOfDamage() instanceof EntityPlayer)
 		{
