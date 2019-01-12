@@ -208,5 +208,4 @@ public class ItemPrimordialSword extends ItemSword implements IPrimordialCraftin
 	{
 		return Utilities.compareToOreName(stack2, "ingotVoid");
 	}
-
 }

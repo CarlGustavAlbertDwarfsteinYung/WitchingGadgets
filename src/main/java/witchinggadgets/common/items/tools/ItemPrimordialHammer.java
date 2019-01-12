@@ -276,6 +276,4 @@ public class ItemPrimordialHammer extends ItemPickaxe implements IPrimordialCraf
 	{
 		return Utilities.compareToOreName(stack2, "ingotVoid");
 	}
-
-
 }

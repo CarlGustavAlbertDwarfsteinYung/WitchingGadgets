@@ -213,6 +213,10 @@ public class WGResearch
 		registerInfusionRecipe("TERRAFORMFOCUS_TAINT","",new ItemStack(WGContent.BlockMetalDevice,1,8),3,infusionAspects,new ItemStack(ConfigBlocks.blockTaint,1,0),new ItemStack[] {new ItemStack(ConfigItems.itemShard,1,6),new ItemStack(Items.iron_ingot),new ItemStack(Items.iron_ingot),new ItemStack(ConfigBlocks.blockTube,1,0),new ItemStack(Items.iron_ingot),new ItemStack(Items.iron_ingot)});
 		ThaumcraftApi.addWarpToItem(new ItemStack(WGContent.BlockMetalDevice,1,8), 2);
 
+		infusionAspects = new AspectList().add(Aspect.HEAL, 32).add(Aspect.EXCHANGE, 8);
+		registerInfusionRecipe("TERRAFORMFOCUS_MAGIC","",new ItemStack(WGContent.BlockMetalDevice,1,10),3,infusionAspects,new ItemStack(ConfigBlocks.blockMagicalLog,1,1),new ItemStack[] {new ItemStack(ConfigItems.itemShard,1,6),new ItemStack(Items.iron_ingot),new ItemStack(Items.iron_ingot),new ItemStack(ConfigBlocks.blockTube,1,0),new ItemStack(Items.iron_ingot),new ItemStack(Items.iron_ingot)});
+		//ThaumcraftApi.addWarpToItem(new ItemStack(WGContent.BlockMetalDevice,1,10), 2);
+
 		infusionAspects = new AspectList().add(Aspect.VOID, 8).add(Aspect.ELDRITCH, 4).add(Aspect.MAGIC, 4);
 		registerInfusionRecipe("ENDERBAG","",new ItemStack(WGContent.ItemBag,1,2),3,infusionAspects,new ItemStack(WGContent.ItemBag,1,0),new ItemStack[] {new ItemStack(Blocks.ender_chest), new ItemStack(WGContent.ItemMaterial,1,5), new ItemStack(Items.ender_eye), new ItemStack(WGContent.ItemMaterial,1,5)});
 
@@ -510,7 +514,7 @@ public class WGResearch
 		for(int cm=0; cm<ItemCloak.subNames.length; cm++)
 			recList.add((ShapedArcaneRecipe)recipeList.get("CLOAKKAMA_"+cm));
 		pages = new ResearchPage[]{new ResearchPage("witchinggadgets_research_page.CLOAKKAMA.1"), new ResearchPage(recList.toArray(new ShapedArcaneRecipe[0]))};
-		getResearchItem("CLOAKKAMA", "WITCHGADG", researchAspects, 7, -3, 1, new ItemStack(WGContent.ItemKama,1,0)).setParents("WGBAUBLES","CLOAK").setConcealed().setSecondary().setPages(pages).registerResearchItem();
+		getResearchItem("CLOAKKAMA", "WITCHGADG", researchAspects, 8, -3, 1, new ItemStack(WGContent.ItemKama,1,0)).setParents("WGBAUBLES","CLOAK").setConcealed().setSecondary().setPages(pages).registerResearchItem();
 
 
 		//ORIGINAL ARCANESTONE
@@ -536,7 +540,7 @@ public class WGResearch
 		getResearchItem("SAUNASTOVE", "WITCHGADG", researchAspects, -1,-1, 1, new ItemStack(WGContent.BlockWoodenDevice,1,4)).setParents("WGFAKEBATHSALTS").setPages(pages).setSecondary().setHidden().registerResearchItem();
 
 
-		getFakeResearchItem("JARLABEL", "ALCHEMY", 4,-2,  new ItemStack(ConfigBlocks.blockJar)).registerResearchItem();
+		getFakeResearchItem("JARLABEL", "ALCHEMY", 6,-2,  new ItemStack(ConfigBlocks.blockJar)).registerResearchItem();
 		//LABELLIB
 		researchAspects = new AspectList().add(Aspect.SENSES, 4).add(Aspect.MIND, 4).add(Aspect.TOOL, 2);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.LABELLIB.1"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("LABELLIB")) };
@@ -677,6 +681,9 @@ public class WGResearch
 		researchAspects = new AspectList().add(Aspect.TAINT,8).add(Aspect.MAGIC,4).add(Aspect.EXCHANGE, 2).add(Aspect.ENERGY, 1);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.TERRAFORMFOCUS_TAINT.1"), new ResearchPage((InfusionRecipe) recipeList.get("TERRAFORMFOCUS_TAINT"))};
 		getResearchItem("TERRAFORMFOCUS_TAINT", "WITCHGADG", researchAspects, 10, -7, 2, new ItemStack(WGContent.BlockMetalDevice,1,8)).addWarp(3).setSecondary().setPages(pages).setParents("TERRAFORMER","BOTTLETAINT").registerResearchItem();
+		researchAspects = new AspectList().add(Aspect.HEAL,8).add(Aspect.MAGIC,4).add(Aspect.EXCHANGE, 2).add(Aspect.ENERGY, 1);
+		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.TERRAFORMFOCUS_MAGIC.1"), new ResearchPage((InfusionRecipe) recipeList.get("TERRAFORMFOCUS_MAGIC"))};
+		getResearchItem("TERRAFORMFOCUS_MAGIC", "WITCHGADG", researchAspects, 10, -6, 2, new ItemStack(WGContent.BlockMetalDevice,1,10)).setSecondary().setPages(pages).setParents("TERRAFORMER").registerResearchItem();
 
 
 		//GEMCUTTING
@@ -686,7 +693,7 @@ public class WGResearch
 		//CRYSTALCAPSULE
 		researchAspects = new AspectList().add(Aspect.CRYSTAL, 3).add(Aspect.ORDER, 2).add(Aspect.VOID, 4);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.CRYSTALCAPSULE.1"), new ResearchPage((CrucibleRecipe) recipeList.get("CRYSTALCAPSULE"))};
-		getResearchItem("CRYSTALCAPSULE", "WITCHGADG", researchAspects, 4, -2, 2, new ItemStack(WGContent.ItemCapsule)).setPages(pages).setSecondary().setParents("GEMCUTTING").registerResearchItem();
+		getResearchItem("CRYSTALCAPSULE", "WITCHGADG", researchAspects, 3, -2, 2, new ItemStack(WGContent.ItemCapsule)).setPages(pages).setSecondary().setParents("GEMCUTTING").registerResearchItem();
 
 
 		//ORIGINAL INFUSIONENCHANTMENT

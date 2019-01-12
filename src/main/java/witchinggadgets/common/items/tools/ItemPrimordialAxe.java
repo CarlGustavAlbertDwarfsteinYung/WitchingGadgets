@@ -293,5 +293,4 @@ public class ItemPrimordialAxe extends ItemAxe implements IPrimordialCrafting, I
 	{
 		return Utilities.compareToOreName(stack2, "ingotVoid");
 	}
-
 }

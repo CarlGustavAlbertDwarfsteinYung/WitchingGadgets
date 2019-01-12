@@ -2,14 +2,17 @@ package witchinggadgets.common.items.tools;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -33,14 +36,15 @@ import witchinggadgets.common.items.ItemInfusedGem;
 
 import com.google.common.collect.Multimap;
 
-public class ItemPrimordialGlove extends Item implements IPrimordialCrafting
+public class ItemPrimordialGlove extends ItemSword implements IPrimordialCrafting
 {
 	public ItemPrimordialGlove()
 	{
-		super();
+		super(ThaumcraftApi.toolMatVoid);
 		this.setMaxStackSize(1);
 		this.setFull3D();
 		this.setCreativeTab(WitchingGadgets.tabWG);
+		this.setMaxDamage(0);
 	}
 
 	@Override
@@ -158,7 +162,7 @@ public class ItemPrimordialGlove extends Item implements IPrimordialCrafting
 	public Multimap getAttributeModifiers(ItemStack stack)
 	{
 		Multimap multimap = super.getAttributeModifiers(stack);
-		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 5+ThaumcraftApi.toolMatVoid.getDamageVsEntity(), 0));
+		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 5.0f + ThaumcraftApi.toolMatVoid.getDamageVsEntity(), 0));
 		return multimap;
 	}
 
@@ -213,5 +217,57 @@ public class ItemPrimordialGlove extends Item implements IPrimordialCrafting
 	public int getReturnedPearls(ItemStack stack)
 	{
 		return 1;
+	}
+
+	@Override
+	public int getItemEnchantability()
+	{
+		return 14;
+	}
+
+	@Override
+	public boolean isDamageable() { return false; }
+
+	@Override
+	public float func_150893_a(ItemStack p_150893_1_, Block p_150893_2_) {
+		return 1.0f;
+	}
+
+	@Override
+	public boolean hitEntity(ItemStack p_77644_1_, EntityLivingBase p_77644_2_, EntityLivingBase p_77644_3_) {
+		return true;
+	}
+
+	@Override
+	public boolean onBlockDestroyed(ItemStack p_150894_1_, World p_150894_2_, Block p_150894_3_, int p_150894_4_, int p_150894_5_, int p_150894_6_, EntityLivingBase p_150894_7_) {
+		return true;
+	}
+
+	@Override
+	public EnumAction getItemUseAction(ItemStack p_77661_1_)
+	{
+		return EnumAction.none;
+	}
+
+	@Override
+	public boolean func_150897_b(Block p_150897_1_) {
+		return false;
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack p_82789_1_, ItemStack p_82789_2_) {
+		return false;
+	}
+
+	@Override
+	public int getMaxItemUseDuration(ItemStack p_77626_1_)
+	{
+		return 0;
+	}
+
+
+	@Override
+	public boolean isItemTool(ItemStack p_77616_1_) {
+		return true;
 	}
 }

@@ -34,7 +34,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockWGMetalDevice extends BlockContainer implements ITerraformFocus
 {
-	public static String[] subNames = {"essentiaPump","terraformer","tfFocusPlains","tfFocusColdTaiga","tfFocusDesert","tfFocusJungle","tfFocusHell","voidmetalBlock","tfFocusTaint","tfFocusMushroom"};
+	public static String[] subNames = {"essentiaPump","terraformer","tfFocusPlains","tfFocusColdTaiga","tfFocusDesert","tfFocusJungle","tfFocusHell","voidmetalBlock","tfFocusTaint","tfFocusMushroom", "tfFocusMagic"};
 	IIcon[] icons = new IIcon[subNames.length];
 
 	public BlockWGMetalDevice()
@@ -152,6 +152,7 @@ public class BlockWGMetalDevice extends BlockContainer implements ITerraformFocu
 			return null;
 		case 8:
 		case 9:
+		case 10:
 			return new TileEntityTerraformFocus();
 		}
 		return null;
@@ -209,6 +210,9 @@ public class BlockWGMetalDevice extends BlockContainer implements ITerraformFocu
 				return Aspect.TAINT;
 			if(subNames[meta].equalsIgnoreCase("tfFocusMushroom"))
 				return Aspect.SLIME;
+			if(subNames[meta].equalsIgnoreCase("tfFocusMagic"))
+				return Aspect.HEAL;
+
 		}
 		return null;
 	}
@@ -232,6 +236,8 @@ public class BlockWGMetalDevice extends BlockContainer implements ITerraformFocu
 				return Aspect.TAINT;
 			if(subNames[meta].equalsIgnoreCase("tfFocusMushroom"))
 				return Aspect.SLIME;
+			if(subNames[meta].equalsIgnoreCase("tfFocusMagic"))
+				return Aspect.HEAL;
 		}
 		return null;
 	}
@@ -256,6 +262,8 @@ public class BlockWGMetalDevice extends BlockContainer implements ITerraformFocu
 				return ThaumcraftWorldGenerator.biomeTaint;
 			if(subNames[meta].equalsIgnoreCase("tfFocusMushroom"))
 				return BiomeGenBase.mushroomIsland;
+			if(subNames[meta].equalsIgnoreCase("tfFocusMagic"))
+				return ThaumcraftWorldGenerator.biomeMagicalForest;
 		}
 		return null;
 	}
@@ -279,6 +287,8 @@ public class BlockWGMetalDevice extends BlockContainer implements ITerraformFocu
 				return new ItemStack(ConfigBlocks.blockTaint);
 			if(subNames[meta].equalsIgnoreCase("tfFocusMushroom"))
 				return new ItemStack(Blocks.mycelium);
+			if(subNames[meta].equalsIgnoreCase("tfFocusMagic"))
+				return new ItemStack(ConfigBlocks.blockMagicalLog,1,1);
 		}
 		return null;
 	}

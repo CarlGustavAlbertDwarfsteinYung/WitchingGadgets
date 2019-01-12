@@ -29,6 +29,7 @@ tile.WG_MetalDevice.tfFocusHell.name=Terrestrial Focus: Hell
 tile.WG_MetalDevice.voidmetalBlock.name=Void metal Block
 tile.WG_MetalDevice.tfFocusTaint.name=Terrestrial Focus: Tainted Lands
 tile.WG_MetalDevice.tfFocusMushroom.name=Terrestrial Focus: Mushroom Island
+tile.WG_MetalDevice.tfFocusMagic.name=Terrestrial Focus: Magical Forest
 
 tile.WG_RoseVine.name=Rose Vines
 tile.WG_CustomAir.name=Glimmer of Light
@@ -414,6 +415,9 @@ witchinggadgets_research_page.TERRAFORMFOCUS_MUSHROOM.1=The colors maybe offputt
 witchinggadgets_research_name.TERRAFORMFOCUS_TAINT=Terrestrial Focus: Tainted Lands
 witchinggadgets_research_text.TERRAFORMFOCUS_TAINT=[WG] Take my tears, and that's not nearly all!
 witchinggadgets_research_page.TERRAFORMFOCUS_TAINT.1=That's it. You pretty much qualify as insane by this point. Creating artificially tainted land? And not only with some bottled up taint, but full scale terraforming?<BR>Oh, you're doing it for research purposes? That's fine then. Simply supply this focus with some §5Vitium§0 essentia and go crazy.
+witchinggadgets_research_name.TERRAFORMFOCUS_MAGIC=Terrestrial Focus: Magical Forest
+witchinggadgets_research_text.TERRAFORMFOCUS_MAGIC=[WG] It's a kind of magic
+witchinggadgets_research_page.TERRAFORMFOCUS_MAGIC.1=The world is full of magic, but you've never found much of it at some place, so it's time to create a whole magical biome.<BR>Supply this with §cSano§0 feel the magic arround you.
 
 #MIRRORPUMP
 witchinggadgets_research_name.MIRRORPUMP=Essentia Pump

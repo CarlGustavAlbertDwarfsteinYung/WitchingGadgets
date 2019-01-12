@@ -7,6 +7,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import witchinggadgets.common.WGContent;
 import witchinggadgets.common.items.tools.ItemBag;
 
 public class ContainerBag extends Container
@@ -14,8 +15,8 @@ public class ContainerBag extends Container
 	private World worldObj;
 	private int blockedSlot;
 	public IInventory input = new InventoryBag(this);
-	ItemStack pouch = null;
-	EntityPlayer player = null;
+	ItemStack pouch;
+	EntityPlayer player;
 	private int pouchSlotAmount = 18;
 
 	public ContainerBag(InventoryPlayer iinventory, World world)
@@ -26,7 +27,7 @@ public class ContainerBag extends Container
 		this.blockedSlot = (iinventory.currentItem + 45);
 
 		for (int a = 0; a < pouchSlotAmount; a++) {
-			this.addSlotToContainer(new Slot(this.input, a, 35 + a % 6 * 18, 9 + a/6 * 18));
+			this.addSlotToContainer(new SlotBag(this.input, this, a, 35 + a % 6 * 18, 9 + a/6 * 18));
 		}
 
 		bindPlayerInventory(iinventory);
@@ -45,13 +46,13 @@ public class ContainerBag extends Container
 	protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 9; j++) {
-				this.addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 82 + i * 18));
+				this.addSlotToContainer(new SlotBag(inventoryPlayer, this,j + i * 9 + 9, 8 + j * 18, 82 + i * 18));
 			}
 
 		}
 
 		for (int i = 0; i < 9; i++)
-			this.addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 140));
+			this.addSlotToContainer(new SlotBag(inventoryPlayer, this, i, 8 + i * 18, 140));
 	}
 
 	@Override
@@ -94,7 +95,7 @@ public class ContainerBag extends Container
 	@Override
 	public ItemStack slotClick(int par1, int par2, int par3, EntityPlayer par4EntityPlayer)
 	{
-		if(par1 == this.blockedSlot || (par2==0&&par3==blockedSlot)) return null;		
+		if(par1 == this.blockedSlot || (par2==0&&par3==blockedSlot)) return null;
 		((ItemBag)this.pouch.getItem()).setStoredItems(this.pouch, ((InventoryBag)this.input).stackList);
 
 		return super.slotClick(par1, par2, par3, par4EntityPlayer);
@@ -108,9 +109,30 @@ public class ContainerBag extends Container
 		{
 			((ItemBag)this.pouch.getItem()).setStoredItems(this.pouch, ((InventoryBag)this.input).stackList);
 
-			if (!this.player.getCurrentEquippedItem().equals(this.pouch))
-				this.player.setCurrentItemOrArmor(0, this.pouch);
+			/* if (!this.player.getCurrentEquippedItem().equals(this.pouch))
+				this.player.setCurrentItemOrArmor(0, this.pouch); */
 			this.player.inventory.markDirty();
+		}
+	}
+
+
+	//FIXES FOR bag opening
+	private boolean isHoldingPouch() {
+			ItemStack is = this.player.getHeldItem();
+			return (is != null) && (is.getItem() == WGContent.ItemBag);
+	}
+
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		if ((!this.player.worldObj.isRemote) && (!isHoldingPouch())) {
+				this.player.closeScreen();
+		}
+	}
+
+	public void saveCharmPouch() {
+		if (!this.player.worldObj.isRemote && this.isHoldingPouch()) {
+			this.player.setCurrentItemOrArmor(0, this.pouch);
+			//ItemBag.setStoredItems(this.player.getHeldItem(), new ItemStack[] { this.charmInv.getStackInSlot(0), this.charmInv.getStackInSlot(1), this.charmInv.getStackInSlot(2) });
 		}
 	}
 
