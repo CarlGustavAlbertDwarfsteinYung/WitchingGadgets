@@ -5,8 +5,11 @@ import java.util.UUID;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,13 +23,18 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderPlayerEvent;
+import org.lwjgl.opengl.GL11;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.items.armor.Hover;
+import vazkii.botania.api.item.IBaubleRender;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.client.ClientUtilities;
 import witchinggadgets.client.render.ModelCloak;
+import witchinggadgets.common.WGConfig;
 import witchinggadgets.common.WGModCompat;
 import witchinggadgets.common.util.Lib;
 import witchinggadgets.common.util.Utilities;
@@ -36,14 +44,50 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.Interface(iface = "vazkii.botania.api.item.ICosmeticAttachable", modid = "Botania")
-public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.ICosmeticAttachable {
+public class ItemCloak extends Item implements IBauble, IBaubleRender, vazkii.botania.api.item.ICosmeticAttachable {
 	public static String[] subNames = {"standard", "spectral", "wolf", "raven"};
 	IIcon iconRaven;
 	IIcon iconWolf;
 
+	private double[] circPos = new double[32]; // Circle Position
+	int colour;
+	private ResourceLocation texture;
+
 	public ItemCloak() {
 		this.setHasSubtypes(true);
 		this.setCreativeTab(WitchingGadgets.tabWG);
+		circPos[0] = 0.5;
+		circPos[1] = 0.49039;
+		circPos[2] = 0.46194;
+		circPos[3] = 0.41573;
+		circPos[4] = 0.35355;
+		circPos[5] = 0.27779;
+		circPos[6] = 0.19134;
+		circPos[7] = 0.09755;
+		circPos[8] = 0.0;
+		circPos[9] = -0.09755;
+		circPos[10] = -0.19134;
+		circPos[11] = -0.27779;
+		circPos[12] = -0.35355;
+		circPos[13] = -0.41573;
+		circPos[14] = -0.46194;
+		circPos[15] = -0.49039;
+		circPos[16] = -0.5;
+		circPos[17] = -0.49039;
+		circPos[18] = -0.46194;
+		circPos[19] = -0.41573;
+		circPos[20] = -0.35355;
+		circPos[21] = -0.27779;
+		circPos[22] = -0.19134;
+		circPos[23] = -0.09755;
+		circPos[24] = 0.0;
+		circPos[25] = 0.09755;
+		circPos[26] = 0.19134;
+		circPos[27] = 0.27779;
+		circPos[28] = 0.35355;
+		circPos[29] = 0.41573;
+		circPos[30] = 0.46194;
+		circPos[31] = 0.49039;
 	}
 
 	@Override
@@ -122,6 +166,15 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 
 	@Override
 	public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, String layer) {
+		if (itemstack.getItemDamage() < subNames.length)
+			if (subNames[itemstack.getItemDamage()].equals("wolf"))
+				return "witchinggadgets:textures/models/cloakWolf.png";
+			else if (subNames[itemstack.getItemDamage()].equals("raven"))
+				return "witchinggadgets:textures/models/cloakRaven.png";
+		return "witchinggadgets:textures/models/cloak.png";
+	}
+
+	public String getArmorTexture(ItemStack itemstack) {
 		if (itemstack.getItemDamage() < subNames.length)
 			if (subNames[itemstack.getItemDamage()].equals("wolf"))
 				return "witchinggadgets:textures/models/cloakWolf.png";
@@ -226,6 +279,7 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase living) {
 		onItemEquipped((EntityPlayer) living, stack);
+		texture = new ResourceLocation(getArmorTexture(stack));
 	}
 
 	@Override
@@ -273,6 +327,7 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 	}
 
 	public void onItemEquipped(EntityPlayer player, ItemStack stack) {
+		this.colour = getColor(stack);
 	}
 
 	public void onItemUnequipped(EntityPlayer player, ItemStack stack) {
@@ -306,5 +361,100 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 			stack.setTagCompound(new NBTTagCompound());
 		NBTTagCompound cosTag = cosmetic.writeToNBT(new NBTTagCompound());
 		stack.getTagCompound().setTag("botaniaCosmeticOverride",cosTag);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onPlayerBaubleRender(ItemStack itemStack, RenderPlayerEvent renderPlayerEvent, RenderType renderType) {
+		if(renderType == RenderType.BODY) {
+			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+
+			GL11.glPushMatrix();
+			GL11.glEnable(3042);
+			GL11.glBlendFunc(770, 771);
+
+			Tessellator tessellator = Tessellator.instance;
+
+			GL11.glTranslatef(0, 1.45f, 0);
+			GL11.glScalef(1, -1, 1);
+			GL11.glColor3f((colour>>16&255)/255.0f, (colour>>8&255)/255.0f, (colour&255)/255.0f);
+
+			double d0_1 = circPos[0]*1;
+			double d1_1 = circPos[1]*1;
+			double d2_1 = circPos[24]*1;
+			double d3_1 = circPos[25]*1;
+
+			for(int i=0;i<15;i++)
+			{
+				int it0 = i;
+				int it1 = it0+1;
+				if(it1 > 31)it1-=31;
+				int it2 = i+24;
+				if(it2 > 31)it2-=31;
+				int it3 = it2+1;
+				if(it3 > 31)it3-=31;
+
+
+				for(int j=0; j < 8;j++)
+				{
+					int jt0 = j;
+					int jt1 = jt0+1;
+					double h0 = (circPos[jt0]*circPos[jt0])*7;
+					double h1 = (circPos[jt1]*circPos[jt1])*7;
+					double dividerA[] = {0.3,0.725,0.75,0.8,0.825,0.9,1.0,1.1};
+					//double dividerA[] = {1.1,1.0,0.9,0.825,0.8,0.75,0.725,0.3};
+					double divider = dividerA[j];
+
+					double d0 = circPos[it0]*1.5*divider;
+					double d1 = circPos[it1]*1.5*divider;
+					double d2 = circPos[it2]*1.5*divider;
+					double d3 = circPos[it3]*1.5*divider;
+
+
+					double f3 = i*0.0625;//icon.getMinU();
+					double f4 = (i+1)*0.0625;//icon.getMaxU();
+					double f5 = j * 0.125;//1 - (j+1)*0.125;//icon.getMinV();
+					double f6 = (j+1)*0.125;//1 - j*0.125;//icon.getMaxV();
+
+					if(j==2)h0*=0.975;
+					if(j==1)
+					{
+						h1*=0.975;
+						h0*=0.9;
+					}
+					if(j==0)
+					{
+						d0 *=0.0;
+						d0_1 *=0.0;
+						d1 *=0.0;
+						d1_1 *=0.0;
+						d2 *=0.0;
+						d2_1 *=0.0;
+						d3 *=0.0;
+						d3_1 *=0.0;
+						h1*=0.9;
+						h0*=0.9;
+					}
+
+					tessellator.startDrawingQuads();
+					tessellator.setNormal(0.0F, 1.0F, 0.0F);
+					tessellator.addVertexWithUV(d0_1, h0, d2_1, f3, f5);
+					tessellator.addVertexWithUV(d0  , h1, d2  , f3, f6);
+					tessellator.addVertexWithUV(d1  , h1, d3  , f4, f6);
+					tessellator.addVertexWithUV(d1_1, h0, d3_1, f4, f5);
+					tessellator.draw();
+
+					d0_1 = d0;
+					d1_1 = d1;
+					d2_1 = d2;
+					d3_1 = d3;
+				}
+			}
+
+			GL11.glColor3f(1,1,1);
+			GL11.glDisable(3042);
+			//GL11.glEnable(GL11.GL_LIGHTING);
+			GL11.glPopMatrix();
+		}
 	}
 }

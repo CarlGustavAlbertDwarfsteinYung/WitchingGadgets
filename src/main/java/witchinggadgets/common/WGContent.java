@@ -228,7 +228,7 @@ public class WGContent
 		BlockCustomAiry = new BlockModifiedAiry().setBlockName("WG_CustomAir");
 		GameRegistry.registerBlock(BlockCustomAiry, BlockCustomAiry.getUnlocalizedName().substring("tile.".length()));
 
-		if (WGModCompat.loaded_TBases) {
+		if (!WGModCompat.loaded_TBases) {
 			OreDictionary.registerOre("blockVoid", new ItemStack(BlockMetalDevice, 1, 7));
 		}
 	}
