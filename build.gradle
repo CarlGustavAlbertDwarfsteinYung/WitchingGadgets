@@ -15,8 +15,6 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
-
 apply plugin: 'forge'
 
 version = "1.1.11"
@@ -27,9 +25,9 @@ targetCompatibility = "1.8"
 sourceCompatibility = "1.8"
 
 minecraft {
-    version = "1566"
+    version = "1.7.10-10.13.4.1614-1.7.10"
 	replace '${version}', project.version
-    runDir = "eclipse"
+    runDir = "run"
 }
 jar {
         manifest {
