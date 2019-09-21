@@ -71,14 +71,7 @@ import witchinggadgets.common.items.tools.ItemPrimordialGlove;
 import witchinggadgets.common.items.tools.ItemPrimordialHammer;
 import witchinggadgets.common.items.tools.ItemPrimordialSword;
 import witchinggadgets.common.items.tools.ItemScanCamera;
-import witchinggadgets.common.magic.WGEnchantBackstab;
-import witchinggadgets.common.magic.WGEnchantGemBrittle;
-import witchinggadgets.common.magic.WGEnchantGemPotency;
-import witchinggadgets.common.magic.WGEnchantInvisibleGear;
-import witchinggadgets.common.magic.WGEnchantRideProtect;
-import witchinggadgets.common.magic.WGEnchantStealth;
-import witchinggadgets.common.magic.WGEnchantUnveiling;
-import witchinggadgets.common.magic.WGPotion;
+import witchinggadgets.common.magic.*;
 import witchinggadgets.common.util.Utilities;
 import witchinggadgets.common.util.handler.WGMultiPartHandler;
 import witchinggadgets.common.util.recipe.BagColourizationRecipe;
@@ -143,6 +136,7 @@ public class WGContent
 	public static Enchantment enc_stealth;
 	public static Enchantment enc_backstab;
 	public static Enchantment enc_rideProtect;
+	public static Enchantment enc_soulbound;
 
 	public static ArmorMaterial armorMatSpecialRobe = EnumHelper.addArmorMaterial("WG:ADVANCEDCLOTH", 25, new int[] { 2, 4, 3, 2 }, 25);
 	public static ToolMaterial primordialTool = EnumHelper.addToolMaterial("WG:PRIMORDIALTOOL",4, 1500, 8, 6, 25);
@@ -197,6 +191,9 @@ public class WGContent
 		enchId = WGConfig.getEnchantmentID(enchId, "Gemstone Ride Protection");
 		if(enchId>0)
 			enc_rideProtect = new WGEnchantRideProtect(enchId);
+		enchId = WGConfig.getEnchantmentID(enchId, "Soulbound");
+		if(enchId>0)
+			enc_soulbound = new WGEnchantSoulbound(enchId);
 	}
 	public static void postInit()
 	{

@@ -15,6 +15,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IVisDiscountGear;
+import thaumcraft.api.ItemApi;
 import thaumcraft.api.aspects.Aspect;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.client.render.ModelRobeSkirted;
@@ -97,6 +98,10 @@ public class ItemAdvancedRobes extends ItemArmor implements IRepairable, IVisDis
 		list.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount") + ": " + getVisDiscount(stack, par2EntityPlayer, null) + "%");
 	}
 
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+		return par2ItemStack.isItemEqual(ItemApi.getItem("itemResource", 7))?true:super.getIsRepairable(par1ItemStack, par2ItemStack);
+	}
 
 	@Override
 	public boolean hasColor(ItemStack par1ItemStack)

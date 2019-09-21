@@ -26,6 +26,8 @@ public class WGConfig
 
 	public static int smelteryResultForClusters;
 	public static float radialSpeed;
+	public static boolean enableSearch;
+	public static boolean soulboundBaubles;
 
 	static Configuration config;
 	public static void loadConfig(FMLPreInitializationEvent event)
@@ -36,7 +38,7 @@ public class WGConfig
 		// Random Config Options
 		cloakAnimationMode = config.get("Other Options", "Cloak Animation Mod", 2, "0 = no animation, 1 = rotate cloak when legs move, 2 = stretch cloak when legs move").getInt();
 		smelteryResultForClusters = config.get("Other Options", "Smeltery Result for Clusters", 144*3, "How many milliBuckets of molten Metal a cluster should give. 144mB equal 1 ingot. Set to 0 to disable smeltery recipes.").getInt();
-		allowClusters = config.get("Other Options", "Enable clusters", false, "Set this to false to disable clusters, useful when you are usign AOBD.").getBoolean(true);
+		allowClusters = config.get("Other Options", "Enable clusters", true, "Set this to false to disable clusters, useful when you are usign AOBD.").getBoolean(true);
 		allowTransmutations = config.get("Other Options", "Enable transmutations", true, "Set this to false to disable nugget transmutations, this should fix the infinite loop glitch").getBoolean(true);
 		String[] clusters = {
 		//Tinkers
@@ -53,12 +55,18 @@ public class WGConfig
 		tripplingClusterList = config.get("Other Options", "Trippling Cluster List", clusters, "A list of ore names for which the clsuters should smelt into three ingots. This is so that custom AOBD clsuters can be thrown into the Blast Furnace").getStringList();
 		
 		limitBookSearchToCategory = config.get("Other Options", "Limit Book Search", false, "Thaumonomicon Search to currently active category").getBoolean(false);
+		enableSearch = config.get("Search", "Enables the search function in the Thaumonomicon", true, "Thaumonomicon Search enabled").getBoolean(true);
+
 		radialSpeed = config.getFloat("Other Options", "Selection Radial Speed", .4f, .4f, 1, "The speed at which the gem-selection for the primordial glove opens. 15% is the minimum.");
 
 		coremod_allowBootsRepair = config.get("Other Options", "Allow Boot repair", true, "Dis-/enable repairing the Boots of the Traveller with leather").getBoolean(true);
 		//coremod_allowFocusPouchActive = config.get("Other Options", "Allow FocusPouch active ability", true, "Dis-/enable the IActiveAbiltiy on the FocusPouch. With this enabled, TGs active ability menu will allow you to open the pouch.").getBoolean(true);
 		coremod_allowEnchantModifications = config.get("Other Options", "Allow Enchantment modifications", true, "Dis-/enable the modification of looting and fortune modifications with the Ring of the Covetous Coin").getBoolean(true);
 		coremod_allowPotionApplicationMod = config.get("Other Options", "Allow modifications to newly applied PotionEffects", true, "Dis-/enable the modification of newly applied PotionEffects. (Primordial Armor affects newly applied Warp Effects)").getBoolean(true);
+
+		soulboundBaubles = config.get("Enchantments", "Soul Tether handles Baubles inventory", true,
+				"Set to false to disable Soul Tether from handling Baubles inventory if handled by another mod's soulbound, such as EnderIO.")
+				.getBoolean(true);
 
 		String[] cm_allowedSpawnblocks_HilltopStones = config.getStringList("Valid generation bases: HilltopStones", "Other", new String[]{"minecraft:stone","minecraft:sand","minecraft:packed_ice","minecraft:grass","minecraft:gravel","minecraft:dirt"}, "A list of vablid blocks that Thaumcraft's hilltop stones can spawn upon");
 		Set<Block> validBlocks = new HashSet();

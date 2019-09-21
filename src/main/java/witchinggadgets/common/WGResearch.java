@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -108,6 +109,9 @@ public class WGResearch
 
 		craftingAspects = new AspectList().add(Aspect.ORDER,10).add(Aspect.ENTROPY,10);
 		registerArcaneRecipe("AGEINGSTONE","",new ItemStack(WGContent.BlockStoneDevice,1,7), craftingAspects, " s ", "SCS", " s ", 'S',new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 's', new ItemStack(ConfigItems.itemShard, 1, 32767), 'C', new ItemStack(Items.clock));
+
+		craftingAspects = new AspectList().add(Aspect.ORDER,8).add(Aspect.WATER,4).add(Aspect.EARTH, 4);
+		registerArcaneRecipe("ICEEXTRUDER","",new ItemStack(WGContent.BlockWoodenDevice,1,1), craftingAspects, " W ", "ISI", "wSw", 'S',new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'w', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), 'W', new ItemStack(ConfigBlocks.blockCrystal,1,2), 'I', new ItemStack(Blocks.packed_ice) );
 
 		craftingAspects = new AspectList().add(Aspect.ENTROPY,4).add(Aspect.EARTH,8);
 		registerArcaneRecipe("STONEEXTRUDER","",new ItemStack(WGContent.BlockWoodenDevice,1,2), craftingAspects, " P ", "WSL", "wSw", 'S',new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'w', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), 'W', new ItemStack(Items.water_bucket), 'L', new ItemStack(Items.lava_bucket), 'P', new ItemStack(ConfigItems.itemPickThaumium));
@@ -293,6 +297,20 @@ public class WGResearch
 		infusionAspects = new AspectList().add(Aspect.ARMOR, 12).add(Aspect.TRAP, 8).add(Aspect.MAGIC, 4);
 		registerInfusionEnchantmentRecipe("ENCH_RIDEPROTECT","",WGContent.enc_rideProtect,3,infusionAspects,new ItemStack[] {new ItemStack(ConfigItems.itemResource,1,14),new ItemStack(Blocks.piston),new ItemStack(Blocks.piston)});
 		WGModCompat.thaumicTinkererRegisterEnchantment(WGContent.enc_rideProtect, "witchinggadgets:textures/gui/research/icon_ench_rideProtect.png", new AspectList().add(Aspect.AIR, 20).add(Aspect.ENTROPY, 20).add(Aspect.ORDER, 20), "ENCH_RIDEPROTECT");
+
+		infusionAspects = new AspectList().add(Aspect.SOUL, 8).add(Aspect.MAGIC, 12).add(Aspect.GREED, 4).add(Aspect.ELDRITCH, 8);
+		registerInfusionEnchantmentRecipe("ENCH_SOULBOUND", "", WGContent.enc_soulbound, 1, infusionAspects, new ItemStack[] {new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.name_tag)});
+		WGModCompat.thaumicTinkererRegisterEnchantment(WGContent.enc_soulbound, "witchinggadgets:textures/gui/research/icon_ench_soulbound.png", new AspectList().add(Aspect.AIR, 10).add(Aspect.ENTROPY, 10).add(Aspect.ORDER, 20), "ENCH_SOULBOUND");
+
+		//book special
+		ItemStack soulBook = Items.enchanted_book.getEnchantedItemStack(new EnchantmentData(WGContent.enc_soulbound, 1));
+		craftingAspects = new AspectList().add(Aspect.ORDER,30).add(Aspect.AIR, 15).add(Aspect.ENTROPY, 15);
+		registerArcaneRecipe("ENCH_SOULBOUND", "_BOOK", soulBook, craftingAspects,
+				" E ","GBG"," P ",
+				'E', new ItemStack(Items.ender_eye),
+				'B', new ItemStack(Items.enchanted_book),
+				'P', new ItemStack(Items.ender_pearl),
+				'G', new ItemStack(Items.gold_ingot));
 
 		/**
 		 * ALCHEMY
@@ -520,9 +538,13 @@ public class WGResearch
 		//ORIGINAL ARCANESTONE
 		getFakeResearchItem("ARCANESTONE", "ARTIFICE", -3,-6,  new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6)).registerResearchItem();
 		//STONEEXTRUDER
-		researchAspects = new AspectList().add(Aspect.EARTH, 1).add(Aspect.MECHANISM, 1).add(Aspect.TOOL, 1);
+		researchAspects = new AspectList().add(Aspect.EARTH, 4).add(Aspect.MECHANISM, 2).add(Aspect.TOOL, 2);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.STONEEXTRUDER.1"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("STONEEXTRUDER")) };
 		getResearchItem("STONEEXTRUDER", "WITCHGADG", researchAspects, -1, -5, 1, new ItemStack(WGContent.BlockWoodenDevice,1,2)).setParents("WGFAKEARCANESTONE","THAUMIUM").setPages(pages).registerResearchItem();
+		//ICEEXTRUDER
+		researchAspects = new AspectList().add(Aspect.COLD, 4).add(Aspect.MECHANISM, 2).add(Aspect.TOOL, 2);
+		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.ICEEXTRUDER.1"), new ResearchPage((ShapedArcaneRecipe) recipeList.get("ICEEXTRUDER")) };
+		getResearchItem("ICEEXTRUDER", "WITCHGADG", researchAspects, -3, -7, 1, new ItemStack(WGContent.BlockWoodenDevice,1,1)).setParents("STONEEXTRUDER").setPages(pages).setSecondary().registerResearchItem();
 		//AGEINGSTONE
 		researchAspects = new AspectList().add(Aspect.LIFE,3).add(Aspect.MECHANISM,3);
 		if(Aspect.getAspect("tempus")!=null)researchAspects.add(Aspect.getAspect("tempus"), 2);
@@ -718,6 +740,11 @@ public class WGResearch
 		researchAspects = new AspectList().add(Aspect.MAGIC, 2).add(Aspect.TRAP, 4).add(Aspect.ARMOR, 4);
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.ENCH_RIDEPROTECT.1"), new ResearchPage((InfusionEnchantmentRecipe) recipeList.get("ENCH_RIDEPROTECT"))};
 		getResearchItem("ENCH_RIDEPROTECT", "WITCHGADG", researchAspects, -11, 0, 2, new ResourceLocation("witchinggadgets:textures/gui/research/icon_ench_rideProtect.png")).setParents("WGFAKEINFUSIONENCHANTMENT").setConcealed().setSecondary().setPages(pages).registerResearchItem();
+
+		//ENCH_SOULBOUND
+		researchAspects = new AspectList().add(Aspect.MAGIC, 4).add(Aspect.ELDRITCH, 2).add(Aspect.SOUL, 2);
+		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.ENCH_SOULBOUND.1"), new ResearchPage((InfusionEnchantmentRecipe) recipeList.get("ENCH_SOULBOUND")), new ResearchPage((ShapedArcaneRecipe)recipeList.get("ENCH_SOULBOUND_BOOK"))};
+		getResearchItem("ENCH_SOULBOUND", "WITCHGADG", researchAspects, -9, -1, 2, new ResourceLocation("witchinggadgets:textures/gui/research/icon_ench_soulbound.png")).setParents("WGFAKEINFUSIONENCHANTMENT").setConcealed().setSecondary().setPages(pages).registerResearchItem();
 
 		//ORIGINAL ELDRITCHMINOR
 		//getFakeResearchItem("ELDRITCHMINOR", "ELDRITCH", 1,3, new ResourceLocation("thaumcraft", "textures/misc/r_eldritchminor.png")).setSpecial().registerResearchItem();

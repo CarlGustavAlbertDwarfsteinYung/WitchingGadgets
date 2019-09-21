@@ -29,11 +29,7 @@ import thaumcraft.common.Thaumcraft;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.client.render.BlockRenderWoodenDevice;
 import witchinggadgets.common.WGContent;
-import witchinggadgets.common.blocks.tiles.TileEntityCobbleGen;
-import witchinggadgets.common.blocks.tiles.TileEntityCuttingTable;
-import witchinggadgets.common.blocks.tiles.TileEntityLabelLibrary;
-import witchinggadgets.common.blocks.tiles.TileEntitySaunaStove;
-import witchinggadgets.common.blocks.tiles.TileEntitySnowGen;
+import witchinggadgets.common.blocks.tiles.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -75,8 +71,8 @@ public class BlockWGWoodenDevice extends BlockContainer implements IWandable
 	{
 		if(metadata==4)
 			return side==1?saunaTop:icons[4];
-		if(metadata==1)
-			return icons[1];
+		//if(metadata==1)
+			//return icons[1];
 		return icons[0];
 	}
 
@@ -111,22 +107,22 @@ public class BlockWGWoodenDevice extends BlockContainer implements IWandable
 	public void getSubBlocks(Item item, CreativeTabs par2CreativeTabs, List list)
 	{
 		for(int i=0; i<subNames.length; i++)
-			if(i!=1)
-				list.add(new ItemStack(item, 1, i));
+			//if(i!=1)
+			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are)
 	{
 		int meta = world.getBlockMetadata(x, y, z);
-		/* if(meta==0)
+		if(meta==0)
 		{
 			TileEntitySpinningWheel tile = (TileEntitySpinningWheel)world.getTileEntity(x,y,z);
 			if (tile == null || player.isSneaking())
 				return false;
 			player.openGui(WitchingGadgets.instance, 0, world, x, y, z);
 			return true;
-		} */
+		}
 		if(meta==3)
 		{
 			if(!player.isSneaking())

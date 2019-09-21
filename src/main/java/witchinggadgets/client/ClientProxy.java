@@ -45,6 +45,7 @@ import witchinggadgets.client.render.TileRenderTerraformFocus;
 import witchinggadgets.client.render.TileRenderTerraformer;
 import witchinggadgets.client.render.TileRenderWallMirror;
 import witchinggadgets.common.CommonProxy;
+import witchinggadgets.common.WGConfig;
 import witchinggadgets.common.WGContent;
 import witchinggadgets.common.blocks.tiles.TileEntityCobbleGen;
 import witchinggadgets.common.blocks.tiles.TileEntityCuttingTable;
@@ -118,7 +119,9 @@ public class ClientProxy extends CommonProxy
 		FMLCommonHandler.instance().bus().register(new WGKeyHandler());
 		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
 
-		ThaumonomiconIndexSearcher.init();
+		if (WGConfig.enableSearch) {
+			ThaumonomiconIndexSearcher.init();
+		}
 	}
 
 	@Override

@@ -34,6 +34,8 @@ public class ItemClusters extends Item
 		"Ignatius","ShadowIron","Lemurite","Midasium","Vyroxeres","Ceruclase","Alduorite","Kalendrite","Vulcanite","Sanguinite",
 		"Prometheum","DeepIron","Infuscolium","Oureclase","AstralSilver","Carmot","Mithril","Rubracium","Orichalcum","Adamantine","Atlarus",
 		"Eximite","Meutoite",
+		// Betweenlands
+		"Octine","Syrmorite",
 		// Other
 		"HeeEndium"
 

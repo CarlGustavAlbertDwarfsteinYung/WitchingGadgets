@@ -1,4 +1,4 @@
-/* package witchinggadgets.common.blocks.tiles;
+package witchinggadgets.common.blocks.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -223,4 +223,4 @@ public class TileEntitySpinningWheel extends TileEntityWGBase implements IInvent
 		return true;
 	}
 
-} */
+}
