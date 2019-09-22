@@ -94,62 +94,62 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IPrimordia
 
 		switch(getAbility(stack))
 		{
-		case 0:
-			//Thanks WayOfFlowingTime =P
-			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(player.posX-.5,player.posY-.5,player.posZ-.5, player.posX+.5,player.posY+.5,player.posZ+.5).expand(4,4,4);
-			for(Entity projectile : (List<Entity>)world.getEntitiesWithinAABB(Entity.class, aabb))
-			{
-				if(projectile==null)
-					continue;
-				if(!(projectile instanceof IProjectile) || projectile.getClass().getSimpleName().equalsIgnoreCase("IManaBurst"))
-					continue;
-
-				Entity shooter = null;
-				if(projectile instanceof EntityArrow)
-					shooter = ((EntityArrow) projectile).shootingEntity;
-				else if(projectile instanceof EntityThrowable)
-					shooter = ((EntityThrowable) projectile).getThrower();
-
-				if(shooter!=null && shooter.equals(player))
-					continue;
-
-				double delX = projectile.posX - player.posX;
-				double delY = projectile.posY - player.posY;
-				double delZ = projectile.posZ - player.posZ;
-				
-				double angle = (delX*projectile.motionX + delY*projectile.motionY + delZ*projectile.motionZ)/ (Math.sqrt(delX * delX + delY * delY + delZ * delZ)*Math.sqrt(projectile.motionX*projectile.motionX + projectile.motionY* projectile.motionY + projectile.motionZ*projectile.motionZ));
-				angle = Math.acos(angle);
-				if(angle < 3*(Math.PI/4)) //angle is < 135 degrees
-					continue;
-				
-				if(shooter != null)
+			case 0:
+				//Thanks WayOfFlowingTime =P
+				AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(player.posX-.5,player.posY-.5,player.posZ-.5, player.posX+.5,player.posY+.5,player.posZ+.5).expand(4,4,4);
+				for(Entity projectile : (List<Entity>)world.getEntitiesWithinAABB(Entity.class, aabb))
 				{
-					delX = -projectile.posX + shooter.posX;
-					delY = -projectile.posY + (shooter.posY + shooter.getEyeHeight());
-					delZ = -projectile.posZ + shooter.posZ;
+					if(projectile==null)
+						continue;
+					if(!(projectile instanceof IProjectile) || projectile.getClass().getSimpleName().equalsIgnoreCase("IManaBurst"))
+						continue;
+
+					Entity shooter = null;
+					if(projectile instanceof EntityArrow)
+						shooter = ((EntityArrow) projectile).shootingEntity;
+					else if(projectile instanceof EntityThrowable)
+						shooter = ((EntityThrowable) projectile).getThrower();
+
+					if(shooter!=null && shooter.equals(player))
+						continue;
+
+					double delX = projectile.posX - player.posX;
+					double delY = projectile.posY - player.posY;
+					double delZ = projectile.posZ - player.posZ;
+
+					double angle = (delX*projectile.motionX + delY*projectile.motionY + delZ*projectile.motionZ)/ (Math.sqrt(delX * delX + delY * delY + delZ * delZ)*Math.sqrt(projectile.motionX*projectile.motionX + projectile.motionY* projectile.motionY + projectile.motionZ*projectile.motionZ));
+					angle = Math.acos(angle);
+					if(angle < 3*(Math.PI/4)) //angle is < 135 degrees
+						continue;
+
+					if(shooter != null)
+					{
+						delX = -projectile.posX + shooter.posX;
+						delY = -projectile.posY + (shooter.posY + shooter.getEyeHeight());
+						delZ = -projectile.posZ + shooter.posZ;
+					}
+
+
+					double curVel = Math.sqrt(delX * delX + delY * delY + delZ * delZ);
+					delX /= curVel;
+					delY /= curVel;
+					delZ /= curVel;
+					double newVel = Math.sqrt(projectile.motionX*projectile.motionX + projectile.motionY*projectile.motionY + projectile.motionZ*projectile.motionZ);
+					projectile.motionX = newVel * delX;
+					projectile.motionY = newVel * delY;
+					projectile.motionZ = newVel * delZ;
 				}
-				
-				
-				double curVel = Math.sqrt(delX * delX + delY * delY + delZ * delZ);
-				delX /= curVel;
-				delY /= curVel;
-				delZ /= curVel;
-				double newVel = Math.sqrt(projectile.motionX*projectile.motionX + projectile.motionY*projectile.motionY + projectile.motionZ*projectile.motionZ);
-				projectile.motionX = newVel * delX;
-				projectile.motionY = newVel * delY;
-				projectile.motionZ = newVel * delZ;
-			}
-			break;
-		case 3:
-			int[] curedPotions = {Potion.blindness.id,Potion.poison.id,Potion.wither.id,Potion.confusion.id,Config.potionTaintPoisonID};
-			for(int c : curedPotions)
-				if(world.isRemote)
-					player.removePotionEffectClient(c);
-				else
-					player.removePotionEffect(c);
-			break;
-		default:
-			break;
+				break;
+			case 3:
+				int[] curedPotions = {Potion.blindness.id,Potion.poison.id,Potion.wither.id,Potion.confusion.id,Config.potionTaintPoisonID};
+				for(int c : curedPotions)
+					if(world.isRemote)
+						player.removePotionEffectClient(c);
+					else
+						player.removePotionEffect(c);
+				break;
+			default:
+				break;
 		}
 	}
 	@Override
@@ -201,9 +201,9 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IPrimordia
 	{
 		return true;
 		//		return getUpgrade(stack)!=null;
-	}
+	} */
 
-	@Override
+	/* @Override
 	public void activate(EntityPlayer player, ItemStack stack)
 	{
 		if(!player.worldObj.isRemote)
@@ -232,6 +232,7 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IPrimordia
 	//			stack.setTagCompound(new NBTTagCompound());
 	//		stack.getTagCompound().setBoolean("disabled", !stack.getTagCompound().getBoolean("disabled"));
 	//	}
+
 	@Override
 	public String getItemStackDisplayName(ItemStack stack)
 	{
@@ -297,12 +298,24 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IPrimordia
 			cur=0;
 		stack.getTagCompound().setInteger("currentMode",cur);
 	}
+
 	@Override
 	public int getAbility(ItemStack stack)
 	{
 		if(!stack.hasTagCompound())
 			stack.setTagCompound(new NBTTagCompound());
 		return stack.getTagCompound().getInteger("currentMode");
+	}
+
+	@Override
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	{
+		if (player.isSneaking() && !player.worldObj.isRemote)
+			cycleAbilities(stack);
+		else
+			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+
+		return stack;
 	}
 
 	/* @Override
@@ -312,26 +325,26 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IPrimordia
 		{
 			switch(getAbility(stack))
 			{
-			case 0:
-				if(event.source.isProjectile())
-					event.setCanceled(true);
-				break;
-			case 5:
-				if(event.source.getSourceOfDamage() instanceof EntityLivingBase)
-					if(event.entityLiving.getRNG().nextInt(4)==0)
-					{
-						((EntityLivingBase)event.source.getSourceOfDamage()).addPotionEffect(new PotionEffect(Potion.blindness.id,10,0));
-						((EntityLivingBase)event.source.getSourceOfDamage()).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id,10,3));
-					}
-				break;
+				case 0:
+					if(event.source.isProjectile())
+						event.setCanceled(true);
+					break;
+				case 5:
+					if(event.source.getSourceOfDamage() instanceof EntityLivingBase)
+						if(event.entityLiving.getRNG().nextInt(4)==0)
+						{
+							((EntityLivingBase)event.source.getSourceOfDamage()).addPotionEffect(new PotionEffect(Potion.blindness.id,10,0));
+							((EntityLivingBase)event.source.getSourceOfDamage()).addPotionEffect(new PotionEffect(Potion.moveSlowdown.id,10,3));
+						}
+					break;
 				//			case FIRE:
 				//				//Nova?
 				//				break;
 				//			case ORDER:
 				//				//Something something Healing?
 				//				break;
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 	} */
@@ -342,22 +355,6 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IPrimordia
 		return Utilities.compareToOreName(stack2, "ingotVoid");
 	}
 
-	/* @Override
-	public void onUserAttacking(AttackEntityEvent event, ItemStack stack)
-	{
-	}
-	@Override
-	public void onUserJump(LivingJumpEvent event, ItemStack stack)
-	{
-	}
-	@Override
-	public void onUserFall(LivingFallEvent event, ItemStack stack)
-	{
-	}
-	@Override
-	public void onUserTargeted(LivingSetAttackTargetEvent event, ItemStack stack)
-	{
-	}
 	//	public enum PrimordialArmorUpgrade
 	//	{
 	//		AIR(new AspectList().add(Aspect.AIR,32).add(Aspect.MOTION,32).add(Aspect.ARMOR,32), new ItemStack(ConfigItems.itemShard,1,0),new ItemStack(ConfigItems.itemWispEssence),new ItemStack(Items.arrow),new ItemStack(ConfigItems.itemWispEssence),new ItemStack(Items.arrow),new ItemStack(ConfigItems.itemWispEssence),new ItemStack(ConfigItems.itemShard,1,0),new ItemStack(ConfigItems.itemWispEssence),new ItemStack(Items.arrow),new ItemStack(ConfigItems.itemWispEssence),new ItemStack(Items.arrow),new ItemStack(ConfigItems.itemWispEssence)),
@@ -383,5 +380,5 @@ public class ItemPrimordialArmor extends ItemFortressArmor implements IPrimordia
 	//		{
 	//			return aspects;
 	//		}
-	//	} */
+	//	}
 }

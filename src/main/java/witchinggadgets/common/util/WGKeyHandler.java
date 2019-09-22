@@ -1,20 +1,16 @@
 package witchinggadgets.common.util;
 
 import baubles.api.BaublesApi;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.eventhandler.Event;
-import cpw.mods.fml.common.gameevent.InputEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.ForgeHooks;
-// import travellersgear.api.TravellersGearAPI;
-import thaumcraft.common.lib.events.KeyHandler;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.common.WGConfig;
-import witchinggadgets.common.WGContent;
 import witchinggadgets.common.items.baubles.ItemMagicalBaubles;
 import witchinggadgets.common.items.tools.ItemPrimordialGlove;
 import witchinggadgets.common.util.network.message.MessagePrimordialGlove;
@@ -23,9 +19,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import javax.swing.plaf.basic.BasicTreeUI;
-import java.awt.event.KeyEvent;
 
 public class WGKeyHandler {
 
@@ -39,9 +32,10 @@ public class WGKeyHandler {
 
 	public WGKeyHandler()
 	{
-		for(KeyBinding kb : Minecraft.getMinecraft().gameSettings.keyBindings)
-			if(kb.getKeyCategory()=="key.categories.misc" && kb.getKeyDescription()=="Change Wand Focus")
-				thaumcraftFKey=kb;
+		for(KeyBinding kb : Minecraft.getMinecraft().gameSettings.keyBindings) {
+			if (kb.getKeyCategory() == "key.categories.misc" && kb.getKeyDescription() == "Change Wand Focus")
+				thaumcraftFKey = kb;
+		}
 
 		jumpKey=Minecraft.getMinecraft().gameSettings.keyBindJump;
 	}

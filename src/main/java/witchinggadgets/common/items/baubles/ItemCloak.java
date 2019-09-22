@@ -44,8 +44,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.Interface(iface = "vazkii.botania.api.item.ICosmeticAttachable", modid = "Botania")
-public class ItemCloak extends Item implements IBauble, IBaubleRender, vazkii.botania.api.item.ICosmeticAttachable {
-	public static String[] subNames = {"standard", "spectral", "wolf", "raven"};
+public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.ICosmeticAttachable {
+	public static String[] subNames = {"standard", "spectral", "wolf", "raven", "storage"};
 	IIcon iconRaven;
 	IIcon iconWolf;
 
@@ -206,48 +206,10 @@ public class ItemCloak extends Item implements IBauble, IBaubleRender, vazkii.bo
 				itemList.add(new ItemStack(item, 1, i));
 	}
 
-	public ItemStack[] getStoredItems(ItemStack item) {
-		ItemStack[] stackList = new ItemStack[27];
-
-		if (item.hasTagCompound()) {
-			NBTTagList inv = item.getTagCompound().getTagList("InternalInventory", 10);
-
-			for (int i = 0; i < inv.tagCount(); i++) {
-				NBTTagCompound tag = inv.getCompoundTagAt(i);
-				int slot = tag.getByte("Slot") & 0xFF;
-
-				if ((slot >= 0) && (slot < stackList.length)) {
-					stackList[slot] = ItemStack.loadItemStackFromNBT(tag);
-				}
-			}
-		}
-		return stackList;
-	}
-
-	public void setStoredItems(ItemStack item, ItemStack[] stackList) {
-		NBTTagList inv = new NBTTagList();
-
-		for (int i = 0; i < stackList.length; i++) {
-			if (stackList[i] != null) {
-				NBTTagCompound tag = new NBTTagCompound();
-				tag.setByte("Slot", (byte) i);
-				stackList[i].writeToNBT(tag);
-				inv.appendTag(tag);
-			}
-		}
-		if (!item.hasTagCompound()) {
-			item.setTagCompound(new NBTTagCompound());
-		}
-		item.getTagCompound().setTag("InternalInventory", inv);
-	}
-
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List list, boolean par4) {
 		String type = "bauble." + getBaubleType(stack);
 		list.add(StatCollector.translateToLocalFormatted(Lib.DESCRIPTION + "gearSlot." + type));
-
-		//if (stack.hasTagCompound() && stack.getTagCompound().getBoolean("noGlide"))
-		//	list.add(StatCollector.translateToLocal(Lib.DESCRIPTION + "noGlide"));
 
 		if (Loader.isModLoaded("Botania")) {
 			ItemStack cosmetic = getCosmeticItem(stack);
@@ -337,10 +299,11 @@ public class ItemCloak extends Item implements IBauble, IBaubleRender, vazkii.bo
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 
-		/* if (!world.isRemote) {
-			if(subNames[stack.getItemDamage()].equals("storage") && !player.worldObj.isRemote)
-					player.openGui(WitchingGadgets.instance, 4, player.worldObj, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
-		} */
+		if (!world.isRemote) {
+			if (subNames[stack.getItemDamage()].equals("storage") && !player.worldObj.isRemote) {
+				player.openGui(WitchingGadgets.instance, 5, player.worldObj, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
+			}
+		}
 
 		return stack;
 	}
@@ -363,10 +326,9 @@ public class ItemCloak extends Item implements IBauble, IBaubleRender, vazkii.bo
 		stack.getTagCompound().setTag("botaniaCosmeticOverride",cosTag);
 	}
 
-	@Override
 	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack itemStack, RenderPlayerEvent renderPlayerEvent, RenderType renderType) {
-		if(renderType == RenderType.BODY) {
+	public void onPlayerBaubleRender(ItemStack itemStack, RenderPlayerEvent renderPlayerEvent, IBaubleRender.RenderType renderType) {
+		if(renderType == IBaubleRender.RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 
 			GL11.glPushMatrix();

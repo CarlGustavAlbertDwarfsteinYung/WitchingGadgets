@@ -1,0 +1,31 @@
+- Travelling Gear dependency has been removed
+- Primordial Weapons and Cloak of Voluminous Pockets had to be disabled because it depended on Travelling Gear special activation Key
+- Primordial Weapons are now activated on Shift+Use
+- Spectral Cloak will work automatically when worn and cannot be enabled/disabled like before
+- all WG Travelling Gear baubles are equipped as regular Baubles
+- Terrestrial transformer has an additional Magical Forest focus
+- Most titles have been removed
+- fixed bag duplication bug
+- Gauntlet can now pick up custom Aura Nodes (ex Gadomancy)
+- Spinning Wheel has been disabled (didn't have much use, recipes moved to arcane workbench, is still in the game just not available)
+I may re-enable this if I can come up with new fabrics.
+- Ring of the Sniper has been fixed
+- Cloak of the Raven feels incredibly smooth and fun to use
+- Seraph Shoulder double jumping can no longer be spammed by holding Jump and feels better and has higher jump
+- added new ores like Octine, Syrmorite
+- gem effects have been improved and expanded, BOP gems supported, Gauntlet effects also adjusted to match
+- the idea was to make point cut more aggressive and oval cut more utility (earth being the only exception to this rule)
+    - point cut
+        - fire: use = damage boost (used to place a temp light), added shift+use = set target on fire
+        - water: use = same as before turns lava->obsidian and water->ice but no longer turns flowing lava to cobble
+        - earth: use = same as before knockback resistance plus added also regular resistance, effects last longer
+        - entropy: use = changed to add night vision and warp (used to only give warp)
+    - oval cut
+        - fire: use = places a number of random temporary lights (used to block projectiles)
+        - order: use = just as before teleports but it has been slightly tweaked
+- note: with the above changes Gauntlet can be incredibly strong late game melee weapon in conjunction with fire and earth point gems
+- re-enabled a previously disabled block Frost Extruder which produces snowballs (also fixed the model to look nice)
+- added Soulbound enchantment (from KryptonMaster)
+- "[WG]" has been removed from all entries
+- added Scarecrow Golem, a vanilla like Golem that looks like a scarecrow skeleton with a pumpkin head, that can be given weapons to fight with
+- added back all the armors and cloack of voluminous pockets but they don't work properly just yet

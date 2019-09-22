@@ -1,4 +1,4 @@
-package witchinggadgets.client.gui;
+/* package witchinggadgets.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import witchinggadgets.client.ClientUtilities;
-import witchinggadgets.common.gui.ContainerCloak;
 
 public class GuiCloakBag extends GuiContainer{
 
@@ -17,7 +16,7 @@ public class GuiCloakBag extends GuiContainer{
 
 	public GuiCloakBag(InventoryPlayer inventoryPlayer, World world, ItemStack cloak)
 	{
-		super(new ContainerCloak(inventoryPlayer, world, cloak));
+		super(new ContainerCloak(inventoryPlayer, world));
 		test = inventoryPlayer;
 		this.xSize = 176;
 		this.ySize = 166;
@@ -39,4 +38,4 @@ public class GuiCloakBag extends GuiContainer{
 		this.drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
 	}
 
-}
+} */

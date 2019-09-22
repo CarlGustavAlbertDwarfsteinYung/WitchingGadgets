@@ -9,34 +9,33 @@ import witchinggadgets.asm.pouch.ContainerPatchedFocusPouch;
 import witchinggadgets.common.blocks.tiles.TileEntityCuttingTable;
 import witchinggadgets.common.blocks.tiles.TileEntityLabelLibrary;
 import witchinggadgets.common.gui.ContainerBag;
-import witchinggadgets.common.gui.ContainerCloak;
 import witchinggadgets.common.gui.ContainerCuttingTable;
 import witchinggadgets.common.gui.ContainerLabelLibrary;
 import witchinggadgets.common.gui.ContainerPrimordialGlove;
 import witchinggadgets.common.gui.ContainerVoidBag;
-import baubles.api.BaublesApi;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class CommonProxy implements IGuiHandler
 {
 	public void registerRenders(){}
-	public void registerHandlers()
-	{
-	}
+	public void registerHandlers(){}
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tile = world.getTileEntity(x, y, z);
 		//if(ID == 0)return new ContainerSpinningWheel(player.inventory, (TileEntitySpinningWheel)tile);
-		
+
 		if(ID == 3)return new ContainerBag(player.inventory, world);
+
 		//if(ID==4||ID==5)return new ContainerCloak(player.inventory, world, ID==4?TravellersGearAPI.getExtendedInventory(player)[0]:BaublesApi.getBaubles(player).getStackInSlot(3) );
 
 		//if(ID==4||ID==5)return new ContainerCloak(player.inventory, world, BaublesApi.getBaubles(player).getStackInSlot(3) );
+
 		if(ID == 6)return new ContainerPatchedFocusPouch(player.inventory, world, x, y, z);
 
 		if(ID == 7)return new ContainerPrimordialGlove(player.inventory, world, x, y, z);
+
 		if(ID == 8)return new ContainerLabelLibrary(player.inventory, (TileEntityLabelLibrary)tile);
 
 		if(ID == 9)return new ContainerCuttingTable(player.inventory, (TileEntityCuttingTable)tile);

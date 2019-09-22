@@ -161,12 +161,14 @@ public class ItemBag extends Item
 	{
 		return getUnlocalizedName() + "." + subNames[itemstack.getItemDamage()];
 	}
+
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List itemList)
 	{
 		for(int i=0;i<subNames.length;i++)
 			itemList.add(new ItemStack(this,1,i));
 	}
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack item, EntityPlayer par2EntityPlayer, List list, boolean par4)

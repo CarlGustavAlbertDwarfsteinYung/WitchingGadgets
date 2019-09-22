@@ -16,7 +16,6 @@ public class InventoryBag implements IInventory
 		this.stackList = new ItemStack[18];
 	}
 
-
 	@Override
 	public int getSizeInventory()
 	{
@@ -65,7 +64,6 @@ public class InventoryBag implements IInventory
 			}
 
 			this.container.onCraftMatrixChanged(this);
-			//this.onInventoryChanged();
 			return itemstack;
 		}
 		return null;

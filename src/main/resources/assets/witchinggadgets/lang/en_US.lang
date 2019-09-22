@@ -1,4 +1,9 @@
+# -- Controls --
+key.wgkey=WG Inventory Key
+
 # -- Blocks --
+entity.scarecrow.name=Scarecrow Golem
+
 tile.WG_WallMirror.name=Mirror on the Wall
 tile.WG_VoidWalkway.name=Void Walkway
 tile.WG_StoneDevice.etherealWall.name=Ethereal Wall
@@ -338,7 +343,7 @@ witchinggadgets_research_page.WGBAUBLES.6=§lRing of the Covetous Coin:§r<BR>It
 #
 witchinggadgets_research_name.CLOAKKAMA=Kama
 witchinggadgets_research_text.CLOAKKAMA=It's not a kilt!
-witchinggadgets_research_page.CLOAKKAMA.1=Cloaks and their advanced deriatives have proven to be both fashionable and useful, but also quite big and unwieldy. Shortening them and attaching them to a belt transforms them into a Kama, a sort of half-skirt covering the back of the legs. They still perform the same tasks, they are just located at a different part of your body now.<BR>§l§4WARNING: Due to an unknown error, shift clicking the result out of the crafting table will result in a loss of NBT-data. In order to preserve enchantments on the cloak, its colouration and items stored inside it, make sure to take the Kama out of the slot with a normal click.
+witchinggadgets_research_page.CLOAKKAMA.1=Cloaks and their advanced derivatives have proven to be both fashionable and useful, but also quite big and unwieldy. Shortening them and attaching them to a belt transforms them into a Kama, a sort of half-skirt covering the back of the legs. They still perform the same tasks, they are just located at a different part of your body now.<BR>§l§4WARNING: Due to an unknown error, shift clicking of the crafting table will result in a loss of enchantments. Take the Kama out of the slot with a normal click.
 #
 witchinggadgets_research_name.RUNICCLOAK=Runic Cloaks
 witchinggadgets_research_text.RUNICCLOAK=The best of both worlds
@@ -388,6 +393,12 @@ witchinggadgets_research_page.PUREFZDARKIRON.1=Native clusters are rare concentr
 witchinggadgets_research_name.TRANSALUMINUM=Aluminum Transmutation
 witchinggadgets_research_text.TRANSALUMINUM=Transformation of metals into aluminum
 witchinggadgets_research_page.TRANSALUMINUM.1=You have discovered a way to multiply aluminum by steeping aluminum nuggets in §5metallum§0 harvested from other metals.
+
+#SCARECROW
+witchinggadgets_research_name.SCARECROW=Scarecrow Golem
+witchinggadgets_research_text.SCARECROW=It's a golem ..that...listens to you?
+witchinggadgets_research_page.SCARECROW.1=While experimenting with Enchanted Fabric, you have accidentally discovered a way to subdue the spirits that inhabit natural world and bind them to your will. The secret lies in the nature of cloth itself. <BR> Assemble a scarecrow from wool and fence then activate the pumpkin with a wand to create a Scarecrow Golem.<BR> The creator of this creature may give them items to use in combat (use held item or empty hand on it). Scarecrow Golems have a mind of their own and roam freely but they can be leashed.
+
 
 #INFERNALBLASTFURNACE
 witchinggadgets_research_name.INFERNALBLASTFURNACE=Infernal Blast Furnace

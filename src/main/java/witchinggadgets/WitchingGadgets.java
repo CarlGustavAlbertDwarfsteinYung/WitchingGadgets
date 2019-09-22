@@ -93,7 +93,6 @@ public class WitchingGadgets
 	public void init(FMLInitializationEvent event)
 	{
 		proxy.registerRenders();
-		//		WGPacketPipeline.INSTANCE.initialise();
 
 		WGContent.init();
 
@@ -112,7 +111,6 @@ public class WitchingGadgets
 	{
 		WGModCompat.init();
 		WGContent.postInit();
-		//		WGPacketPipeline.INSTANCE.postInitialise();
 	}
 
 	@Mod.EventHandler

@@ -3,6 +3,9 @@ package witchinggadgets.common.util.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -17,6 +20,7 @@ import thaumcraft.api.wands.IWandTriggerManager;
 import thaumcraft.common.Thaumcraft;
 import witchinggadgets.common.WGContent;
 import witchinggadgets.common.blocks.tiles.TileEntityBlastfurnace;
+import witchinggadgets.common.entity.EntityScarecrow;
 import witchinggadgets.common.util.Utilities;
 
 public class WGWandManager implements IWandTriggerManager
@@ -30,9 +34,47 @@ public class WGWandManager implements IWandTriggerManager
 		case 1:
 			//			return false;
 			return createBlastFurnace(wand,player,world,x,y,z);
+		case 2:
+			return createScarecrow(wand,player,world,x,y,z);
 		}
 
 		return false;
+	}
+
+	private boolean createScarecrow(ItemStack itemstack, EntityPlayer player, World world,  int x, int y, int z ) {
+		if(world.isRemote)
+			return false;
+		if(!ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), "SCARECROW"))
+			return false;
+		if(!Utilities.consumeVisFromWand(itemstack, player, new AspectList().add(Aspect.AIR, 50).add(Aspect.EARTH, 50).add(Aspect.WATER, 50), false))
+			return false;
+
+		Block top = world.getBlock(x, y - 1, z);
+		Block bottom = world.getBlock(x, y - 2, z);
+		Block armLX = world.getBlock(x - 1, y - 1, z);
+		Block armRX = world.getBlock(x + 1, y - 1, z);
+		Block armLZ = world.getBlock(x, y - 1, z - 1);
+		Block armRZ = world.getBlock(x, y - 1, z + 1);
+
+		if (top == Blocks.wool && bottom == Blocks.fence) {
+			if ((armLX != null && armRX != null) || (armLZ != null && armRZ != null)) {
+				world.setBlock(x, y, z, Blocks.air, 0, 2);
+				world.setBlock(x, y - 1, z, Blocks.air, 0, 2);
+				world.setBlock(x, y - 2, z, Blocks.air, 0, 2);
+				world.setBlock(x - 1, y - 1, z, Blocks.air, 0, 2);
+				world.setBlock(x + 1, y - 1, z, Blocks.air, 0, 2);
+				world.setBlock(x, y - 1, z - 1, Blocks.air, 0, 2);
+				world.setBlock(x, y - 1, z + 1, Blocks.air, 0, 2);
+
+				EntityScarecrow entity = new EntityScarecrow(world);
+				entity.setCreator(player.getCommandSenderName());
+				entity.setLocationAndAngles(x + 0.5, y - 1.95, z + 0.5, 0.0F, 0.0F);
+				entity.onSpawnWithEgg(null);
+				world.spawnEntityInWorld(entity);
+			}
+		}
+
+		return true;
 	}
 
 	private boolean createBlastFurnace(ItemStack itemstack, EntityPlayer player, World world, int clickedX, int clickedY, int clickedZ)

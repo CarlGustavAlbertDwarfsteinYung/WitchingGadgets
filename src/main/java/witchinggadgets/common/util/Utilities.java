@@ -180,7 +180,7 @@ public class Utilities
 	 */
 	public static boolean researchExists(String category, String key)
 	{
-		return ((ResearchCategoryList)ResearchCategories.researchCategories.get(category)).research.containsKey(key);
+		return ResearchCategories.researchCategories.get(category).research.containsKey(key);
 	}
 
 	/**
@@ -382,7 +382,7 @@ public class Utilities
 	}
 	public static void updateActiveMagicalCloak(EntityPlayer player, ItemStack cloak)
 	{
-		if(cloak!=null && cloak.getItem().equals(WGContent.ItemKama))
+		if(cloak!=null && (cloak.getItem().equals(WGContent.ItemKama) ||cloak.getItem().equals(WGContent.ItemCloak)) )
 		{
 			if(BaublesApi.getBaubles(player).getStackInSlot(0)!=null && BaublesApi.getBaubles(player).getStackInSlot(0).getItem() instanceof ItemCloak)
 			{
@@ -391,13 +391,6 @@ public class Utilities
 				BaublesApi.getBaubles(player).markDirty();
 			}
 		}
-		/* else if(TravellersGearAPI.getExtendedInventory(player)[0]!=null && TravellersGearAPI.getExtendedInventory(player)[0].getItem() instanceof ItemCloak)
-		{
-			ItemStack[] tgInv = TravellersGearAPI.getExtendedInventory(player);
-			if(tgInv[0].getItemDamage() == cloak.getItemDamage())
-				tgInv[0]=cloak;
-			TravellersGearAPI.setExtendedInventory(player, tgInv);
-		} */
 	}
 
 	static Class c_tconProjectileWeapon;
@@ -413,8 +406,7 @@ public class Utilities
 				try{
 					c_tconProjectileWeapon = Class.forName("tconstruct.library.weaponry.ProjectileWeapon");
 				}catch(Exception e){}
-			if(c_tconProjectileWeapon!=null && c_tconProjectileWeapon.isAssignableFrom(player.inventory.getCurrentItem().getItem().getClass()))
-				return true;
+			return c_tconProjectileWeapon != null && c_tconProjectileWeapon.isAssignableFrom(player.inventory.getCurrentItem().getItem().getClass());
 		}
 		return false;
 	}

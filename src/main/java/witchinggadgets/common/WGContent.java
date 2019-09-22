@@ -6,6 +6,7 @@ import java.util.UUID;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -53,6 +54,7 @@ import witchinggadgets.common.blocks.tiles.TileEntityTerraformFocus;
 import witchinggadgets.common.blocks.tiles.TileEntityTerraformer;
 import witchinggadgets.common.blocks.tiles.TileEntityVoidWalkway;
 import witchinggadgets.common.blocks.tiles.TileEntityWallMirror;
+import witchinggadgets.common.entity.EntityScarecrow;
 import witchinggadgets.common.items.EntityItemReforming;
 import witchinggadgets.common.items.ItemClusters;
 import witchinggadgets.common.items.ItemCrystalCapsule;
@@ -140,8 +142,7 @@ public class WGContent
 
 	public static ArmorMaterial armorMatSpecialRobe = EnumHelper.addArmorMaterial("WG:ADVANCEDCLOTH", 25, new int[] { 2, 4, 3, 2 }, 25);
 	public static ToolMaterial primordialTool = EnumHelper.addToolMaterial("WG:PRIMORDIALTOOL",4, 1500, 8, 6, 25);
-	//public static ArmorMaterial primordialArmor = EnumHelper.addArmorMaterial("WG:PRIMORDIALARMOR", 40, new int[] {3,7,6,3}, 30);
-	//public static HashMap<String,Cloak> cloakRegistry = new HashMap<String, Cloak>();
+	public static ArmorMaterial primordialArmor = EnumHelper.addArmorMaterial("WG:PRIMORDIALARMOR", 40, new int[] {3,7,6,3}, 30);
 
 	public static void preInit()
 	{
@@ -154,6 +155,7 @@ public class WGContent
 	{
 		initializeItems();
 		initializeBlocks();
+		initMobs();
 
 		int k = Potion.potionTypes.length;
 		int l = 3;
@@ -229,6 +231,13 @@ public class WGContent
 			OreDictionary.registerOre("blockVoid", new ItemStack(BlockMetalDevice, 1, 7));
 		}
 	}
+
+	private static void initMobs()
+	{
+		EntityRegistry.registerModEntity(EntityScarecrow.class, "scarecrow", 240, WitchingGadgets.instance, 80, 3, true);
+		EntityList.addMapping(EntityScarecrow.class, "scarecrow", 0,16247203,10987431);
+	}
+
 	private static void initializeBlocks()
 	{
 		if(Loader.isModLoaded("ForgeMultipart"))
@@ -324,14 +333,14 @@ public class WGContent
 		ItemPrimordialSword = new ItemPrimordialSword(primordialTool).setUnlocalizedName("WG_PrimordialSword");
 		GameRegistry.registerItem(ItemPrimordialSword, ItemPrimordialSword.getUnlocalizedName());
 
-		/* ItemPrimordialHelm = new ItemPrimordialArmor(primordialArmor, 4, 0).setUnlocalizedName("WG_PrimordialHelm");
+		ItemPrimordialHelm = new ItemPrimordialArmor(primordialArmor, 4, 0).setUnlocalizedName("WG_PrimordialHelm");
 		GameRegistry.registerItem(ItemPrimordialHelm, ItemPrimordialHelm.getUnlocalizedName());
 		ItemPrimordialChest = new ItemPrimordialArmor(primordialArmor, 4, 1).setUnlocalizedName("WG_PrimordialChest");
 		GameRegistry.registerItem(ItemPrimordialChest, ItemPrimordialChest.getUnlocalizedName());
 		ItemPrimordialLegs = new ItemPrimordialArmor(primordialArmor, 4, 2).setUnlocalizedName("WG_PrimordialLegs");
 		GameRegistry.registerItem(ItemPrimordialLegs, ItemPrimordialLegs.getUnlocalizedName());
 		ItemPrimordialBoots = new ItemPrimordialArmor(primordialArmor, 4, 3).setUnlocalizedName("WG_PrimordialBoots");
-		GameRegistry.registerItem(ItemPrimordialBoots, ItemPrimordialBoots.getUnlocalizedName()); */
+		GameRegistry.registerItem(ItemPrimordialBoots, ItemPrimordialBoots.getUnlocalizedName());
 
 		ItemCapsule = new ItemCrystalCapsule().setUnlocalizedName("WG_CrystalFlask");
 		GameRegistry.registerItem(ItemCapsule, ItemCapsule.getUnlocalizedName());

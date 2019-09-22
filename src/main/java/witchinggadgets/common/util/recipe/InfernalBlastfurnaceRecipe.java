@@ -22,9 +22,9 @@ public class InfernalBlastfurnaceRecipe
 	public InfernalBlastfurnaceRecipe(ItemStack output, Object input, int time, boolean isSpecial)
 	{
 		if(input instanceof ItemStack)
-			this.input= (ItemStack)input;
+			this.input= input;
 		else if(input instanceof OreDictStack)
-			this.input= (OreDictStack)input;
+			this.input= input;
 		else if(input instanceof String)
 			this.input=new OreDictStack((String) input, 1);
 		else
