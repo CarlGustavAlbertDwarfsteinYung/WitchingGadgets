@@ -93,9 +93,7 @@ public class WitchingGadgets
 	public void init(FMLInitializationEvent event)
 	{
 		proxy.registerRenders();
-
 		WGContent.init();
-
 		proxy.registerHandlers();
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 

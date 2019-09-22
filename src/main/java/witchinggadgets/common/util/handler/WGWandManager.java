@@ -3,16 +3,27 @@ package witchinggadgets.common.util.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockColored;
+import net.minecraft.block.BlockFence;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -31,17 +42,14 @@ public class WGWandManager implements IWandTriggerManager
 	{
 		switch(event)
 		{
-		case 1:
-			//			return false;
-			return createBlastFurnace(wand,player,world,x,y,z);
-		case 2:
-			return createScarecrow(wand,player,world,x,y,z);
+		case 1: return createBlastFurnace(wand,player,world,x,y,z);
+		case 2: return createScarecrow(wand,player,world,x,y,z);
 		}
 
 		return false;
 	}
 
-	private boolean createScarecrow(ItemStack itemstack, EntityPlayer player, World world,  int x, int y, int z ) {
+	private boolean createScarecrow(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z ) {
 		if(world.isRemote)
 			return false;
 		if(!ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), "SCARECROW"))
@@ -56,8 +64,12 @@ public class WGWandManager implements IWandTriggerManager
 		Block armLZ = world.getBlock(x, y - 1, z - 1);
 		Block armRZ = world.getBlock(x, y - 1, z + 1);
 
-		if (top == Blocks.wool && bottom == Blocks.fence) {
-			if ((armLX != null && armRX != null) || (armLZ != null && armRZ != null)) {
+		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText("material=" + top.getMaterial()));
+		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText("material=" + Blocks.fence.getMaterial()));
+
+		if (top instanceof BlockColored && bottom instanceof BlockFence){
+			if ((armLX instanceof BlockFence && armRX instanceof BlockFence) || (armLZ instanceof BlockFence && armRZ instanceof BlockFence)) {
+
 				world.setBlock(x, y, z, Blocks.air, 0, 2);
 				world.setBlock(x, y - 1, z, Blocks.air, 0, 2);
 				world.setBlock(x, y - 2, z, Blocks.air, 0, 2);
@@ -66,16 +78,17 @@ public class WGWandManager implements IWandTriggerManager
 				world.setBlock(x, y - 1, z - 1, Blocks.air, 0, 2);
 				world.setBlock(x, y - 1, z + 1, Blocks.air, 0, 2);
 
-				EntityScarecrow entity = new EntityScarecrow(world);
+				EntityScarecrow entity = new EntityScarecrow(player.worldObj);
 				entity.setCreator(player.getCommandSenderName());
 				entity.setLocationAndAngles(x + 0.5, y - 1.95, z + 0.5, 0.0F, 0.0F);
 				entity.onSpawnWithEgg(null);
-				world.spawnEntityInWorld(entity);
+				return entity.spawn(world);
 			}
 		}
 
-		return true;
+		return false;
 	}
+
 
 	private boolean createBlastFurnace(ItemStack itemstack, EntityPlayer player, World world, int clickedX, int clickedY, int clickedZ)
 	{
@@ -149,6 +162,7 @@ public class WGWandManager implements IWandTriggerManager
 		}
 		return false;
 	}
+
 	List<int[]> getNearbyLava(World world, int x, int y, int z)
 	{
 		List<int[]> result = new ArrayList<int[]>();
@@ -161,10 +175,12 @@ public class WGWandManager implements IWandTriggerManager
 				}
 		return result;
 	}
+
 	boolean isValidBFBrick(World world, int x, int y, int z, int pos)
 	{
 		return world.getBlock(x,y,z).equals(TileEntityBlastfurnace.brickBlock[pos])&&world.getBlockMetadata(x,y,z)==0;
 	}
+
 	boolean isValidBFStair(World world, int x, int y, int z, int pos, int... requestedMeta)
 	{
 		boolean b = world.getBlock(x,y,z).equals(TileEntityBlastfurnace.stairBlock);

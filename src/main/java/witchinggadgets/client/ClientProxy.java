@@ -1,7 +1,6 @@
 package witchinggadgets.client;
 
 import net.minecraft.client.particle.EntityLavaFX;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -10,15 +9,12 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.IModelCustom;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
-import org.lwjgl.input.Keyboard;
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.fx.particles.FXEssentiaTrail;
 import thaumcraft.client.fx.particles.FXWisp;
-// import travellersgear.api.TravellersGearAPI;
 import witchinggadgets.asm.pouch.GuiPatchedFocusPouch;
 import witchinggadgets.client.fx.EntityFXSweat;
 import witchinggadgets.client.gui.GuiBag;
-//import witchinggadgets.client.gui.GuiCloakBag;
 import witchinggadgets.client.gui.GuiCuttingTable;
 import witchinggadgets.client.gui.GuiLabelLibrary;
 import witchinggadgets.client.gui.GuiMagicalTileLock;
@@ -71,7 +67,6 @@ public class ClientProxy extends CommonProxy
 		gauntletModel = ClientUtilities.bindModel("witchinggadgets","models/gauntlet.obj");
 		gemModel = ClientUtilities.bindModel("witchinggadgets","models/gems.obj");
 		terraformerModel = ClientUtilities.bindModel("witchinggadgets", "models/terraformer.obj");
-
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(WGContent.BlockWallMirror), new ItemRenderWallMirror());
 		MinecraftForgeClient.registerItemRenderer(WGContent.ItemMaterial, new ItemRenderMaterial());

@@ -51,19 +51,9 @@ public class CommonProxy implements IGuiHandler
 		return null;
 	}
 
-	public void createEssentiaTrailFx(World worldObj, int x, int y, int z, int tx, int ty, int tz, int count, int color, float scale)
-	{
-	}
-	public void createTargetedWispFx(World worldObj, double x, double y, double z, double tx, double ty, double tz, int color, float scale, float gravity, boolean tinkle, boolean noClip)
-	{
-	}
-	public void createSweatFx(EntityPlayer player)
-	{
-	}
-	public void createFurnaceOutputBlobFx(World worldObj, int x, int y, int z, ForgeDirection facing)
-	{
-	}
-	public void createFurnaceDestructionBlobFx(World worldObj, int x, int y, int z)
-	{
-	}
+	public void createEssentiaTrailFx(World worldObj, int x, int y, int z, int tx, int ty, int tz, int count, int color, float scale) { }
+	public void createTargetedWispFx(World worldObj, double x, double y, double z, double tx, double ty, double tz, int color, float scale, float gravity, boolean tinkle, boolean noClip) { }
+	public void createSweatFx(EntityPlayer player) {}
+	public void createFurnaceOutputBlobFx(World worldObj, int x, int y, int z, ForgeDirection facing) {}
+	public void createFurnaceDestructionBlobFx(World worldObj, int x, int y, int z) {}
 }

@@ -29,6 +29,10 @@ public class EntityScarecrow extends EntityGolem implements IEntitySelector {
     /// Whether the scarecrow sinks in water. Also doubles as another inWater flag.
     public byte sinks = -1;
 
+    public boolean spawn(World world) {
+        return world.spawnEntityInWorld(this);
+    }
+
     public EntityScarecrow(World world) {
         super(world);
         this.getNavigator().setAvoidsWater(true);
