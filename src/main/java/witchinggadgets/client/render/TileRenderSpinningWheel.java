@@ -27,21 +27,21 @@ public class TileRenderSpinningWheel extends TileEntitySpecialRenderer
 
 		switch(tile.facing)
 		{
-		case 2:
-			GL11.glRotatef(90, 0, 1, 0);
-			GL11.glTranslatef(-0.5F, 0F, 0F);
-			break;
-		case 3:
-			GL11.glRotatef(270, 0, 1, 0);
-			GL11.glTranslatef(0.5F, 0F,-1F);
-			break;
-		case 4:
-			GL11.glRotatef(180, 0, 1, 0);
-			GL11.glTranslatef(-0.5F, 0F,-1F);
-			break;
-		case 5:
-			GL11.glTranslatef(0.5F, 0F, 0F);
-			break;
+			case 2:
+				GL11.glRotatef(90, 0, 1, 0);
+				GL11.glTranslatef(-0.5F, 0F, 0F);
+				break;
+			case 3:
+				GL11.glRotatef(270, 0, 1, 0);
+				GL11.glTranslatef(0.5F, 0F,-1F);
+				break;
+			case 4:
+				GL11.glRotatef(180, 0, 1, 0);
+				GL11.glTranslatef(-0.5F, 0F,-1F);
+				break;
+			case 5:
+				GL11.glTranslatef(0.5F, 0F, 0F);
+				break;
 		}
 
 		ClientUtilities.bindTexture("witchinggadgets:textures/models/spinningwheel.png");
@@ -63,7 +63,7 @@ public class TileRenderSpinningWheel extends TileEntitySpecialRenderer
 		{
 			parts.clear();
 			ModelRenderer temp;
-			
+
 			//LEG 1
 			temp = new ModelRenderer(this, 0, 0);
 			temp.addBox(0F, 0.0F, 0.0F, 2, 8, 2);
@@ -82,7 +82,7 @@ public class TileRenderSpinningWheel extends TileEntitySpecialRenderer
 			temp.setRotationPoint(-1F, 0.0F, 1F);
 			temp.setTextureSize(64,32);
 			parts.add(temp);
-			
+
 			//BASE
 			temp = new ModelRenderer(this, 0, 0);
 			temp.addBox(0F, 0.0F, 0.0F, 6, 2, 16);
@@ -90,7 +90,7 @@ public class TileRenderSpinningWheel extends TileEntitySpecialRenderer
 			temp.rotateAngleX=(float) Math.toRadians(-10f);
 			temp.setTextureSize(64,32);
 			parts.add(temp);
-			
+
 			//WHEEL
 			temp = new ModelRenderer(this, 8, 0);
 			temp.addBox(0F, 0.0F, 0.0F, 1, 3, 1);

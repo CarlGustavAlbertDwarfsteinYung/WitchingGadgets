@@ -1,4 +1,4 @@
-/* package witchinggadgets.client.gui;
+package witchinggadgets.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -47,4 +47,4 @@ public class GuiSpinningWheel extends GuiContainer
 		int var7 = tile.getProgressScaled(88);
 		this.drawTexturedModalRect(x+38, y, 38, 0, var7, 144);
 	}
-} */
+}

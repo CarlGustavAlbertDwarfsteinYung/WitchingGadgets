@@ -14,21 +14,15 @@ import thaumcraft.client.fx.particles.FXEssentiaTrail;
 import thaumcraft.client.fx.particles.FXWisp;
 import witchinggadgets.asm.pouch.GuiPatchedFocusPouch;
 import witchinggadgets.client.fx.EntityFXSweat;
-import witchinggadgets.client.gui.GuiBag;
-import witchinggadgets.client.gui.GuiCuttingTable;
-import witchinggadgets.client.gui.GuiLabelLibrary;
-import witchinggadgets.client.gui.GuiMagicalTileLock;
-import witchinggadgets.client.gui.GuiPrimordialGlove;
-import witchinggadgets.client.gui.GuiVoidBag;
+import witchinggadgets.client.gui.*;
 import witchinggadgets.client.render.*;
 import witchinggadgets.common.CommonProxy;
 import witchinggadgets.common.WGConfig;
 import witchinggadgets.common.WGContent;
 import witchinggadgets.common.blocks.tiles.*;
-import witchinggadgets.common.entity.EntityScarecrow;
+import witchinggadgets.common.mob.EntityScarecrow;
 import witchinggadgets.common.items.EntityItemReforming;
 import witchinggadgets.common.util.WGKeyHandler;
-import baubles.api.BaublesApi;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -77,7 +71,6 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(WGContent.ItemCapsule, new ItemRenderCapsule());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityItemReforming.class, new EntityRenderReforming());
-		//MinecraftForgeClient.registerItemRenderer(WGContent.BlockWoodenDevice.blockID, new ItemRenderSpinningWheel());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityScarecrow.class, new RenderScarecrow());
 	}
@@ -97,7 +90,7 @@ public class ClientProxy extends CommonProxy
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tile = world.getTileEntity(x, y, z);
-		//if(ID == 0)return new GuiSpinningWheel(player.inventory, (TileEntitySpinningWheel)tile);
+		if(ID == 0)return new GuiSpinningWheel(player.inventory, (TileEntitySpinningWheel)tile);
 
 		if(ID == 3)return new GuiBag(player.inventory, world);
 

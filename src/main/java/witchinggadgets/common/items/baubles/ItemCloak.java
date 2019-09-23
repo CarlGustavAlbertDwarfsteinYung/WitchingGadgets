@@ -1,7 +1,6 @@
 package witchinggadgets.common.items.baubles;
 
 import java.util.List;
-import java.util.UUID;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
@@ -9,11 +8,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,24 +31,23 @@ import vazkii.botania.api.item.IBaubleRender;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.client.ClientUtilities;
 import witchinggadgets.client.render.ModelCloak;
-import witchinggadgets.common.WGConfig;
 import witchinggadgets.common.WGModCompat;
 import witchinggadgets.common.util.Lib;
-import witchinggadgets.common.util.Utilities;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.Interface(iface = "vazkii.botania.api.item.ICosmeticAttachable", modid = "Botania")
-public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.ICosmeticAttachable {
-	public static String[] subNames = {"standard", "spectral", "wolf", "raven", "storage"};
+public class ItemCloak extends Item implements IBauble, IBaubleRender, vazkii.botania.api.item.ICosmeticAttachable {
+	public static String[] subNames = {"standard", "spectral", "wolf", "raven"};
+	int[] defaultColours = {};
 	IIcon iconRaven;
 	IIcon iconWolf;
 
 	private double[] circPos = new double[32]; // Circle Position
 	int colour;
-	private ResourceLocation texture;
+	public ResourceLocation texture;
 
 	public ItemCloak() {
 		this.setHasSubtypes(true);
@@ -166,15 +162,10 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 
 	@Override
 	public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, String layer) {
-		if (itemstack.getItemDamage() < subNames.length)
-			if (subNames[itemstack.getItemDamage()].equals("wolf"))
-				return "witchinggadgets:textures/models/cloakWolf.png";
-			else if (subNames[itemstack.getItemDamage()].equals("raven"))
-				return "witchinggadgets:textures/models/cloakRaven.png";
-		return "witchinggadgets:textures/models/cloak.png";
+		return getTexture(itemstack);
 	}
 
-	public String getArmorTexture(ItemStack itemstack) {
+	public String getTexture(ItemStack itemstack) {
 		if (itemstack.getItemDamage() < subNames.length)
 			if (subNames[itemstack.getItemDamage()].equals("wolf"))
 				return "witchinggadgets:textures/models/cloakWolf.png";
@@ -206,16 +197,66 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 				itemList.add(new ItemStack(item, 1, i));
 	}
 
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List list, boolean par4) {
-		String type = "bauble." + getBaubleType(stack);
-		list.add(StatCollector.translateToLocalFormatted(Lib.DESCRIPTION + "gearSlot." + type));
+	public ItemStack[] getStoredItems(ItemStack item)
+	{
+		ItemStack[] stackList = new ItemStack[27];
 
-		if (Loader.isModLoaded("Botania")) {
-			ItemStack cosmetic = getCosmeticItem(stack);
-			if (cosmetic != null)
-				list.add(String.format(StatCollector.translateToLocal("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()).replaceAll("&", "\u00a7"));
+		if (item.hasTagCompound()) {
+			NBTTagList inv = item.getTagCompound().getTagList("InternalInventory",10);
+
+			for (int i = 0; i < inv.tagCount(); i++)
+			{
+				NBTTagCompound tag = inv.getCompoundTagAt(i);
+				int slot = tag.getByte("Slot") & 0xFF;
+
+				if ((slot >= 0) && (slot < stackList.length))
+				{
+					stackList[slot] = ItemStack.loadItemStackFromNBT(tag);
+				}
+			}
 		}
+		return stackList;
+	}
+
+	public void setStoredItems(ItemStack item, ItemStack[] stackList)
+	{
+		NBTTagList inv = new NBTTagList();
+
+		for (int i = 0; i < stackList.length; i++)
+		{
+			if (stackList[i] != null)
+			{
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setByte("Slot", (byte)i);
+				stackList[i].writeToNBT(tag);
+				inv.appendTag(tag);
+			}
+		}
+		if(!item.hasTagCompound())
+		{
+			item.setTagCompound(new NBTTagCompound());
+		}
+		item.getTagCompound().setTag("InternalInventory",inv);
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List list, boolean par4)
+	{
+		if(stack.hasTagCompound() && stack.getTagCompound().getBoolean("noGlide"))
+			list.add(StatCollector.translateToLocal(Lib.DESCRIPTION+"noGlide"));
+		list.add(StatCollector.translateToLocalFormatted(Lib.DESCRIPTION+"gearSlot.tg."+getSlot(stack)));
+
+		if(Loader.isModLoaded("Botania"))
+		{
+			ItemStack cosmetic = getCosmeticItem(stack);
+			if(cosmetic != null)
+				list.add( String.format(StatCollector.translateToLocal("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()).replaceAll("&","\u00a7") );
+		}
+	}
+
+	public int getSlot(ItemStack stack)
+	{
+		return 0;
 	}
 
 	@Override
@@ -241,7 +282,6 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase living) {
 		onItemEquipped((EntityPlayer) living, stack);
-		texture = new ResourceLocation(getArmorTexture(stack));
 	}
 
 	@Override
@@ -249,12 +289,9 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 		onItemUnequipped((EntityPlayer) living, stack);
 	}
 
-
 	public void onItemTicked(EntityPlayer player, ItemStack stack) {
-		if (player.ticksExisted < 1) {
-			onItemUnequipped(player, stack);
-			onItemEquipped(player, stack);
-		}
+		if (this.colour == 0) this.colour = getColor(stack);
+		if (this.texture == null) texture = new ResourceLocation(getTexture(stack));
 
 		if (stack.getItemDamage() < subNames.length) {
 			if (subNames[stack.getItemDamage()].equals("raven")) {
@@ -289,7 +326,8 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 	}
 
 	public void onItemEquipped(EntityPlayer player, ItemStack stack) {
-		this.colour = getColor(stack);
+		colour = getColor(stack);
+		texture = new ResourceLocation(getTexture(stack));
 	}
 
 	public void onItemUnequipped(EntityPlayer player, ItemStack stack) {
@@ -298,13 +336,6 @@ public class ItemCloak extends Item implements IBauble, vazkii.botania.api.item.
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-
-		if (!world.isRemote) {
-			if (subNames[stack.getItemDamage()].equals("storage") && !player.worldObj.isRemote) {
-				player.openGui(WitchingGadgets.instance, 5, player.worldObj, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
-			}
-		}
-
 		return stack;
 	}
 

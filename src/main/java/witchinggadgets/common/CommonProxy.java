@@ -1,18 +1,15 @@
 package witchinggadgets.common;
 
+import baubles.api.BaublesApi;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-// import travellersgear.api.TravellersGearAPI;
 import witchinggadgets.asm.pouch.ContainerPatchedFocusPouch;
 import witchinggadgets.common.blocks.tiles.TileEntityCuttingTable;
 import witchinggadgets.common.blocks.tiles.TileEntityLabelLibrary;
-import witchinggadgets.common.gui.ContainerBag;
-import witchinggadgets.common.gui.ContainerCuttingTable;
-import witchinggadgets.common.gui.ContainerLabelLibrary;
-import witchinggadgets.common.gui.ContainerPrimordialGlove;
-import witchinggadgets.common.gui.ContainerVoidBag;
+import witchinggadgets.common.blocks.tiles.TileEntitySpinningWheel;
+import witchinggadgets.common.gui.*;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class CommonProxy implements IGuiHandler
@@ -24,13 +21,11 @@ public class CommonProxy implements IGuiHandler
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tile = world.getTileEntity(x, y, z);
-		//if(ID == 0)return new ContainerSpinningWheel(player.inventory, (TileEntitySpinningWheel)tile);
+		if(ID == 0)return new ContainerSpinningWheel(player.inventory, (TileEntitySpinningWheel)tile);
 
 		if(ID == 3)return new ContainerBag(player.inventory, world);
 
-		//if(ID==4||ID==5)return new ContainerCloak(player.inventory, world, ID==4?TravellersGearAPI.getExtendedInventory(player)[0]:BaublesApi.getBaubles(player).getStackInSlot(3) );
-
-		//if(ID==4||ID==5)return new ContainerCloak(player.inventory, world, BaublesApi.getBaubles(player).getStackInSlot(3) );
+		if(ID==4||ID==5)return new ContainerCloak(player.inventory, world, ID==4?BaublesApi.getBaubles(player).getStackInSlot(0):BaublesApi.getBaubles(player).getStackInSlot(3) );
 
 		if(ID == 6)return new ContainerPatchedFocusPouch(player.inventory, world, x, y, z);
 

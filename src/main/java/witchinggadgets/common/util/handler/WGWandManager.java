@@ -3,15 +3,9 @@ package witchinggadgets.common.util.handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockFence;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -20,10 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -31,7 +22,7 @@ import thaumcraft.api.wands.IWandTriggerManager;
 import thaumcraft.common.Thaumcraft;
 import witchinggadgets.common.WGContent;
 import witchinggadgets.common.blocks.tiles.TileEntityBlastfurnace;
-import witchinggadgets.common.entity.EntityScarecrow;
+import witchinggadgets.common.mob.EntityScarecrow;
 import witchinggadgets.common.util.Utilities;
 
 public class WGWandManager implements IWandTriggerManager
@@ -63,9 +54,6 @@ public class WGWandManager implements IWandTriggerManager
 		Block armRX = world.getBlock(x + 1, y - 1, z);
 		Block armLZ = world.getBlock(x, y - 1, z - 1);
 		Block armRZ = world.getBlock(x, y - 1, z + 1);
-
-		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText("material=" + top.getMaterial()));
-		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText("material=" + Blocks.fence.getMaterial()));
 
 		if (top instanceof BlockColored && bottom instanceof BlockFence){
 			if ((armLX instanceof BlockFence && armRX instanceof BlockFence) || (armLZ instanceof BlockFence && armRZ instanceof BlockFence)) {

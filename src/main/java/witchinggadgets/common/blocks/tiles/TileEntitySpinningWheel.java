@@ -38,23 +38,23 @@ public class TileEntitySpinningWheel extends TileEntityWGBase implements IInvent
 			{
 				SpinningRecipe s = getRecipe();
 				ItemStack output = s.getOutput();
-				
-				if (this.inv[5] == null)
-	            {
-	                this.inv[5] = output.copy();
-	            }
-	            else if (this.inv[5].isItemEqual(output))
-	            {
-	            	inv[5].stackSize += output.stackSize;
-	            }
 
-	            this.decrStackSize(0, 1);
-	            this.decrStackSize(1, 1);
-	            this.decrStackSize(2, 1);
-	            this.decrStackSize(3, 1);
-	            this.decrStackSize(4, 1);
-	            
-	            progress = 0;
+				if (this.inv[5] == null)
+				{
+					this.inv[5] = output.copy();
+				}
+				else if (this.inv[5].isItemEqual(output))
+				{
+					inv[5].stackSize += output.stackSize;
+				}
+
+				this.decrStackSize(0, 1);
+				this.decrStackSize(1, 1);
+				this.decrStackSize(2, 1);
+				this.decrStackSize(3, 1);
+				this.decrStackSize(4, 1);
+
+				progress = 0;
 			}
 			this.markDirty();
 		}
@@ -89,7 +89,7 @@ public class TileEntitySpinningWheel extends TileEntityWGBase implements IInvent
 	}
 
 	private boolean canStack(ItemStack par1, ItemStack par2)
-	{	
+	{
 		if(par2 == null)		return true;
 		if(par1 == null)		return true;
 		if(!(par1.isItemEqual(par2)))	return false;
@@ -183,7 +183,7 @@ public class TileEntitySpinningWheel extends TileEntityWGBase implements IInvent
 		inv[slot] = stack;
 		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
 			stack.stackSize = getInventoryStackLimit();
-		}              
+		}
 	}
 
 	@Override

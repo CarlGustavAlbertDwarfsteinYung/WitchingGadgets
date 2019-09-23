@@ -29,3 +29,6 @@ I may re-enable this if I can come up with new fabrics.
 - "[WG]" has been removed from all entries
 - added Scarecrow Golem, a vanilla like Golem that looks like a scarecrow skeleton with a pumpkin head, that can be given weapons to fight with
 - added back all the armors and cloack of voluminous pockets but they don't work properly just yet
+- spinning wheel is back and reorganized all the clothing items to make more sense
+- cloak of storage has been disabled (likely permanently)
+- all the special armors you must unequip and use shift + right click them to switch the elemental aspect

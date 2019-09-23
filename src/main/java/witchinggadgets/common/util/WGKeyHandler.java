@@ -11,6 +11,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.ForgeHooks;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.common.WGConfig;
+import witchinggadgets.common.gui.ContainerCloak;
 import witchinggadgets.common.items.baubles.ItemMagicalBaubles;
 import witchinggadgets.common.items.tools.ItemPrimordialGlove;
 import witchinggadgets.common.util.network.message.MessagePrimordialGlove;
@@ -23,6 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class WGKeyHandler {
 
 	public static KeyBinding thaumcraftFKey;
+	public static KeyBinding thaumcraftBKey;
 	public static KeyBinding jumpKey;
 	boolean keyDown = false;
 
@@ -35,6 +37,8 @@ public class WGKeyHandler {
 		for(KeyBinding kb : Minecraft.getMinecraft().gameSettings.keyBindings) {
 			if (kb.getKeyCategory() == "key.categories.misc" && kb.getKeyDescription() == "Change Wand Focus")
 				thaumcraftFKey = kb;
+			if (kb.getKeyCategory() == "key.categories.inventory" && kb.getKeyDescription() == "Baubles Inventory")
+				thaumcraftBKey = kb;
 		}
 
 		jumpKey=Minecraft.getMinecraft().gameSettings.keyBindJump;
@@ -61,7 +65,7 @@ public class WGKeyHandler {
 						player.fallDistance = 0;
 
 						if (player.isPotionActive(Potion.jump))
-							player.motionY += (double) ((float) (player.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+							player.motionY += (float) (player.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F;
 
 						player.motionY *= 1.25f;
 						ForgeHooks.onLivingJump(player);
@@ -81,6 +85,13 @@ public class WGKeyHandler {
 					}
 				}
 			}
+
+			/* if (player.isSneaking() && thaumcraftFKey.getIsKeyPressed()) {
+				if (!player.worldObj.isRemote) {
+					Minecraft.getMinecraft().thePlayer.sendChatMessage("B is pressed!");
+					player.openGui(WitchingGadgets.instance, 4, player.worldObj, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
+				}
+			} */
 
 			if (keyDown) {
 				if(gemRadial<1)

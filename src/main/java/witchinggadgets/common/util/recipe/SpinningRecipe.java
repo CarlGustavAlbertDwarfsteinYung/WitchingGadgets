@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class SpinningRecipe 
+public class SpinningRecipe
 {
 	public static List<SpinningRecipe> recipeList = new ArrayList<SpinningRecipe>();
 
@@ -55,7 +55,7 @@ public class SpinningRecipe
 		if(query == null || this.input == null)return false;
 		if(query.length != this.input.length)
 			return false;
-		
+
 		List<Object> inputList = new ArrayList(Arrays.asList(input));
 		boolean match = false;
 
@@ -163,7 +163,7 @@ public class SpinningRecipe
 				list.add(s);
 				i.remove();
 			}
-		}	
+		}
 		return list;
 	}
 }

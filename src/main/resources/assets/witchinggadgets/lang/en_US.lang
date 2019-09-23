@@ -290,15 +290,23 @@ witchinggadgets_research_page.LABELLIB.1=While managing and archiving the differ
 
 witchinggadgets_research_page.ENCHFABRIC.r1=<IMG>witchinggadgets:textures/gui/research/weavingRecipes2.png:0:0:255:255:0.5</IMG>
 #
-witchinggadgets_research_name.BAGOFTRICKS=Bag of Tricks
-witchinggadgets_research_text.BAGOFTRICKS=Did I hear an echo in there?
-witchinggadgets_research_page.BAGOFTRICKS.1=Further advancements in magical weaving have led you to the discovery of the §lCloth of Spacious Folds§r. A most interesting weave, which seems to contain more room in its folds than visible from the outside. Crafting a bag from this provides you with space for storage to easily carry on your person.<BR>The fabric also turns out to be very protective of its contents, and it will harm any but the owner, should they try to access the bag. §oThis behaviour can be toggled by the owner by sneak+rightlick.§r
-witchinggadgets_research_page.BAGOFTRICKS.r1=<IMG>witchinggadgets:textures/gui/research/weavingRecipes1.png:0:0:255:255:0.5</IMG>§lCloth of Spacious Folds§r
-witchinggadgets_research_page.BAGOFTRICKS.2=Any of the bags created from the cloth are dyeable, craft them without any dye to return them to their default colour.
+witchinggadgets_research_name.ADVANCEDROBES_CLOTH=Bewitched Fleece
+witchinggadgets_research_text.ADVANCEDROBES_CLOTH=Sizzling with Magic
+witchinggadgets_research_page.ADVANCEDROBES_CLOTH.1=The dark side of §mthe force§r Thaumaturgy holds a lot of power. By slightly tapping into that power, you can weave a fabric much more rich of magic.
+witchinggadgets_research_page.ADVANCEDROBES_CLOTH.r1=<IMG>witchinggadgets:textures/gui/research/weavingRecipes4.png:0:0:255:255:0.5</IMG>§lBewitched Fleece§r
 #
-witchinggadgets_research_name.ADVANCEDROBES=Bewitched Fleece
-witchinggadgets_research_text.ADVANCEDROBES=Sizzling with Magic
-witchinggadgets_research_page.ADVANCEDROBES.1=The dark side of §mthe force§r Thaumaturgy holds a lot of power. By slightly tapping into that power, you can weave a fabric much more rich of magic. With that, you can now make yourself better garments strengthened in their magic potential.
+witchinggadgets_research_name.BAGOFTRICKS_CLOTH=Cloth of Spacious Folds
+witchinggadgets_research_text.BAGOFTRICKS_CLOTH=Did I hear an echo in there?
+witchinggadgets_research_page.BAGOFTRICKS_CLOTH.1=Further advancements in magical weaving have led you to the discovery of the §lCloth of Spacious Folds§r. A most interesting weave, which seems to contain more room in its folds than visible from the outside.
+witchinggadgets_research_page.BAGOFTRICKS_CLOTH.r1=<IMG>witchinggadgets:textures/gui/research/weavingRecipes1.png:0:0:255:255:0.5</IMG>§lCloth of Spacious Folds§r
+#
+witchinggadgets_research_name.BAGOFTRICKS=Bag of Tricks
+witchinggadgets_research_text.BAGOFTRICKS=Is it me you're looking for?
+witchinggadgets_research_page.BAGOFTRICKS.1=The fabric also turns out to be very protective of its contents, and it will harm any but the owner, should they try to access the bag. §oThis behaviour can be toggled by the owner by sneak+rightlick.§r <BR> Any of the bags created from the cloth are dyeable, craft them without any dye to return them to their default colour.
+#
+witchinggadgets_research_name.ADVANCEDROBES=Advanced Robes
+witchinggadgets_research_text.ADVANCEDROBES=It's not itchy!
+witchinggadgets_research_page.ADVANCEDROBES.1=With magical fleece you can now make yourself better garments strengthened in their magic potential.
 witchinggadgets_research_page.ADVANCEDROBES.r1=<IMG>witchinggadgets:textures/gui/research/weavingRecipes4.png:0:0:255:255:0.5</IMG>§lBewitched Fleece§r
 #
 witchinggadgets_research_name.CLOAK=Cloak
@@ -397,7 +405,7 @@ witchinggadgets_research_page.TRANSALUMINUM.1=You have discovered a way to multi
 #SCARECROW
 witchinggadgets_research_name.SCARECROW=Scarecrow Golem
 witchinggadgets_research_text.SCARECROW=It's a golem ..that...listens to you?
-witchinggadgets_research_page.SCARECROW.1=While experimenting with Enchanted Fabric, you have accidentally discovered a way to subdue the spirits that inhabit natural world and bind them to your will. The secret lies in the nature of cloth itself. <BR> Assemble a scarecrow from wool and fence then activate the pumpkin with a wand to create a Scarecrow Golem.<BR> The creator of this creature may give them items to use in combat (use held item or empty hand on it). Scarecrow Golems have a mind of their own and roam freely but they can be leashed.
+witchinggadgets_research_page.SCARECROW.1=While experimenting with Thaumaturgy, you have accidentally discovered a way to subdue the spirits that inhabit natural world and bind them to your will. <BR> Assemble a scarecrow from wool and fence then activate the pumpkin with a wand to create a Scarecrow Golem.<BR> The creator of this creature may give them items to use in combat (use held item or empty hand on the golem). Scarecrow Golems have a mind of their own and roam freely but they can be leashed.
 
 
 #INFERNALBLASTFURNACE
