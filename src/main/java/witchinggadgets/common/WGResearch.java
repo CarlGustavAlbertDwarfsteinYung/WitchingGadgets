@@ -93,6 +93,15 @@ public class WGResearch
 		craftingAspects = new AspectList().add(Aspect.ORDER, 10);
 		registerArcaneRecipe("CALCULATOR", "", new ItemStack(WGContent.ItemMaterial,1,7), craftingAspects, "srs","sbs","sgs", 's',"stickWood", 'r',"dyeRed", 'b',"dyeBlue", 'g',"dyeGreen");
 
+		//ADVANCEDSCRIBINGTOOLS
+		registerShapelessArcaneRecipe("ADVANCEDSCRIBINGTOOLSrefill", "", new ItemStack(WGContent.ItemAdvancedScribingTools), new AspectList().add(Aspect.AIR, 25).add(Aspect.FIRE,25), new Object[] { new ItemStack(WGContent.ItemAdvancedScribingTools, 1, 32767), Items.glowstone_dust, "nuggetGold"});
+
+		if (WGModCompat.loaded_Twilight)
+			registerShapelessArcaneRecipe("ADVANCEDSCRIBINGTOOLS","",new ItemStack(WGContent.ItemAdvancedScribingTools), new AspectList().add(Aspect.AIR, 50).add(Aspect.FIRE,50).add(Aspect.ORDER, 50),new Object[] { "nuggetGold", Items.glowstone_dust, new ItemStack(WGModCompat.tfMagicMapFocus), thaumcraft.api.ItemApi.getItem("itemEssence", 0)});
+		else
+			registerShapelessArcaneRecipe("ADVANCEDSCRIBINGTOOLS","",new ItemStack(WGContent.ItemAdvancedScribingTools), new AspectList().add(Aspect.AIR, 50).add(Aspect.FIRE,50).add(Aspect.ORDER, 50),new Object[] { "nuggetGold", Items.glowstone_dust, new ItemStack(Items.feather), thaumcraft.api.ItemApi.getItem("itemEssence", 0)});
+
+
 		//CLOAKS
 		craftingAspects = new AspectList().add(Aspect.AIR,7);
 		registerArcaneRecipe("CLOAK","",standardCloak, craftingAspects, " F ","FFF","FFF", 'F', new ItemStack(WGContent.ItemMaterial, 1, 5));
@@ -721,6 +730,17 @@ public class WGResearch
 		pages = new ResearchPage[]{ new ResearchPage("witchinggadgets_research_page.TERRAFORMFOCUS_MAGIC.1"), new ResearchPage((InfusionRecipe) recipeList.get("TERRAFORMFOCUS_MAGIC"))};
 		getResearchItem("TERRAFORMFOCUS_MAGIC", "WITCHGADG", researchAspects, 10, -6, 2, new ItemStack(WGContent.BlockMetalDevice,1,10)).setSecondary().setPages(pages).setParents("TERRAFORMER").registerResearchItem();
 
+		//ADVANCEDSCRIBINGTOOLS
+		getResearchItem("ADVANCEDSCRIBINGTOOLS","WITCHGADG",
+				new AspectList().add(Aspect.MAGIC, 3).add(Aspect.LIGHT, 2).add(Aspect.ENTROPY, 2).add(Aspect.MIND, 3),
+				6,5,2,
+				new ItemStack(WGContent.ItemAdvancedScribingTools))
+				.setParentsHidden("WGPOTIONS")
+				.setPages(new ResearchPage[]{
+						new ResearchPage("witchinggadgets_research_page.ADVANCEDSCRIBINGTOOLS.1"),
+						new ResearchPage((IArcaneRecipe) recipeList.get("ADVANCEDSCRIBINGTOOLS")),
+						new ResearchPage((IArcaneRecipe) recipeList.get("ADVANCEDSCRIBINGTOOLSrefill"))}
+				).registerResearchItem();
 
 		//GEMCUTTING
 		researchAspects = new AspectList().add(Aspect.CRYSTAL,1).add(Aspect.ORDER, 1).add(Aspect.MAGIC, 1).add(Aspect.CRAFT, 1);

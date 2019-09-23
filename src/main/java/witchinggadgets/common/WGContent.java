@@ -27,6 +27,7 @@ import thaumcraft.api.ItemApi;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.config.ConfigItems;
 import witchinggadgets.WitchingGadgets;
 import witchinggadgets.common.blocks.BlockModifiedAiry;
 import witchinggadgets.common.blocks.BlockRoseVines;
@@ -47,6 +48,7 @@ import witchinggadgets.common.items.ItemInfusedGem;
 import witchinggadgets.common.items.ItemMagicFood;
 import witchinggadgets.common.items.ItemMaterials;
 import witchinggadgets.common.items.ItemThaumiumShears;
+import witchinggadgets.common.items.ItemAdvancedScribingTools;
 import witchinggadgets.common.items.armor.ItemAdvancedRobes;
 import witchinggadgets.common.items.armor.ItemPrimordialArmor;
 import witchinggadgets.common.items.baubles.ItemCloak;
@@ -93,7 +95,8 @@ public class WGContent
 	public static Item ItemMagicFoodstuffs;
 	//public static Item ItemMagicBed;
 
-	//  public static Item ItemAdvancedScribingTools;
+	public static Item ItemAdvancedScribingTools;
+
 	//	public static Item ItemEliteArmorHelm;
 	//	public static Item ItemEliteArmorChest;
 	//	public static Item ItemEliteArmorLegs;
@@ -336,7 +339,8 @@ public class WGContent
 		//ItemMagicBed = new ItemMagicBed(WGConfig.ItemMagicBedID).setUnlocalizedName("WG_MagicBed");
 		//GameRegistry.registerItem(ItemMagicBed, ItemMagicBed.getUnlocalizedName());
 		//OreDictionary.registerOre("crystalNetherQuartz", new ItemStack(Items.quartz));
-		//OreDictionary.registerOre("scribingTools", new ItemStack(ConfigItems.itemInkwell,1,OreDictionary.WILDCARD_VALUE));
+		OreDictionary.registerOre("scribingTools", new ItemStack(ConfigItems.itemInkwell,1,OreDictionary.WILDCARD_VALUE));
+		OreDictionary.registerOre("scribingTools", new ItemStack(ItemAdvancedScribingTools,1,OreDictionary.WILDCARD_VALUE));
 	}
 	private static void initializeItems()
 	{
@@ -353,6 +357,9 @@ public class WGContent
 
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemMagicFoodstuffs,1,0), Items.nether_wart,Items.sugar);
 		GameRegistry.addShapedRecipe(new ItemStack(ItemMagicFoodstuffs,1,1), "nnn","www", 'n',new ItemStack(ItemMagicFoodstuffs,1,0), 'w', Items.wheat);
+
+		ItemAdvancedScribingTools = new ItemAdvancedScribingTools().setUnlocalizedName("WG_AdvancedScribingTools");
+		GameRegistry.registerItem(ItemAdvancedScribingTools,ItemAdvancedScribingTools.getUnlocalizedName());
 
 		EntityRegistry.registerModEntity(EntityItemReforming.class, "reformingItem", 0, WitchingGadgets.instance, 64, 1, true);
 
